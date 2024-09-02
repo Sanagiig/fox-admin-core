@@ -1,0 +1,26 @@
+Name: examplerpc.rpc
+ListenOn: 0.0.0.0:8001
+
+DatabaseConf:
+  Type: mysql
+  Host: 127.0.0.1
+  Port: 3306
+  DBName: simple_admin
+  Username: # set your username
+  Password: # set your password
+  MaxOpenConn: 100
+  SSLMode: disable
+  CacheTime: 5
+
+RedisConf:
+  Host: 127.0.0.1:6379
+
+Log:
+  ServiceName: examplerpcRpcLogger
+  Mode: file
+  Path: /home/data/logs/examplerpc/rpc
+  Encoding: json
+  Level: info
+  Compress: false
+  KeepDays: 7
+  StackCoolDownMillis: 100
