@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+// Position message
+
+message PositionInfo {
+  optional uint64 id = 1;
+  optional int64 createdAt = 2;
+  optional int64 updatedAt = 3;
+  // Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  // Sort Number | 排序编号
+  optional uint32 sort = 5;
+  // Position Name | 职位名称
+  optional string name = 6;
+  // The code of position | 职位编码
+  optional string code = 7;
+  // Remark | 备注
+  optional string remark = 8;
+}
+
+message PositionListResp {
+  uint64 total = 1;
+  repeated PositionInfo data = 2;
+}
+
+message PositionListReq {
+  uint64 page = 1;
+  uint64 pageSize = 2;
+  optional string name = 3;
+  optional string code = 4;
+  optional string remark = 5;
+}
+
+
+service Core {
+
+  // Position management
+  // group: position
+  rpc createPosition (PositionInfo) returns (BaseIDResp);
+  // group: position
+  rpc updatePosition (PositionInfo) returns (BaseResp);
+  // group: position
+  rpc getPositionList (PositionListReq) returns (PositionListResp);
+  // group: position
+  rpc getPositionById (IDReq) returns (PositionInfo);
+  // group: position
+  rpc deletePosition (IDsReq) returns (BaseResp);
+
+
+}

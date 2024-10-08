@@ -6,7 +6,7 @@ import (
 
 	"github.com/zeromicro/go-zero/core/logx"
 
-	"api/ent"
+	"core/ent"
 )
 
 // WithTx uses transaction in ent.

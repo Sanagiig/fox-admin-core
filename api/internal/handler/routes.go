@@ -4,8 +4,8 @@ package handler
 import (
 	"net/http"
 
-	base "github.com/Sanagiig/fox-admin-core/internal/handler/base"
-	"github.com/Sanagiig/fox-admin-core/internal/svc"
+	base "core/internal/handler/base"
+	"core/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
 )

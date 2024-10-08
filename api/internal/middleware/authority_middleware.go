@@ -1,16 +1,16 @@
 package middleware
 
 import (
-	"context"
+    "context"
 	"errors"
 	"net/http"
 	"strings"
 
 	"github.com/casbin/casbin/v2"
-	"github.com/redis/go-redis/v9"
 	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/rest/httpx"
+	"github.com/redis/go-redis/v9"
 
 	"github.com/suyuan32/simple-admin-common/config"
 	"github.com/suyuan32/simple-admin-common/enum/errorcode"

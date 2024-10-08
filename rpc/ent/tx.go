@@ -4,6 +4,8 @@ package ent
 
 import (
 	"context"
+	stdsql "database/sql"
+	"fmt"
 	"sync"
 
 	"entgo.io/ent/dialect"
@@ -12,8 +14,28 @@ import (
 // Tx is a transactional client that is created by calling Client.Tx().
 type Tx struct {
 	config
-	// Rpc is the client for interacting with the Rpc builders.
-	Rpc *RPCClient
+	// API is the client for interacting with the API builders.
+	API *APIClient
+	// Configuration is the client for interacting with the Configuration builders.
+	Configuration *ConfigurationClient
+	// Department is the client for interacting with the Department builders.
+	Department *DepartmentClient
+	// Dictionary is the client for interacting with the Dictionary builders.
+	Dictionary *DictionaryClient
+	// DictionaryDetail is the client for interacting with the DictionaryDetail builders.
+	DictionaryDetail *DictionaryDetailClient
+	// Menu is the client for interacting with the Menu builders.
+	Menu *MenuClient
+	// OauthProvider is the client for interacting with the OauthProvider builders.
+	OauthProvider *OauthProviderClient
+	// Position is the client for interacting with the Position builders.
+	Position *PositionClient
+	// Role is the client for interacting with the Role builders.
+	Role *RoleClient
+	// Token is the client for interacting with the Token builders.
+	Token *TokenClient
+	// User is the client for interacting with the User builders.
+	User *UserClient
 
 	// lazily loaded.
 	client     *Client
@@ -145,7 +167,17 @@ func (tx *Tx) Client() *Client {
 }
 
 func (tx *Tx) init() {
-	tx.Rpc = NewRPCClient(tx.config)
+	tx.API = NewAPIClient(tx.config)
+	tx.Configuration = NewConfigurationClient(tx.config)
+	tx.Department = NewDepartmentClient(tx.config)
+	tx.Dictionary = NewDictionaryClient(tx.config)
+	tx.DictionaryDetail = NewDictionaryDetailClient(tx.config)
+	tx.Menu = NewMenuClient(tx.config)
+	tx.OauthProvider = NewOauthProviderClient(tx.config)
+	tx.Position = NewPositionClient(tx.config)
+	tx.Role = NewRoleClient(tx.config)
+	tx.Token = NewTokenClient(tx.config)
+	tx.User = NewUserClient(tx.config)
 }
 
 // txDriver wraps the given dialect.Tx with a nop dialect.Driver implementation.
@@ -155,7 +187,7 @@ func (tx *Tx) init() {
 // of them in order to commit or rollback the transaction.
 //
 // If a closed transaction is embedded in one of the generated entities, and the entity
-// applies a query, for example: Rpc.QueryXXX(), the query will be executed
+// applies a query, for example: API.QueryXXX(), the query will be executed
 // through the driver which created this transaction.
 //
 // Note that txDriver is not goroutine safe.
@@ -208,3 +240,27 @@ func (tx *txDriver) Query(ctx context.Context, query string, args, v any) error 
 }
 
 var _ dialect.Driver = (*txDriver)(nil)
+
+// ExecContext allows calling the underlying ExecContext method of the transaction if it is supported by it.
+// See, database/sql#Tx.ExecContext for more information.
+func (tx *txDriver) ExecContext(ctx context.Context, query string, args ...any) (stdsql.Result, error) {
+	ex, ok := tx.tx.(interface {
+		ExecContext(context.Context, string, ...any) (stdsql.Result, error)
+	})
+	if !ok {
+		return nil, fmt.Errorf("Tx.ExecContext is not supported")
+	}
+	return ex.ExecContext(ctx, query, args...)
+}
+
+// QueryContext allows calling the underlying QueryContext method of the transaction if it is supported by it.
+// See, database/sql#Tx.QueryContext for more information.
+func (tx *txDriver) QueryContext(ctx context.Context, query string, args ...any) (*stdsql.Rows, error) {
+	q, ok := tx.tx.(interface {
+		QueryContext(context.Context, string, ...any) (*stdsql.Rows, error)
+	})
+	if !ok {
+		return nil, fmt.Errorf("Tx.QueryContext is not supported")
+	}
+	return q.QueryContext(ctx, query, args...)
+}

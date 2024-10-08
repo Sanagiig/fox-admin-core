@@ -12,7 +12,17 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
-	"github.com/Sanagiig/fox-admin-core/ent/rpc"
+	"github.com/Sanagiig/fox-admin-core/rpc/ent/api"
+	"github.com/Sanagiig/fox-admin-core/rpc/ent/configuration"
+	"github.com/Sanagiig/fox-admin-core/rpc/ent/department"
+	"github.com/Sanagiig/fox-admin-core/rpc/ent/dictionary"
+	"github.com/Sanagiig/fox-admin-core/rpc/ent/dictionarydetail"
+	"github.com/Sanagiig/fox-admin-core/rpc/ent/menu"
+	"github.com/Sanagiig/fox-admin-core/rpc/ent/oauthprovider"
+	"github.com/Sanagiig/fox-admin-core/rpc/ent/position"
+	"github.com/Sanagiig/fox-admin-core/rpc/ent/role"
+	"github.com/Sanagiig/fox-admin-core/rpc/ent/token"
+	"github.com/Sanagiig/fox-admin-core/rpc/ent/user"
 )
 
 // ent aliases to avoid import conflicts in user's code.
@@ -73,7 +83,17 @@ var (
 func checkColumn(table, column string) error {
 	initCheck.Do(func() {
 		columnCheck = sql.NewColumnCheck(map[string]func(string) bool{
-			rpc.Table: rpc.ValidColumn,
+			api.Table:              api.ValidColumn,
+			configuration.Table:    configuration.ValidColumn,
+			department.Table:       department.ValidColumn,
+			dictionary.Table:       dictionary.ValidColumn,
+			dictionarydetail.Table: dictionarydetail.ValidColumn,
+			menu.Table:             menu.ValidColumn,
+			oauthprovider.Table:    oauthprovider.ValidColumn,
+			position.Table:         position.ValidColumn,
+			role.Table:             role.ValidColumn,
+			token.Table:            token.ValidColumn,
+			user.Table:             user.ValidColumn,
 		})
 	})
 	return columnCheck(table, column)

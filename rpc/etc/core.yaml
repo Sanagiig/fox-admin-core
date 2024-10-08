@@ -17,9 +17,9 @@ RedisConf:
 
 Log:
   ServiceName: coreRpcLogger
-  Mode: file
-  Path: /home/data/logs/core/rpc
-  Encoding: json
+#  Mode: file
+#  Path: /home/data/logs/core/rpc
+  Encoding: plain
   Level: info
   Compress: false
   KeepDays: 7

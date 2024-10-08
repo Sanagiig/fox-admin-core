@@ -1,0 +1,37 @@
+package dictionary
+
+import (
+	"context"
+
+    "github.com/Sanagiig/fox-admin-core/rpc/ent/dictionary"
+    "github.com/Sanagiig/fox-admin-core/rpc/internal/svc"
+    "github.com/Sanagiig/fox-admin-core/rpc/internal/utils/dberrorhandler"
+    "github.com/Sanagiig/fox-admin-core/rpc/types/core"
+
+    "github.com/suyuan32/simple-admin-common/i18n"
+    "github.com/zeromicro/go-zero/core/logx"
+)
+
+type DeleteDictionaryLogic struct {
+	ctx    context.Context
+	svcCtx *svc.ServiceContext
+	logx.Logger
+}
+
+func NewDeleteDictionaryLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DeleteDictionaryLogic {
+	return &DeleteDictionaryLogic{
+		ctx:    ctx,
+		svcCtx: svcCtx,
+		Logger: logx.WithContext(ctx),
+	}
+}
+
+func (l *DeleteDictionaryLogic) DeleteDictionary(in *core.IDsReq) (*core.BaseResp, error) {
+	_, err := l.svcCtx.DB.Dictionary.Delete().Where(dictionary.IDIn(in.Ids...)).Exec(l.ctx)
+
+    if err != nil {
+		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
+	}
+
+    return &core.BaseResp{Msg: i18n.DeleteSuccess}, nil
+}

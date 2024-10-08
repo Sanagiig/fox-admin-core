@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+// OauthProvider message
+
+message OauthProviderInfo {
+  optional uint64 id = 1;
+  optional int64 createdAt = 2;
+  optional int64 updatedAt = 3;
+  // The provider's name | 提供商名称
+  optional string name = 4;
+  // The client id | 客户端 id
+  optional string clientId = 5;
+  // The client secret | 客户端密钥
+  optional string clientSecret = 6;
+  // The redirect url | 跳转地址
+  optional string redirectUrl = 7;
+  // The scopes | 权限范围
+  optional string scopes = 8;
+  // The auth url of the provider | 认证地址
+  optional string authUrl = 9;
+  // The token url of the provider | 获取 token地址
+  optional string tokenUrl = 10;
+  // The auth style, 0: auto detect 1: third party log in 2: log in with username and password | 鉴权方式 0 自动 1 第三方登录 2 使用用户名密码
+  optional uint64 authStyle = 11;
+  // The URL to request user information by token | 用户信息请求地址
+  optional string infoUrl = 12;
+}
+
+message OauthProviderListResp {
+  uint64 total = 1;
+  repeated OauthProviderInfo data = 2;
+}
+
+message OauthProviderListReq {
+  uint64 page = 1;
+  uint64 pageSize = 2;
+  optional string name = 3;
+  optional string clientId = 4;
+  optional string clientSecret = 5;
+}
+
+
+service Core {
+
+  // OauthProvider management
+  // group: oauth_provider
+  rpc createOauthProvider (OauthProviderInfo) returns (BaseIDResp);
+  // group: oauth_provider
+  rpc updateOauthProvider (OauthProviderInfo) returns (BaseResp);
+  // group: oauth_provider
+  rpc getOauthProviderList (OauthProviderListReq) returns (OauthProviderListResp);
+  // group: oauth_provider
+  rpc getOauthProviderById (IDReq) returns (OauthProviderInfo);
+  // group: oauth_provider
+  rpc deleteOauthProvider (IDsReq) returns (BaseResp);
+
+
+}

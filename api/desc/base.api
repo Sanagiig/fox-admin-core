@@ -243,7 +243,7 @@ type BaseIDStringInfo {
 	group: base
 )
 
-service Api {
+service Core {
 	// Initialize database | 初始化数据库
 	@handler initDatabase
 	get /init/database returns (BaseMsgResp)

@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+// User message
+
+message UserInfo {
+  optional string id = 1;
+  optional int64 createdAt = 2;
+  optional int64 updatedAt = 3;
+  // Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  // User's login name | 登录名
+  optional string username = 5;
+  // Password | 密码
+  optional string password = 6;
+  // Nickname | 昵称
+  optional string nickname = 7;
+  // The description of user | 用户的描述信息
+  optional string description = 8;
+  // The home page that the user enters after logging in | 用户登陆后进入的首页
+  optional string homePath = 9;
+  // Mobile number | 手机号
+  optional string mobile = 10;
+  // Email | 邮箱号
+  optional string email = 11;
+  // Avatar | 头像路径
+  optional string avatar = 12;
+  // Department ID | 部门ID
+  optional uint64 departmentId = 13;
+}
+
+message UserListResp {
+  uint64 total = 1;
+  repeated UserInfo data = 2;
+}
+
+message UserListReq {
+  uint64 page = 1;
+  uint64 pageSize = 2;
+  optional string username = 3;
+  optional string password = 4;
+  optional string nickname = 5;
+}
+
+
+service Core {
+
+  // User management
+  // group: user
+  rpc createUser (UserInfo) returns (BaseUUIDResp);
+  // group: user
+  rpc updateUser (UserInfo) returns (BaseResp);
+  // group: user
+  rpc getUserList (UserListReq) returns (UserListResp);
+  // group: user
+  rpc getUserById (UUIDReq) returns (UserInfo);
+  // group: user
+  rpc deleteUser (UUIDsReq) returns (BaseResp);
+
+
+}

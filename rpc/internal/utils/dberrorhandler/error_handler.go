@@ -7,7 +7,7 @@ import (
     "github.com/suyuan32/simple-admin-common/i18n"
 	"github.com/suyuan32/simple-admin-common/msg/logmsg"
 
-	"github.com/Sanagiig/fox-admin-core/ent"
+	"github.com/Sanagiig/fox-admin-core/rpc/ent"
 )
 
 // DefaultEntError returns errors dealing with default functions.

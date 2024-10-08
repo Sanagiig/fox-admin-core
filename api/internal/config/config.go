@@ -15,5 +15,6 @@ type Config struct {
 	CasbinDatabaseConf config.DatabaseConf
 	RedisConf          config.RedisConf
 	CasbinConf         casbin.CasbinConf
+	DatabaseConf       config.DatabaseConf
 	I18nConf           i18n.Conf
 }

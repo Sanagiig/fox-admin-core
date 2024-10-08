@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+// Api message
+
+message ApiInfo {
+  optional uint64 id = 1;
+  optional int64 createdAt = 2;
+  optional int64 updatedAt = 3;
+  // API path | API 路径
+  optional string path = 4;
+  // API description | API 描述
+  optional string description = 5;
+  // API group | API 分组
+  optional string apiGroup = 6;
+  // Service name | 服务名称
+  optional string serviceName = 7;
+  // HTTP method | HTTP 请求类型
+  optional string method = 8;
+  // Whether is required | 是否必选
+  optional bool isRequired = 9;
+}
+
+message ApiListResp {
+  uint64 total = 1;
+  repeated ApiInfo data = 2;
+}
+
+message ApiListReq {
+  uint64 page = 1;
+  uint64 pageSize = 2;
+  optional string path = 3;
+  optional string description = 4;
+  optional string apiGroup = 5;
+}
+
+
+service Core {
+
+  // Api management
+  // group: api
+  rpc createApi (ApiInfo) returns (BaseIDResp);
+  // group: api
+  rpc updateApi (ApiInfo) returns (BaseResp);
+  // group: api
+  rpc getApiList (ApiListReq) returns (ApiListResp);
+  // group: api
+  rpc getApiById (IDReq) returns (ApiInfo);
+  // group: api
+  rpc deleteApi (IDsReq) returns (BaseResp);
+
+
+}

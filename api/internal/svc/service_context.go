@@ -1,11 +1,14 @@
 package svc
 
 import (
-	"github.com/Sanagiig/fox-admin-core/internal/config"
-	i18n2 "github.com/Sanagiig/fox-admin-core/internal/i18n"
-	"github.com/Sanagiig/fox-admin-core/internal/middleware"
+	"core/internal/config"
+	i18n2 "core/internal/i18n"
+	"core/internal/middleware"
 
+	"core/ent"
+	_ "core/ent/runtime"
 	"github.com/suyuan32/simple-admin-common/i18n"
+	"github.com/zeromicro/go-zero/core/logx"
 
 	"github.com/casbin/casbin/v2"
 	"github.com/zeromicro/go-zero/rest"
@@ -15,6 +18,7 @@ type ServiceContext struct {
 	Config    config.Config
 	Casbin    *casbin.Enforcer
 	Authority rest.Middleware
+	DB        *ent.Client
 	Trans     *i18n.Translator
 }
 
@@ -26,9 +30,16 @@ func NewServiceContext(c config.Config) *ServiceContext {
 
 	trans := i18n.NewTranslator(c.I18nConf, i18n2.LocaleFS)
 
+	db := ent.NewClient(
+		ent.Log(logx.Info), // logger
+		ent.Driver(c.DatabaseConf.NewNoCacheDriver()),
+		ent.Debug(), // debug mode
+	)
+
 	return &ServiceContext{
 		Config:    c,
 		Authority: middleware.NewAuthorityMiddleware(cbn, rds, trans).Handle,
 		Trans:     trans,
+		DB:        db,
 	}
 }

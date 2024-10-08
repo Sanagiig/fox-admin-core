@@ -5,12 +5,12 @@ package enttest
 import (
 	"context"
 
-	"github.com/Sanagiig/fox-admin-core/ent"
+	"github.com/Sanagiig/fox-admin-core/rpc/ent"
 	// required by schema hooks.
-	_ "github.com/Sanagiig/fox-admin-core/ent/runtime"
+	_ "github.com/Sanagiig/fox-admin-core/rpc/ent/runtime"
 
 	"entgo.io/ent/dialect/sql/schema"
-	"github.com/Sanagiig/fox-admin-core/ent/migrate"
+	"github.com/Sanagiig/fox-admin-core/rpc/ent/migrate"
 )
 
 type (

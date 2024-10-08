@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+// Role message
+
+message RoleInfo {
+  optional uint64 id = 1;
+  optional int64 createdAt = 2;
+  optional int64 updatedAt = 3;
+  // Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  // Role name | 角色名
+  optional string name = 5;
+  // Role code for permission control in front end | 角色码，用于前端权限控制
+  optional string code = 6;
+  // Default menu : dashboard | 默认登录页面
+  optional string defaultRouter = 7;
+  // Remark | 备注
+  optional string remark = 8;
+  // Order number | 排序编号
+  optional uint32 sort = 9;
+}
+
+message RoleListResp {
+  uint64 total = 1;
+  repeated RoleInfo data = 2;
+}
+
+message RoleListReq {
+  uint64 page = 1;
+  uint64 pageSize = 2;
+  optional string name = 3;
+  optional string code = 4;
+  optional string defaultRouter = 5;
+}
+
+
+service Core {
+
+  // Role management
+  // group: role
+  rpc createRole (RoleInfo) returns (BaseIDResp);
+  // group: role
+  rpc updateRole (RoleInfo) returns (BaseResp);
+  // group: role
+  rpc getRoleList (RoleListReq) returns (RoleListResp);
+  // group: role
+  rpc getRoleById (IDReq) returns (RoleInfo);
+  // group: role
+  rpc deleteRole (IDsReq) returns (BaseResp);
+
+
+}

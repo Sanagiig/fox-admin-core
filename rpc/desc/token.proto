@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+// Token message
+
+message TokenInfo {
+  optional string id = 1;
+  optional int64 createdAt = 2;
+  optional int64 updatedAt = 3;
+  // Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  //  User's UUID | 用户的UUID
+  optional string uuid = 5;
+  // Username | 用户名
+  optional string username = 6;
+  // Token string | Token 字符串
+  optional string token = 7;
+  // Log in source such as GitHub | Token 来源 （本地为core, 第三方如github等）
+  optional string source = 8;
+  //  Expire time | 过期时间
+  optional int64  expiredAt = 9;
+}
+
+message TokenListResp {
+  uint64 total = 1;
+  repeated TokenInfo data = 2;
+}
+
+message TokenListReq {
+  uint64 page = 1;
+  uint64 pageSize = 2;
+  optional string username = 3;
+  optional string token = 4;
+  optional string source = 5;
+}
+
+
+service Core {
+
+  // Token management
+  // group: token
+  rpc createToken (TokenInfo) returns (BaseUUIDResp);
+  // group: token
+  rpc updateToken (TokenInfo) returns (BaseResp);
+  // group: token
+  rpc getTokenList (TokenListReq) returns (TokenListResp);
+  // group: token
+  rpc getTokenById (UUIDReq) returns (TokenInfo);
+  // group: token
+  rpc deleteToken (UUIDsReq) returns (BaseResp);
+
+
+}

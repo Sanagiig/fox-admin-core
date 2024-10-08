@@ -1,9 +1,9 @@
 package svc
 
 import (
-	"github.com/Sanagiig/fox-admin-core/ent"
-	_ "github.com/Sanagiig/fox-admin-core/ent/runtime"
-	"github.com/Sanagiig/fox-admin-core/internal/config"
+	"github.com/Sanagiig/fox-admin-core/rpc/ent"
+	_ "github.com/Sanagiig/fox-admin-core/rpc/ent/runtime"
+	"github.com/Sanagiig/fox-admin-core/rpc/internal/config"
 
 	"github.com/redis/go-redis/v9"
 	"github.com/zeromicro/go-zero/core/logx"

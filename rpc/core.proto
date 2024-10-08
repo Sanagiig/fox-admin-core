@@ -1,9 +1,186 @@
 syntax = "proto3";
 
 package core;
-option go_package="./core";
+option go_package = "./core";
 
-// base message
+message ApiInfo {
+  optional uint64 id = 1;
+  optional int64 createdAt = 2;
+  optional int64 updatedAt = 3;
+  //  API path | API 路径
+  optional string path = 4;
+  //  API description | API 描述
+  optional string description = 5;
+  //  API group | API 分组
+  optional string apiGroup = 6;
+  //  Service name | 服务名称
+  optional string serviceName = 7;
+  //  HTTP method | HTTP 请求类型
+  optional string method = 8;
+  //  Whether is required | 是否必选
+  optional bool isRequired = 9;
+}
+
+message ApiListReq {
+  uint64 page = 1;
+  uint64 pageSize = 2;
+  optional string path = 3;
+  optional string description = 4;
+  optional string apiGroup = 5;
+}
+
+message ApiListResp {
+  uint64 total = 1;
+  repeated ApiInfo data = 2;
+}
+
+message BaseIDResp {
+  uint64 id = 1;
+  string msg = 2;
+}
+
+message BaseMsg {
+  string msg = 1;
+}
+
+message BaseResp {
+  string msg = 1;
+}
+
+message BaseUUIDResp {
+  string id = 1;
+  string msg = 2;
+}
+
+message ConfigurationInfo {
+  optional uint64 id = 1;
+  optional int64 createdAt = 2;
+  optional int64 updatedAt = 3;
+  //  Sort Number | 排序编号
+  optional uint32 sort = 4;
+  //  State true: normal false: ban | 状态 true 正常 false 禁用
+  optional bool state = 5;
+  //  Configurarion name | 配置名称
+  optional string name = 6;
+  //  Configuration key | 配置的键名
+  optional string key = 7;
+  //  Configuraion value | 配置的值
+  optional string value = 8;
+  //  Configuration category | 配置的分类
+  optional string category = 9;
+  //  Remark | 备注
+  optional string remark = 10;
+}
+
+message ConfigurationListReq {
+  uint64 page = 1;
+  uint64 pageSize = 2;
+  optional string name = 3;
+  optional string key = 4;
+  optional string value = 5;
+}
+
+message ConfigurationListResp {
+  uint64 total = 1;
+  repeated ConfigurationInfo data = 2;
+}
+
+message DepartmentInfo {
+  optional uint64 id = 1;
+  optional int64 createdAt = 2;
+  optional int64 updatedAt = 3;
+  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  //  Sort Number | 排序编号
+  optional uint32 sort = 5;
+  //  Department name | 部门名称
+  optional string name = 6;
+  //  Parents' IDs | 父级列表
+  optional string ancestors = 7;
+  //  Department leader | 部门负责人
+  optional string leader = 8;
+  //  Leader's phone number | 负责人电话
+  optional string phone = 9;
+  //  Leader's email | 部门负责人电子邮箱
+  optional string email = 10;
+  //  Remark | 备注
+  optional string remark = 11;
+  //  Parent department ID | 父级部门ID
+  optional uint64 parentId = 12;
+}
+
+message DepartmentListReq {
+  uint64 page = 1;
+  uint64 pageSize = 2;
+  optional string name = 3;
+  optional string ancestors = 4;
+  optional string leader = 5;
+}
+
+message DepartmentListResp {
+  uint64 total = 1;
+  repeated DepartmentInfo data = 2;
+}
+
+message DictionaryDetailInfo {
+  optional uint64 id = 1;
+  optional int64 createdAt = 2;
+  optional int64 updatedAt = 3;
+  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  //  Sort Number | 排序编号
+  optional uint32 sort = 5;
+  //  The title shown in the ui | 展示名称 （建议配合i18n）
+  optional string title = 6;
+  //  key | 键
+  optional string key = 7;
+  //  value | 值
+  optional string value = 8;
+  //  Dictionary ID | 字典ID
+  optional uint64 dictionaryId = 9;
+}
+
+message DictionaryDetailListReq {
+  uint64 page = 1;
+  uint64 pageSize = 2;
+  optional string title = 3;
+  optional string key = 4;
+  optional string value = 5;
+}
+
+message DictionaryDetailListResp {
+  uint64 total = 1;
+  repeated DictionaryDetailInfo data = 2;
+}
+
+message DictionaryInfo {
+  optional uint64 id = 1;
+  optional int64 createdAt = 2;
+  optional int64 updatedAt = 3;
+  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  //  The title shown in the ui | 展示名称 （建议配合i18n）
+  optional string title = 5;
+  //  The name of dictionary for search | 字典搜索名称
+  optional string name = 6;
+  //  The description of dictionary | 字典的描述
+  optional string desc = 7;
+}
+
+message DictionaryListReq {
+  uint64 page = 1;
+  uint64 pageSize = 2;
+  optional string title = 3;
+  optional string name = 4;
+  optional string desc = 5;
+}
+
+message DictionaryListResp {
+  uint64 total = 1;
+  repeated DictionaryInfo data = 2;
+}
+
+//  base message
 message Empty {}
 
 message IDReq {
@@ -14,73 +191,106 @@ message IDsReq {
   repeated uint64 ids = 1;
 }
 
-message BaseIDResp {
-  uint64 id = 1;
-  string msg = 2;
+message MenuInfo {
+  optional uint64 id = 1;
+  optional int64 createdAt = 2;
+  optional int64 updatedAt = 3;
+  //  Sort Number | 排序编号
+  optional uint32 sort = 4;
+  //  Parent menu ID | 父菜单ID
+  optional uint64 parentId = 5;
+  //  Menu level | 菜单层级
+  optional uint32 menuLevel = 6;
+  //  Menu type | 菜单类型 （菜单或目录）0 目录 1 菜单
+  optional uint32 menuType = 7;
+  //  Index path | 菜单路由路径
+  optional string path = 8;
+  //  Index name | 菜单名称
+  optional string name = 9;
+  //  Redirect path | 跳转路径 （外链）
+  optional string redirect = 10;
+  //  The path of vue file | 组件路径
+  optional string component = 11;
+  //  Disable status | 是否停用
+  optional bool disabled = 12;
+  //  Service Name | 服务名称
+  optional string serviceName = 13;
+  //  Permission symbol | 权限标识
+  optional string permission = 14;
+  //  Menu name | 菜单显示标题
+  optional string title = 15;
+  //  Menu icon | 菜单图标
+  optional string icon = 16;
+  //  Hide menu | 是否隐藏菜单
+  optional bool hideMenu = 17;
+  //  Hide the breadcrumb | 隐藏面包屑
+  optional bool hideBreadcrumb = 18;
+  //  Do not keep alive the tab | 取消页面缓存
+  optional bool ignoreKeepAlive = 19;
+  //  Hide the tab header | 隐藏页头
+  optional bool hideTab = 20;
+  //  Show iframe | 内嵌 iframe
+  optional string frameSrc = 21;
+  //  The route carries parameters or not | 携带参数
+  optional bool carryParam = 22;
+  //  Hide children menu or not | 隐藏所有子菜单
+  optional bool hideChildrenInMenu = 23;
+  //  Affix tab | Tab 固定
+  optional bool affix = 24;
+  //  The maximum number of pages the router can open | 能打开的子TAB数
+  optional uint32 dynamicLevel = 25;
+  //  The real path of the route without dynamic part | 菜单路由不包含参数部分
+  optional string realPath = 26;
 }
 
-message IDInt32Req {
-  int32 id = 1;
+message MenuListReq {
+  uint64 page = 1;
+  uint64 pageSize = 2;
+  optional string path = 3;
+  optional string name = 4;
+  optional string redirect = 5;
 }
 
-message IDsInt32Req {
-  repeated int32 ids = 1;
+message MenuListResp {
+  uint64 total = 1;
+  repeated MenuInfo data = 2;
 }
 
-message BaseIDInt32Resp {
-  int32 id = 1;
-  string msg = 2;
+message OauthProviderInfo {
+  optional uint64 id = 1;
+  optional int64 createdAt = 2;
+  optional int64 updatedAt = 3;
+  //  The provider's name | 提供商名称
+  optional string name = 4;
+  //  The client id | 客户端 id
+  optional string clientId = 5;
+  //  The client secret | 客户端密钥
+  optional string clientSecret = 6;
+  //  The redirect url | 跳转地址
+  optional string redirectUrl = 7;
+  //  The scopes | 权限范围
+  optional string scopes = 8;
+  //  The auth url of the provider | 认证地址
+  optional string authUrl = 9;
+  //  The token url of the provider | 获取 token地址
+  optional string tokenUrl = 10;
+  //  The auth style, 0: auto detect 1: third party log in 2: log in with username and password | 鉴权方式 0 自动 1 第三方登录 2 使用用户名密码
+  optional uint64 authStyle = 11;
+  //  The URL to request user information by token | 用户信息请求地址
+  optional string infoUrl = 12;
 }
 
-message IDUint32Req {
-  uint32 id = 1;
+message OauthProviderListReq {
+  uint64 page = 1;
+  uint64 pageSize = 2;
+  optional string name = 3;
+  optional string clientId = 4;
+  optional string clientSecret = 5;
 }
 
-message IDsUint32Req {
-  repeated uint32 ids = 1;
-}
-
-message BaseIDUint32Resp {
-  uint32 id = 1;
-  string msg = 2;
-}
-
-message IDInt64Req {
-  int64 id = 1;
-}
-
-message IDsInt64Req {
-  repeated int64 ids = 1;
-}
-
-message BaseIDInt64Resp {
-  int64 id = 1;
-  string msg = 2;
-}
-
-message IDStringReq {
-  string id = 1;
-}
-
-message IDsStringReq {
-  repeated string ids = 1;
-}
-
-message BaseIDStringResp {
-  string id = 1;
-  string msg = 2;
-}
-
-message UUIDsReq {
-  repeated string ids = 1;
-}
-
-message UUIDReq {
-  string id = 1;
-}
-
-message BaseResp {
-  string msg = 1;
+message OauthProviderListResp {
+  uint64 total = 1;
+  repeated OauthProviderInfo data = 2;
 }
 
 message PageInfoReq {
@@ -88,13 +298,282 @@ message PageInfoReq {
   uint64 page_size = 2;
 }
 
-message BaseUUIDResp {
-  string id = 1;
-  string msg = 2;
+message PositionInfo {
+  optional uint64 id = 1;
+  optional int64 createdAt = 2;
+  optional int64 updatedAt = 3;
+  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  //  Sort Number | 排序编号
+  optional uint32 sort = 5;
+  //  Position Name | 职位名称
+  optional string name = 6;
+  //  The code of position | 职位编码
+  optional string code = 7;
+  //  Remark | 备注
+  optional string remark = 8;
 }
 
+message PositionListReq {
+  uint64 page = 1;
+  uint64 pageSize = 2;
+  optional string name = 3;
+  optional string code = 4;
+  optional string remark = 5;
+}
+
+message PositionListResp {
+  uint64 total = 1;
+  repeated PositionInfo data = 2;
+}
+
+message RoleInfo {
+  optional uint64 id = 1;
+  optional int64 createdAt = 2;
+  optional int64 updatedAt = 3;
+  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  //  Role name | 角色名
+  optional string name = 5;
+  //  Role code for permission control in front end | 角色码，用于前端权限控制
+  optional string code = 6;
+  //  Default menu : dashboard | 默认登录页面
+  optional string defaultRouter = 7;
+  //  Remark | 备注
+  optional string remark = 8;
+  //  Order number | 排序编号
+  optional uint32 sort = 9;
+}
+
+message RoleListReq {
+  uint64 page = 1;
+  uint64 pageSize = 2;
+  optional string name = 3;
+  optional string code = 4;
+  optional string defaultRouter = 5;
+}
+
+message RoleListResp {
+  uint64 total = 1;
+  repeated RoleInfo data = 2;
+}
+
+//  authorization message
+message RoleMenuAuthorityReq {
+  uint64 role_id = 1;
+  repeated uint64 menu_ids = 2;
+}
+
+//  return the role's authorization menu's ids
+message RoleMenuAuthorityResp {
+  repeated uint64 menu_ids = 1;
+}
+
+message TokenInfo {
+  optional string id = 1;
+  optional int64 createdAt = 2;
+  optional int64 updatedAt = 3;
+  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  //   User's UUID | 用户的UUID
+  optional string uuid = 5;
+  //  Username | 用户名
+  optional string username = 6;
+  //  Token string | Token 字符串
+  optional string token = 7;
+  //  Log in source such as GitHub | Token 来源 （本地为core, 第三方如github等）
+  optional string source = 8;
+  //   Expire time | 过期时间
+  optional int64 expiredAt = 9;
+}
+
+message TokenListReq {
+  uint64 page = 1;
+  uint64 pageSize = 2;
+  optional string username = 3;
+  optional string token = 4;
+  optional string source = 5;
+}
+
+message TokenListResp {
+  uint64 total = 1;
+  repeated TokenInfo data = 2;
+}
+
+message UUIDReq {
+  string id = 1;
+}
+
+message UUIDsReq {
+  repeated string ids = 1;
+}
+
+message UserInfo {
+  optional string id = 1;
+  optional int64 createdAt = 2;
+  optional int64 updatedAt = 3;
+  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  //  User's login name | 登录名
+  optional string username = 5;
+  //  Password | 密码
+  optional string password = 6;
+  //  Nickname | 昵称
+  optional string nickname = 7;
+  //  The description of user | 用户的描述信息
+  optional string description = 8;
+  //  The home page that the user enters after logging in | 用户登陆后进入的首页
+  optional string homePath = 9;
+  //  Mobile number | 手机号
+  optional string mobile = 10;
+  //  Email | 邮箱号
+  optional string email = 11;
+  //  Avatar | 头像路径
+  optional string avatar = 12;
+  //  Department ID | 部门ID
+  optional uint64 departmentId = 13;
+}
+
+message UserListReq {
+  uint64 page = 1;
+  uint64 pageSize = 2;
+  optional string username = 3;
+  optional string password = 4;
+  optional string nickname = 5;
+}
+
+message UserListResp {
+  uint64 total = 1;
+  repeated UserInfo data = 2;
+}
 
 service Core {
-  // group: base
-  rpc initDatabase (Empty) returns (BaseResp);
+  //  Api management
+  //  group: api
+  rpc createApi(ApiInfo) returns (BaseIDResp);
+  //  group: api
+  rpc updateApi(ApiInfo) returns (BaseResp);
+  //  group: api
+  rpc getApiList(ApiListReq) returns (ApiListResp);
+  //  group: api
+  rpc getApiById(IDReq) returns (ApiInfo);
+  //  group: api
+  rpc deleteApi(IDsReq) returns (BaseResp);
+  //  group: authority
+  rpc getMenuAuthority(IDReq) returns (RoleMenuAuthorityResp);
+  //  group: authority
+  rpc createOrUpdateMenuAuthority(RoleMenuAuthorityReq) returns (BaseResp);
+  //  group: base
+  rpc initDatabase(Empty) returns (BaseResp);
+  //  Configuration management
+  //  group: configuration
+  rpc createConfiguration(ConfigurationInfo) returns (BaseIDResp);
+  //  group: configuration
+  rpc updateConfiguration(ConfigurationInfo) returns (BaseResp);
+  //  group: configuration
+  rpc getConfigurationList(ConfigurationListReq) returns (ConfigurationListResp);
+  //  group: configuration
+  rpc getConfigurationById(IDReq) returns (ConfigurationInfo);
+  //  group: configuration
+  rpc deleteConfiguration(IDsReq) returns (BaseResp);
+  //  Department management
+  //  group: department
+  rpc createDepartment(DepartmentInfo) returns (BaseIDResp);
+  //  group: department
+  rpc updateDepartment(DepartmentInfo) returns (BaseResp);
+  //  group: department
+  rpc getDepartmentList(DepartmentListReq) returns (DepartmentListResp);
+  //  group: department
+  rpc getDepartmentById(IDReq) returns (DepartmentInfo);
+  //  group: department
+  rpc deleteDepartment(IDsReq) returns (BaseResp);
+  //  Dictionary management
+  //  group: dictionary
+  rpc createDictionary(DictionaryInfo) returns (BaseIDResp);
+  //  group: dictionary
+  rpc updateDictionary(DictionaryInfo) returns (BaseResp);
+  //  group: dictionary
+  rpc getDictionaryList(DictionaryListReq) returns (DictionaryListResp);
+  //  group: dictionary
+  rpc getDictionaryById(IDReq) returns (DictionaryInfo);
+  //  group: dictionary
+  rpc deleteDictionary(IDsReq) returns (BaseResp);
+  //  DictionaryDetail management
+  //  group: dictionary_detail
+  rpc createDictionaryDetail(DictionaryDetailInfo) returns (BaseIDResp);
+  //  group: dictionary_detail
+  rpc updateDictionaryDetail(DictionaryDetailInfo) returns (BaseResp);
+  //  group: dictionary_detail
+  rpc getDictionaryDetailList(DictionaryDetailListReq) returns (DictionaryDetailListResp);
+  //  group: dictionary_detail
+  rpc getDictionaryDetailById(IDReq) returns (DictionaryDetailInfo);
+  //  group: dictionary_detail
+  rpc deleteDictionaryDetail(IDsReq) returns (BaseResp);
+  //  Menu management
+  //  group: menu
+  rpc createMenu(MenuInfo) returns (BaseIDResp);
+  //  group: menu
+  rpc updateMenu(MenuInfo) returns (BaseResp);
+  //  group: menu
+  rpc getMenuList(MenuListReq) returns (MenuListResp);
+  //  group: menu
+  rpc getMenuById(IDReq) returns (MenuInfo);
+  //  group: menu
+  rpc deleteMenu(IDsReq) returns (BaseResp);
+  //  OauthProvider management
+  //  group: oauth_provider
+  rpc createOauthProvider(OauthProviderInfo) returns (BaseIDResp);
+  //  group: oauth_provider
+  rpc updateOauthProvider(OauthProviderInfo) returns (BaseResp);
+  //  group: oauth_provider
+  rpc getOauthProviderList(OauthProviderListReq) returns (OauthProviderListResp);
+  //  group: oauth_provider
+  rpc getOauthProviderById(IDReq) returns (OauthProviderInfo);
+  //  group: oauth_provider
+  rpc deleteOauthProvider(IDsReq) returns (BaseResp);
+  //  Position management
+  //  group: position
+  rpc createPosition(PositionInfo) returns (BaseIDResp);
+  //  group: position
+  rpc updatePosition(PositionInfo) returns (BaseResp);
+  //  group: position
+  rpc getPositionList(PositionListReq) returns (PositionListResp);
+  //  group: position
+  rpc getPositionById(IDReq) returns (PositionInfo);
+  //  group: position
+  rpc deletePosition(IDsReq) returns (BaseResp);
+  //  Role management
+  //  group: role
+  rpc createRole(RoleInfo) returns (BaseIDResp);
+  //  group: role
+  rpc updateRole(RoleInfo) returns (BaseResp);
+  //  group: role
+  rpc getRoleList(RoleListReq) returns (RoleListResp);
+  //  group: role
+  rpc getRoleById(IDReq) returns (RoleInfo);
+  //  group: role
+  rpc deleteRole(IDsReq) returns (BaseResp);
+  //  Token management
+  //  group: token
+  rpc createToken(TokenInfo) returns (BaseUUIDResp);
+  //  group: token
+  rpc updateToken(TokenInfo) returns (BaseResp);
+  //  group: token
+  rpc getTokenList(TokenListReq) returns (TokenListResp);
+  //  group: token
+  rpc getTokenById(UUIDReq) returns (TokenInfo);
+  //  group: token
+  rpc deleteToken(UUIDsReq) returns (BaseResp);
+  //  User management
+  //  group: user
+  rpc createUser(UserInfo) returns (BaseUUIDResp);
+  //  group: user
+  rpc updateUser(UserInfo) returns (BaseResp);
+  //  group: user
+  rpc getUserList(UserListReq) returns (UserListResp);
+  //  group: user
+  rpc getUserById(UUIDReq) returns (UserInfo);
+  //  group: user
+  rpc deleteUser(UUIDsReq) returns (BaseResp);
 }
+

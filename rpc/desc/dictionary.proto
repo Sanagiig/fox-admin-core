@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+// Dictionary message
+
+message DictionaryInfo {
+  optional uint64 id = 1;
+  optional int64 createdAt = 2;
+  optional int64 updatedAt = 3;
+  // Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  // The title shown in the ui | 展示名称 （建议配合i18n）
+  optional string title = 5;
+  // The name of dictionary for search | 字典搜索名称
+  optional string name = 6;
+  // The description of dictionary | 字典的描述
+  optional string desc = 7;
+}
+
+message DictionaryListResp {
+  uint64 total = 1;
+  repeated DictionaryInfo data = 2;
+}
+
+message DictionaryListReq {
+  uint64 page = 1;
+  uint64 pageSize = 2;
+  optional string title = 3;
+  optional string name = 4;
+  optional string desc = 5;
+}
+
+
+service Core {
+
+  // Dictionary management
+  // group: dictionary
+  rpc createDictionary (DictionaryInfo) returns (BaseIDResp);
+  // group: dictionary
+  rpc updateDictionary (DictionaryInfo) returns (BaseResp);
+  // group: dictionary
+  rpc getDictionaryList (DictionaryListReq) returns (DictionaryListResp);
+  // group: dictionary
+  rpc getDictionaryById (IDReq) returns (DictionaryInfo);
+  // group: dictionary
+  rpc deleteDictionary (IDsReq) returns (BaseResp);
+
+
+}
