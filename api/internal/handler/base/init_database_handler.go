@@ -5,11 +5,11 @@ import (
 
 	"github.com/zeromicro/go-zero/rest/httpx"
 
-	"core/internal/logic/base"
-	"core/internal/svc"
+	"github.com/Sanagiig/fox-admin-core/api/internal/logic/base"
+	"github.com/Sanagiig/fox-admin-core/api/internal/svc"
 )
 
-// swagger:route get /init/database base InitDatabase
+// swagger:route get /core/init/database base InitDatabase
 //
 // Initialize database | 初始化数据库
 //

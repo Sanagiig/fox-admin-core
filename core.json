@@ -1,0 +1,1941 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "Description: core service",
+    "title": "core",
+    "version": "0.0.1"
+  },
+  "host": "localhost:9100",
+  "basePath": "/",
+  "paths": {
+    "/api": {
+      "post": {
+        "description": "Get API by ID | 通过ID获取API",
+        "tags": [
+          "api"
+        ],
+        "summary": "Get API by ID | 通过ID获取API",
+        "operationId": "GetApiById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ApiInfoResp",
+            "schema": {
+              "$ref": "#/definitions/ApiInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/create": {
+      "post": {
+        "description": "Create API information | 创建API",
+        "tags": [
+          "api"
+        ],
+        "summary": "Create API information | 创建API",
+        "operationId": "CreateApi",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ApiInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/delete": {
+      "post": {
+        "description": "Delete API information | 删除API信息",
+        "tags": [
+          "api"
+        ],
+        "summary": "Delete API information | 删除API信息",
+        "operationId": "DeleteApi",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/list": {
+      "post": {
+        "description": "Get API list | 获取API列表",
+        "tags": [
+          "api"
+        ],
+        "summary": "Get API list | 获取API列表",
+        "operationId": "GetApiList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ApiListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ApiListResp",
+            "schema": {
+              "$ref": "#/definitions/ApiListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/update": {
+      "post": {
+        "description": "Update API information | 创建API",
+        "tags": [
+          "api"
+        ],
+        "summary": "Update API information | 创建API",
+        "operationId": "UpdateApi",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ApiInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/core/init/database": {
+      "get": {
+        "description": "Initialize database | 初始化数据库",
+        "tags": [
+          "base"
+        ],
+        "summary": "Initialize database | 初始化数据库",
+        "operationId": "InitDatabase",
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/core/init/job_database": {
+      "get": {
+        "description": "Initialize job database | 初始化定时任务数据库",
+        "tags": [
+          "base"
+        ],
+        "summary": "Initialize job database | 初始化定时任务数据库",
+        "operationId": "InitJobDatabase",
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/core/init/mcms_database": {
+      "get": {
+        "description": "Initialize Message Center database | 初始化消息中心数据库",
+        "tags": [
+          "base"
+        ],
+        "summary": "Initialize Message Center database | 初始化消息中心数据库",
+        "operationId": "InitMcmsDatabase",
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/user": {
+      "post": {
+        "description": "Get User by ID | 通过ID获取用户",
+        "tags": [
+          "user"
+        ],
+        "summary": "Get User by ID | 通过ID获取用户",
+        "operationId": "GetUserById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UUIDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "UserInfoResp",
+            "schema": {
+              "$ref": "#/definitions/UserInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/access_token": {
+      "get": {
+        "description": "Access token | 获取短期 token",
+        "tags": [
+          "user"
+        ],
+        "summary": "Access token | 获取短期 token",
+        "operationId": "AccessToken",
+        "responses": {
+          "200": {
+            "description": "RefreshTokenResp",
+            "schema": {
+              "$ref": "#/definitions/RefreshTokenResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/change_password": {
+      "post": {
+        "description": "Change Password | 修改密码",
+        "tags": [
+          "user"
+        ],
+        "summary": "Change Password | 修改密码",
+        "operationId": "ChangePassword",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ChangePasswordReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/create": {
+      "post": {
+        "description": "Create user information | 创建用户",
+        "tags": [
+          "user"
+        ],
+        "summary": "Create user information | 创建用户",
+        "operationId": "CreateUser",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UserInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/delete": {
+      "post": {
+        "description": "Delete user information | 删除用户信息",
+        "tags": [
+          "user"
+        ],
+        "summary": "Delete user information | 删除用户信息",
+        "operationId": "DeleteUser",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UUIDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/info": {
+      "get": {
+        "description": "Get user basic information | 获取用户基本信息",
+        "tags": [
+          "user"
+        ],
+        "summary": "Get user basic information | 获取用户基本信息",
+        "operationId": "GetUserInfo",
+        "responses": {
+          "200": {
+            "description": "UserBaseIDInfoResp",
+            "schema": {
+              "$ref": "#/definitions/UserBaseIDInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/list": {
+      "post": {
+        "description": "Get user list | 获取用户列表",
+        "tags": [
+          "user"
+        ],
+        "summary": "Get user list | 获取用户列表",
+        "operationId": "GetUserList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UserListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "UserListResp",
+            "schema": {
+              "$ref": "#/definitions/UserListResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "post": {
+        "description": "Log in | 登录",
+        "tags": [
+          "public_user"
+        ],
+        "summary": "Log in | 登录",
+        "operationId": "Login",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/LoginReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "LoginResp",
+            "schema": {
+              "$ref": "#/definitions/LoginResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/login_by_email": {
+      "post": {
+        "description": "Log in by email | 邮箱登录",
+        "tags": [
+          "public_user"
+        ],
+        "summary": "Log in by email | 邮箱登录",
+        "operationId": "LoginByEmail",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/LoginByEmailReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "LoginResp",
+            "schema": {
+              "$ref": "#/definitions/LoginResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/login_by_sms": {
+      "post": {
+        "description": "Log in by SMS | 短信登录",
+        "tags": [
+          "public_user"
+        ],
+        "summary": "Log in by SMS | 短信登录",
+        "operationId": "LoginBySms",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/LoginBySmsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "LoginResp",
+            "schema": {
+              "$ref": "#/definitions/LoginResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/logout": {
+      "get": {
+        "description": "Log out | 退出登陆",
+        "tags": [
+          "user"
+        ],
+        "summary": "Log out | 退出登陆",
+        "operationId": "Logout",
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/perm": {
+      "get": {
+        "description": "Get user's permission code | 获取用户权限码",
+        "tags": [
+          "user"
+        ],
+        "summary": "Get user's permission code | 获取用户权限码",
+        "operationId": "GetUserPermCode",
+        "responses": {
+          "200": {
+            "description": "PermCodeResp",
+            "schema": {
+              "$ref": "#/definitions/PermCodeResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/profile": {
+      "get": {
+        "description": "Get user's profile | 获取用户个人信息",
+        "tags": [
+          "user"
+        ],
+        "summary": "Get user's profile | 获取用户个人信息",
+        "operationId": "GetUserProfile",
+        "responses": {
+          "200": {
+            "description": "ProfileResp",
+            "schema": {
+              "$ref": "#/definitions/ProfileResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Update user's profile | 更新用户个人信息",
+        "tags": [
+          "user"
+        ],
+        "summary": "Update user's profile | 更新用户个人信息",
+        "operationId": "UpdateUserProfile",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ProfileInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/refresh_token": {
+      "get": {
+        "description": "Refresh token | 获取刷新 token",
+        "tags": [
+          "user"
+        ],
+        "summary": "Refresh token | 获取刷新 token",
+        "operationId": "RefreshToken",
+        "responses": {
+          "200": {
+            "description": "RefreshTokenResp",
+            "schema": {
+              "$ref": "#/definitions/RefreshTokenResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/register": {
+      "post": {
+        "description": "Register | 注册",
+        "tags": [
+          "public_user"
+        ],
+        "summary": "Register | 注册",
+        "operationId": "Register",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/RegisterReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/register_by_email": {
+      "post": {
+        "description": "Register by Email | 邮箱注册",
+        "tags": [
+          "public_user"
+        ],
+        "summary": "Register by Email | 邮箱注册",
+        "operationId": "RegisterByEmail",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/RegisterByEmailReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/register_by_sms": {
+      "post": {
+        "description": "Register by SMS | 短信注册",
+        "tags": [
+          "public_user"
+        ],
+        "summary": "Register by SMS | 短信注册",
+        "operationId": "RegisterBySms",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/RegisterBySmsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/reset_password_by_email": {
+      "post": {
+        "description": "Reset password by Email | 通过邮箱重置密码",
+        "tags": [
+          "public_user"
+        ],
+        "summary": "Reset password by Email | 通过邮箱重置密码",
+        "operationId": "ResetPasswordByEmail",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ResetPasswordByEmailReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/reset_password_by_sms": {
+      "post": {
+        "description": "Reset password by Sms | 通过短信重置密码",
+        "tags": [
+          "public_user"
+        ],
+        "summary": "Reset password by Sms | 通过短信重置密码",
+        "operationId": "ResetPasswordBySms",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ResetPasswordBySmsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/update": {
+      "post": {
+        "description": "Update user information | 更新用户",
+        "tags": [
+          "user"
+        ],
+        "summary": "Update user information | 更新用户",
+        "operationId": "UpdateUser",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UserInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ApiInfo": {
+      "description": "The API information | API信息",
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "description": {
+          "description": "API Description | API 描述",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Description"
+        },
+        "group": {
+          "description": "API group | API分组",
+          "type": "string",
+          "maxLength": 80,
+          "minLength": 1,
+          "x-go-name": "Group"
+        },
+        "id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        },
+        "isRequired": {
+          "description": "Whether is required | 是否是必须的 api",
+          "type": "boolean",
+          "x-go-name": "IsRequired"
+        },
+        "method": {
+          "description": "API request method e.g. POST | API请求类型 如POST",
+          "type": "string",
+          "maxLength": 7,
+          "minLength": 3,
+          "x-go-name": "Method"
+        },
+        "path": {
+          "description": "API path | API路径",
+          "type": "string",
+          "maxLength": 80,
+          "minLength": 1,
+          "x-go-name": "Path"
+        },
+        "serviceName": {
+          "description": "Service name | 服务名称",
+          "type": "string",
+          "x-go-name": "ServiceName"
+        },
+        "trans": {
+          "description": "Translated Name | 多语言名称",
+          "type": "string",
+          "x-go-name": "Trans"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "ApiInfoResp": {
+      "description": "API information response | API信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/ApiInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "ApiListInfo": {
+      "description": "API list data | API 列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The API list data | API列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ApiInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "ApiListReq": {
+      "description": "Get API list request params | API列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "description": {
+          "description": "API Description | API 描述",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Description"
+        },
+        "group": {
+          "description": "API group | API分组",
+          "type": "string",
+          "maxLength": 80,
+          "x-go-name": "Group"
+        },
+        "isRequired": {
+          "description": "Whether is required | 是否是必须的 api",
+          "type": "boolean",
+          "x-go-name": "IsRequired"
+        },
+        "method": {
+          "description": "API request method e.g. POST | API请求类型 如POST",
+          "type": "string",
+          "maxLength": 7,
+          "minLength": 3,
+          "x-go-name": "Method"
+        },
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        },
+        "path": {
+          "description": "API path | API路径",
+          "type": "string",
+          "maxLength": 200,
+          "x-go-name": "Path"
+        },
+        "serviceName": {
+          "description": "Service name | 服务名称",
+          "type": "string",
+          "x-go-name": "ServiceName"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "ApiListResp": {
+      "description": "The response data of API list | API列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/ApiListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "BaseDataInfo": {
+      "description": "The basic response with data | 基础带数据信息",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "BaseIDInfo": {
+      "description": "The base ID response data | 基础ID信息",
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "BaseListInfo": {
+      "description": "The basic response with data | 基础带数据信息",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "BaseMsgResp": {
+      "description": "The basic response without data | 基础不带数据信息",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "BaseUUIDInfo": {
+      "description": "The base UUID response data | 基础UUID信息",
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "id": {
+          "description": "ID",
+          "type": "string",
+          "x-go-name": "Id"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "ChangePasswordReq": {
+      "description": "change user's password request | 修改密码请求参数",
+      "type": "object",
+      "required": [
+        "oldPassword",
+        "newPassword"
+      ],
+      "properties": {
+        "newPassword": {
+          "description": "User's new password | 用户新密码",
+          "type": "string",
+          "maxLength": 30,
+          "x-go-name": "NewPassword"
+        },
+        "oldPassword": {
+          "description": "User's old password | 用户旧密码",
+          "type": "string",
+          "maxLength": 30,
+          "x-go-name": "OldPassword"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "IDPathReq": {
+      "description": "Basic ID request | 基础ID地址参数请求",
+      "type": "object",
+      "required": [
+        "Id"
+      ],
+      "properties": {
+        "Id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "IDReq": {
+      "description": "Basic ID request | 基础ID参数请求",
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "IDsReq": {
+      "description": "Basic IDs request | 基础ID数组参数请求",
+      "type": "object",
+      "required": [
+        "ids"
+      ],
+      "properties": {
+        "ids": {
+          "description": "IDs",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "x-go-name": "Ids"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "LoginByEmailReq": {
+      "description": "Log in by email request | 邮箱登录参数",
+      "type": "object",
+      "required": [
+        "email"
+      ],
+      "properties": {
+        "captcha": {
+          "description": "The Captcha which users input | 用户输入的验证码",
+          "type": "string",
+          "maxLength": 5,
+          "minLength": 5,
+          "x-go-name": "Captcha"
+        },
+        "email": {
+          "description": "The user's email address | 用户的邮箱",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Email"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "LoginBySmsReq": {
+      "description": "Log in by SMS request | 短信登录参数",
+      "type": "object",
+      "required": [
+        "phoneNumber"
+      ],
+      "properties": {
+        "captcha": {
+          "description": "The Captcha which users input | 用户输入的验证码",
+          "type": "string",
+          "maxLength": 5,
+          "minLength": 5,
+          "x-go-name": "Captcha"
+        },
+        "phoneNumber": {
+          "description": "The user's mobile phone number | 用户的手机号码",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "PhoneNumber"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "LoginInfo": {
+      "description": "The log in information | 登陆返回的数据信息",
+      "type": "object",
+      "properties": {
+        "expire": {
+          "description": "Expire timestamp | 过期时间戳",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Expire"
+        },
+        "token": {
+          "description": "Token for authorization | 验证身份的token",
+          "type": "string",
+          "x-go-name": "Token"
+        },
+        "userId": {
+          "description": "User's UUID | 用户的UUID",
+          "type": "string",
+          "x-go-name": "UserId"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "LoginReq": {
+      "description": "Login request | 登录参数",
+      "type": "object",
+      "required": [
+        "username",
+        "password",
+        "captchaId",
+        "captcha"
+      ],
+      "properties": {
+        "captcha": {
+          "description": "The Captcha which users input | 用户输入的验证码",
+          "type": "string",
+          "maxLength": 5,
+          "minLength": 5,
+          "x-go-name": "Captcha"
+        },
+        "captchaId": {
+          "description": "Captcha ID which store in redis | 验证码编号, 存在redis中",
+          "type": "string",
+          "maxLength": 20,
+          "minLength": 20,
+          "x-go-name": "CaptchaId"
+        },
+        "password": {
+          "description": "Password | 密码",
+          "type": "string",
+          "maxLength": 30,
+          "minLength": 6,
+          "x-go-name": "Password"
+        },
+        "username": {
+          "description": "User Name | 用户名",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "LoginResp": {
+      "description": "The log in response data | 登录返回数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/LoginInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "PageInfo": {
+      "description": "The page request parameters | 列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "PermCodeResp": {
+      "description": "The permission code for front end permission control | 权限码： 用于前端权限控制",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Permission code data | 权限码数据",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Data"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "ProfileInfo": {
+      "description": "The profile information | 个人信息",
+      "type": "object",
+      "properties": {
+        "avatar": {
+          "description": "The user's avatar path | 用户的头像路径",
+          "type": "string",
+          "maxLength": 300,
+          "x-go-name": "Avatar"
+        },
+        "email": {
+          "description": "The user's email address | 用户的邮箱",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Email"
+        },
+        "mobile": {
+          "description": "User's mobile phone number | 用户的手机号码",
+          "type": "string",
+          "maxLength": 18,
+          "x-go-name": "Mobile"
+        },
+        "nickname": {
+          "description": "user's nickname | 用户的昵称",
+          "type": "string",
+          "maxLength": 10,
+          "x-go-name": "Nickname"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "ProfileResp": {
+      "description": "The profile response data | 个人信息返回数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/ProfileInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "RefreshTokenInfo": {
+      "description": "Refresh token information | 刷新令牌信息",
+      "type": "object",
+      "properties": {
+        "expiredAt": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ExpiredAt"
+        },
+        "token": {
+          "type": "string",
+          "x-go-name": "Token"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "RefreshTokenResp": {
+      "description": "Refresh token response data | 刷新令牌响应数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/RefreshTokenInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "RegisterByEmailReq": {
+      "description": "Register by email request | 邮箱注册参数",
+      "type": "object",
+      "required": [
+        "username",
+        "password",
+        "captcha",
+        "email"
+      ],
+      "properties": {
+        "captcha": {
+          "description": "The Captcha which users input | 用户输入的验证码",
+          "type": "string",
+          "maxLength": 5,
+          "minLength": 5,
+          "x-go-name": "Captcha"
+        },
+        "email": {
+          "description": "The user's email address | 用户的邮箱",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Email"
+        },
+        "password": {
+          "description": "Password | 密码",
+          "type": "string",
+          "maxLength": 30,
+          "minLength": 6,
+          "x-go-name": "Password"
+        },
+        "username": {
+          "description": "User Name | 用户名",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "RegisterBySmsReq": {
+      "description": "Register by SMS request | 短信注册参数",
+      "type": "object",
+      "required": [
+        "username",
+        "password",
+        "captcha",
+        "phoneNumber"
+      ],
+      "properties": {
+        "captcha": {
+          "description": "The Captcha which users input | 用户输入的验证码",
+          "type": "string",
+          "maxLength": 5,
+          "minLength": 5,
+          "x-go-name": "Captcha"
+        },
+        "password": {
+          "description": "Password | 密码",
+          "type": "string",
+          "maxLength": 30,
+          "minLength": 6,
+          "x-go-name": "Password"
+        },
+        "phoneNumber": {
+          "description": "The user's mobile phone number | 用户的手机号码",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "PhoneNumber"
+        },
+        "username": {
+          "description": "User Name | 用户名",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "RegisterReq": {
+      "description": "register request | 注册参数",
+      "type": "object",
+      "required": [
+        "username",
+        "password",
+        "captchaId",
+        "captcha",
+        "email"
+      ],
+      "properties": {
+        "captcha": {
+          "description": "The Captcha which users input | 用户输入的验证码",
+          "type": "string",
+          "maxLength": 5,
+          "minLength": 5,
+          "x-go-name": "Captcha"
+        },
+        "captchaId": {
+          "description": "Captcha ID which store in redis | 验证码编号, 存在redis中",
+          "type": "string",
+          "maxLength": 20,
+          "minLength": 20,
+          "x-go-name": "CaptchaId"
+        },
+        "email": {
+          "description": "The user's email address | 用户的邮箱",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Email"
+        },
+        "password": {
+          "description": "Password | 密码",
+          "type": "string",
+          "maxLength": 30,
+          "minLength": 6,
+          "x-go-name": "Password"
+        },
+        "username": {
+          "description": "User Name | 用户名",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "ResetPasswordByEmailReq": {
+      "description": "Reset password by email request | 通过邮箱重置密码请求",
+      "type": "object",
+      "properties": {
+        "captcha": {
+          "type": "string",
+          "x-go-name": "Captcha"
+        },
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "password": {
+          "type": "string",
+          "x-go-name": "Password"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "ResetPasswordBySmsReq": {
+      "description": "Reset password by SMS request | 通过短信重置密码请求",
+      "type": "object",
+      "properties": {
+        "captcha": {
+          "type": "string",
+          "x-go-name": "Captcha"
+        },
+        "password": {
+          "type": "string",
+          "x-go-name": "Password"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "x-go-name": "PhoneNumber"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "RoleInfoSimple": {
+      "description": "The simple role data | 简单的角色数据",
+      "type": "object",
+      "properties": {
+        "roleName": {
+          "description": "Role name | 角色名",
+          "type": "string",
+          "x-go-name": "RoleName"
+        },
+        "value": {
+          "description": "Role value | 角色值",
+          "type": "string",
+          "x-go-name": "Value"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "UUIDReq": {
+      "description": "Basic UUID request | 基础UUID参数请求",
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "description": "ID",
+          "type": "string",
+          "maxLength": 36,
+          "x-go-name": "Id"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "UUIDsReq": {
+      "description": "Basic UUID array request | 基础UUID数组参数请求",
+      "type": "object",
+      "required": [
+        "ids"
+      ],
+      "properties": {
+        "ids": {
+          "description": "Ids",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Ids"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "UserBaseIDInfo": {
+      "description": "The  data of user's basic information | 用户基本信息",
+      "type": "object",
+      "properties": {
+        "avatar": {
+          "description": "The user's avatar path | 用户的头像路径",
+          "type": "string",
+          "x-go-name": "Avatar"
+        },
+        "departmentName": {
+          "description": "Department Name | 部门名称",
+          "type": "string",
+          "x-go-name": "DepartmentName"
+        },
+        "desc": {
+          "description": "The description of user | 用户的描述信息",
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "homePath": {
+          "description": "The home page that the user enters after logging in | 用户登陆后进入的首页",
+          "type": "string",
+          "x-go-name": "HomePath"
+        },
+        "nickname": {
+          "description": "User's nickname | 用户的昵称",
+          "type": "string",
+          "x-go-name": "Nickname"
+        },
+        "roleName": {
+          "description": "User's Role Name | 用户的角色名称",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "RoleName"
+        },
+        "userId": {
+          "description": "User's UUID | 用户的UUID",
+          "type": "string",
+          "x-go-name": "UUID"
+        },
+        "username": {
+          "description": "User's name | 用户名",
+          "type": "string",
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "UserBaseIDInfoResp": {
+      "description": "The response data of user's basic information | 用户基本信息返回数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/UserBaseIDInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "UserInfo": {
+      "type": "object",
+      "properties": {
+        "avatar": {
+          "description": "Avatar | 头像地址",
+          "type": "string",
+          "maxLength": 300,
+          "x-go-name": "Avatar"
+        },
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "departmentId": {
+          "description": "Department ID | 部门ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "DepartmentId"
+        },
+        "description": {
+          "description": "Description | 描述",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Description"
+        },
+        "email": {
+          "description": "Email | 邮箱",
+          "type": "string",
+          "maxLength": 80,
+          "x-go-name": "Email"
+        },
+        "homePath": {
+          "description": "HomePath | 首页",
+          "type": "string",
+          "maxLength": 70,
+          "x-go-name": "HomePath"
+        },
+        "id": {
+          "description": "ID",
+          "type": "string",
+          "x-go-name": "Id"
+        },
+        "mobile": {
+          "description": "Mobile | 手机号",
+          "type": "string",
+          "maxLength": 18,
+          "x-go-name": "Mobile"
+        },
+        "nickname": {
+          "description": "Nickname | 昵称",
+          "type": "string",
+          "maxLength": 40,
+          "x-go-name": "Nickname"
+        },
+        "password": {
+          "description": "Password | 密码",
+          "type": "string",
+          "minLength": 6,
+          "x-go-name": "Password"
+        },
+        "positionId": {
+          "description": "Position ID | 职位ID",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "x-go-name": "PositionIds"
+        },
+        "roleIds": {
+          "description": "RoleId | 角色ID",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "x-go-name": "RoleIds"
+        },
+        "status": {
+          "description": "Status | 状态",
+          "type": "integer",
+          "format": "uint32",
+          "maximum": 20,
+          "x-go-name": "Status"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        },
+        "username": {
+          "description": "Username | 用户名",
+          "type": "string",
+          "maxLength": 50,
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "UserInfoResp": {
+      "description": "User information response | 用户信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/UserInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "UserListInfo": {
+      "description": "User list data | 用户列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The API list data | User列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "UserListReq": {
+      "description": "Get user list request params | 用户列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "departmentId": {
+          "description": "The user's department ID | 用户所属部门ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "DepartmentId"
+        },
+        "email": {
+          "description": "The user's email address | 用户的邮箱",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Email"
+        },
+        "mobile": {
+          "description": "User's mobile phone number | 用户的手机号码",
+          "type": "string",
+          "maxLength": 18,
+          "x-go-name": "Mobile"
+        },
+        "nickname": {
+          "description": "User's nickname | 用户的昵称",
+          "type": "string",
+          "maxLength": 10,
+          "x-go-name": "Nickname"
+        },
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        },
+        "positionId": {
+          "description": "User's position id | 用户的职位ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "PositionId"
+        },
+        "roleIds": {
+          "description": "User's role ID | 用户的角色ID",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "x-go-name": "RoleIds"
+        },
+        "username": {
+          "description": "User Name | 用户名",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "UserListResp": {
+      "description": "The response data of user list | 用户列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/UserListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    }
+  },
+  "securityDefinitions": {
+    "Token": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "Token": []
+    }
+  ]
+}

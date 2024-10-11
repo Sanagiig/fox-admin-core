@@ -36,8 +36,8 @@ type Client struct {
 	config
 	// Schema is the client for creating, migrating and dropping schema.
 	Schema *migrate.Schema
-	// API is the client for interacting with the API builders.
-	API *APIClient
+	// Api is the client for interacting with the Api builders.
+	Api *APIClient
 	// Configuration is the client for interacting with the Configuration builders.
 	Configuration *ConfigurationClient
 	// Department is the client for interacting with the Department builders.
@@ -69,7 +69,7 @@ func NewClient(opts ...Option) *Client {
 
 func (c *Client) init() {
 	c.Schema = migrate.NewSchema(c.driver)
-	c.API = NewAPIClient(c.config)
+	c.Api = NewAPIClient(c.config)
 	c.Configuration = NewConfigurationClient(c.config)
 	c.Department = NewDepartmentClient(c.config)
 	c.Dictionary = NewDictionaryClient(c.config)
@@ -172,7 +172,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 	return &Tx{
 		ctx:              ctx,
 		config:           cfg,
-		API:              NewAPIClient(cfg),
+		Api:              NewAPIClient(cfg),
 		Configuration:    NewConfigurationClient(cfg),
 		Department:       NewDepartmentClient(cfg),
 		Dictionary:       NewDictionaryClient(cfg),
@@ -202,7 +202,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 	return &Tx{
 		ctx:              ctx,
 		config:           cfg,
-		API:              NewAPIClient(cfg),
+		Api:              NewAPIClient(cfg),
 		Configuration:    NewConfigurationClient(cfg),
 		Department:       NewDepartmentClient(cfg),
 		Dictionary:       NewDictionaryClient(cfg),
@@ -219,7 +219,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 // Debug returns a new debug-client. It's used to get verbose logging on specific operations.
 //
 //	client.Debug().
-//		API.
+//		Api.
 //		Query().
 //		Count(ctx)
 func (c *Client) Debug() *Client {
@@ -242,7 +242,7 @@ func (c *Client) Close() error {
 // In order to add hooks to a specific client, call: `client.Node.Use(...)`.
 func (c *Client) Use(hooks ...Hook) {
 	for _, n := range []interface{ Use(...Hook) }{
-		c.API, c.Configuration, c.Department, c.Dictionary, c.DictionaryDetail, c.Menu,
+		c.Api, c.Configuration, c.Department, c.Dictionary, c.DictionaryDetail, c.Menu,
 		c.OauthProvider, c.Position, c.Role, c.Token, c.User,
 	} {
 		n.Use(hooks...)
@@ -253,7 +253,7 @@ func (c *Client) Use(hooks ...Hook) {
 // In order to add interceptors to a specific client, call: `client.Node.Intercept(...)`.
 func (c *Client) Intercept(interceptors ...Interceptor) {
 	for _, n := range []interface{ Intercept(...Interceptor) }{
-		c.API, c.Configuration, c.Department, c.Dictionary, c.DictionaryDetail, c.Menu,
+		c.Api, c.Configuration, c.Department, c.Dictionary, c.DictionaryDetail, c.Menu,
 		c.OauthProvider, c.Position, c.Role, c.Token, c.User,
 	} {
 		n.Intercept(interceptors...)
@@ -264,7 +264,7 @@ func (c *Client) Intercept(interceptors ...Interceptor) {
 func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 	switch m := m.(type) {
 	case *APIMutation:
-		return c.API.mutate(ctx, m)
+		return c.Api.mutate(ctx, m)
 	case *ConfigurationMutation:
 		return c.Configuration.mutate(ctx, m)
 	case *DepartmentMutation:
@@ -290,12 +290,12 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 	}
 }
 
-// APIClient is a client for the API schema.
+// APIClient is a client for the Api schema.
 type APIClient struct {
 	config
 }
 
-// NewAPIClient returns a client for the API from the given config.
+// NewAPIClient returns a client for the Api from the given config.
 func NewAPIClient(c config) *APIClient {
 	return &APIClient{config: c}
 }
@@ -303,22 +303,22 @@ func NewAPIClient(c config) *APIClient {
 // Use adds a list of mutation hooks to the hooks stack.
 // A call to `Use(f, g, h)` equals to `api.Hooks(f(g(h())))`.
 func (c *APIClient) Use(hooks ...Hook) {
-	c.hooks.API = append(c.hooks.API, hooks...)
+	c.hooks.Api = append(c.hooks.Api, hooks...)
 }
 
 // Intercept adds a list of query interceptors to the interceptors stack.
 // A call to `Intercept(f, g, h)` equals to `api.Intercept(f(g(h())))`.
 func (c *APIClient) Intercept(interceptors ...Interceptor) {
-	c.inters.API = append(c.inters.API, interceptors...)
+	c.inters.Api = append(c.inters.Api, interceptors...)
 }
 
-// Create returns a builder for creating a API entity.
+// Create returns a builder for creating a Api entity.
 func (c *APIClient) Create() *APICreate {
 	mutation := newAPIMutation(c.config, OpCreate)
 	return &APICreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-// CreateBulk returns a builder for creating a bulk of API entities.
+// CreateBulk returns a builder for creating a bulk of Api entities.
 func (c *APIClient) CreateBulk(builders ...*APICreate) *APICreateBulk {
 	return &APICreateBulk{config: c.config, builders: builders}
 }
@@ -338,32 +338,32 @@ func (c *APIClient) MapCreateBulk(slice any, setFunc func(*APICreate, int)) *API
 	return &APICreateBulk{config: c.config, builders: builders}
 }
 
-// Update returns an update builder for API.
+// Update returns an update builder for Api.
 func (c *APIClient) Update() *APIUpdate {
 	mutation := newAPIMutation(c.config, OpUpdate)
 	return &APIUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *APIClient) UpdateOne(a *API) *APIUpdateOne {
-	mutation := newAPIMutation(c.config, OpUpdateOne, withAPI(a))
+func (c *APIClient) UpdateOne(a *Api) *APIUpdateOne {
+	mutation := newAPIMutation(c.config, OpUpdateOne, withApi(a))
 	return &APIUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
 // UpdateOneID returns an update builder for the given id.
 func (c *APIClient) UpdateOneID(id uint64) *APIUpdateOne {
-	mutation := newAPIMutation(c.config, OpUpdateOne, withAPIID(id))
+	mutation := newAPIMutation(c.config, OpUpdateOne, withApiID(id))
 	return &APIUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-// Delete returns a delete builder for API.
+// Delete returns a delete builder for Api.
 func (c *APIClient) Delete() *APIDelete {
 	mutation := newAPIMutation(c.config, OpDelete)
 	return &APIDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *APIClient) DeleteOne(a *API) *APIDeleteOne {
+func (c *APIClient) DeleteOne(a *Api) *APIDeleteOne {
 	return c.DeleteOneID(a.ID)
 }
 
@@ -375,7 +375,7 @@ func (c *APIClient) DeleteOneID(id uint64) *APIDeleteOne {
 	return &APIDeleteOne{builder}
 }
 
-// Query returns a query builder for API.
+// Query returns a query builder for Api.
 func (c *APIClient) Query() *APIQuery {
 	return &APIQuery{
 		config: c.config,
@@ -384,13 +384,13 @@ func (c *APIClient) Query() *APIQuery {
 	}
 }
 
-// Get returns a API entity by its id.
-func (c *APIClient) Get(ctx context.Context, id uint64) (*API, error) {
+// Get returns a Api entity by its id.
+func (c *APIClient) Get(ctx context.Context, id uint64) (*Api, error) {
 	return c.Query().Where(api.ID(id)).Only(ctx)
 }
 
 // GetX is like Get, but panics if an error occurs.
-func (c *APIClient) GetX(ctx context.Context, id uint64) *API {
+func (c *APIClient) GetX(ctx context.Context, id uint64) *Api {
 	obj, err := c.Get(ctx, id)
 	if err != nil {
 		panic(err)
@@ -400,12 +400,12 @@ func (c *APIClient) GetX(ctx context.Context, id uint64) *API {
 
 // Hooks returns the client hooks.
 func (c *APIClient) Hooks() []Hook {
-	return c.hooks.API
+	return c.hooks.Api
 }
 
 // Interceptors returns the client interceptors.
 func (c *APIClient) Interceptors() []Interceptor {
-	return c.inters.API
+	return c.inters.Api
 }
 
 func (c *APIClient) mutate(ctx context.Context, m *APIMutation) (Value, error) {
@@ -419,7 +419,7 @@ func (c *APIClient) mutate(ctx context.Context, m *APIMutation) (Value, error) {
 	case OpDelete, OpDeleteOne:
 		return (&APIDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
 	default:
-		return nil, fmt.Errorf("ent: unknown API mutation op: %q", m.Op())
+		return nil, fmt.Errorf("ent: unknown Api mutation op: %q", m.Op())
 	}
 }
 
@@ -1982,11 +1982,11 @@ func (c *UserClient) mutate(ctx context.Context, m *UserMutation) (Value, error)
 // hooks and interceptors per client, for fast access.
 type (
 	hooks struct {
-		API, Configuration, Department, Dictionary, DictionaryDetail, Menu,
+		Api, Configuration, Department, Dictionary, DictionaryDetail, Menu,
 		OauthProvider, Position, Role, Token, User []ent.Hook
 	}
 	inters struct {
-		API, Configuration, Department, Dictionary, DictionaryDetail, Menu,
+		Api, Configuration, Department, Dictionary, DictionaryDetail, Menu,
 		OauthProvider, Position, Role, Token, User []ent.Interceptor
 	}
 )

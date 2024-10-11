@@ -65,46 +65,46 @@ func (o OrderDirection) reverse() OrderDirection {
 
 const errInvalidPagination = "INVALID_PAGINATION"
 
-type APIPager struct {
+type ApiPager struct {
 	Order  api.OrderOption
 	Filter func(*APIQuery) (*APIQuery, error)
 }
 
-// APIPaginateOption enables pagination customization.
-type APIPaginateOption func(*APIPager)
+// ApiPaginateOption enables pagination customization.
+type ApiPaginateOption func(*ApiPager)
 
-// DefaultAPIOrder is the default ordering of API.
-var DefaultAPIOrder = Desc(api.FieldID)
+// DefaultApiOrder is the default ordering of Api.
+var DefaultApiOrder = Desc(api.FieldID)
 
-func newAPIPager(opts []APIPaginateOption) (*APIPager, error) {
-	pager := &APIPager{}
+func newApiPager(opts []ApiPaginateOption) (*ApiPager, error) {
+	pager := &ApiPager{}
 	for _, opt := range opts {
 		opt(pager)
 	}
 	if pager.Order == nil {
-		pager.Order = DefaultAPIOrder
+		pager.Order = DefaultApiOrder
 	}
 	return pager, nil
 }
 
-func (p *APIPager) ApplyFilter(query *APIQuery) (*APIQuery, error) {
+func (p *ApiPager) ApplyFilter(query *APIQuery) (*APIQuery, error) {
 	if p.Filter != nil {
 		return p.Filter(query)
 	}
 	return query, nil
 }
 
-// APIPageList is API PageList result.
-type APIPageList struct {
-	List        []*API       `json:"list"`
+// ApiPageList is Api PageList result.
+type ApiPageList struct {
+	List        []*Api       `json:"list"`
 	PageDetails *PageDetails `json:"pageDetails"`
 }
 
 func (a *APIQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...APIPaginateOption,
-) (*APIPageList, error) {
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...ApiPaginateOption,
+) (*ApiPageList, error) {
 
-	pager, err := newAPIPager(opts)
+	pager, err := newApiPager(opts)
 	if err != nil {
 		return nil, err
 	}
@@ -113,7 +113,7 @@ func (a *APIQuery) Page(
 		return nil, err
 	}
 
-	ret := &APIPageList{}
+	ret := &ApiPageList{}
 
 	ret.PageDetails = &PageDetails{
 		Page: pageNum,
@@ -133,7 +133,7 @@ func (a *APIQuery) Page(
 	if pager.Order != nil {
 		a = a.Order(pager.Order)
 	} else {
-		a = a.Order(DefaultAPIOrder)
+		a = a.Order(DefaultApiOrder)
 	}
 
 	a = a.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))

@@ -130,6 +130,12 @@ build-linux: # Build project for Linux | 构建Linux下的可执行文件
 	env CGO_ENABLED=0 GOOS=linux GOARCH=$(GOARCH) go build -ldflags "$(LDFLAGS)" -trimpath -o $(SERVICE_STYLE)_api ./api/$(SERVICE_STYLE).go
 	@echo "Build project for Linux successfully"
 
+dev-api:
+	go run ./api/$(SERVICE_STYLE).go -f ./api/etc/core.yaml
+
+dev-rpc:
+	go run ./rpc/$(SERVICE_STYLE).go -f ./rpc/etc/core.yaml
+
 .PHONY: gen-swagger
 gen-swagger: # Generate swagger file | 生成 swagger 文件
 	swagger generate spec --output=./$(SERVICE_STYLE).$(SWAGGER_TYPE) --scan-models

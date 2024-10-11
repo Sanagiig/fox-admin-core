@@ -3,9 +3,8 @@ package api
 import (
 	"context"
 
-	"github.com/Sanagiig/fox-admin-core/internal/svc"
-	"github.com/Sanagiig/fox-admin-core/internal/types"
-	"github.com/Sanagiig/fox-admin-core/rpc/types/core"
+	"github.com/Sanagiig/fox-admin-core/api/internal/svc"
+	"github.com/Sanagiig/fox-admin-core/api/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -20,17 +19,11 @@ func NewDeleteApiLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DeleteA
 	return &DeleteApiLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
-		svcCtx: svcCtx,
-	}
+		svcCtx: svcCtx}
 }
 
 func (l *DeleteApiLogic) DeleteApi(req *types.IDsReq) (resp *types.BaseMsgResp, err error) {
-	data, err := l.svcCtx.coreRpc.DeleteApi(l.ctx, &__.IDsReq{
-		Ids: req.Ids,
-	})
-	if err != nil {
-		return nil, err
-	}
+	// todo: add your logic here and delete this line
 
-	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, data.Msg)}, nil
+	return
 }

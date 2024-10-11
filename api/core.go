@@ -26,9 +26,9 @@ import (
 	"flag"
 	"fmt"
 
-	"core/internal/config"
-	"core/internal/handler"
-	"core/internal/svc"
+	"github.com/Sanagiig/fox-admin-core/api/internal/config"
+	"github.com/Sanagiig/fox-admin-core/api/internal/handler"
+	"github.com/Sanagiig/fox-admin-core/api/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"

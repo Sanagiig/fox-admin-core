@@ -71,7 +71,7 @@ var (
 	DefaultIsRequired bool
 )
 
-// OrderOption defines the ordering options for the API queries.
+// OrderOption defines the ordering options for the Api queries.
 type OrderOption func(*sql.Selector)
 
 // ByID orders the results by the id field.

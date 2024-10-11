@@ -13,7 +13,7 @@ import (
 	"github.com/Sanagiig/fox-admin-core/rpc/ent/api"
 )
 
-// APICreate is the builder for creating a API entity.
+// APICreate is the builder for creating a Api entity.
 type APICreate struct {
 	config
 	mutation *APIMutation
@@ -119,14 +119,14 @@ func (ac *APICreate) Mutation() *APIMutation {
 	return ac.mutation
 }
 
-// Save creates the API in the database.
-func (ac *APICreate) Save(ctx context.Context) (*API, error) {
+// Save creates the Api in the database.
+func (ac *APICreate) Save(ctx context.Context) (*Api, error) {
 	ac.defaults()
 	return withHooks(ctx, ac.sqlSave, ac.mutation, ac.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (ac *APICreate) SaveX(ctx context.Context) *API {
+func (ac *APICreate) SaveX(ctx context.Context) *Api {
 	v, err := ac.Save(ctx)
 	if err != nil {
 		panic(err)
@@ -174,33 +174,33 @@ func (ac *APICreate) defaults() {
 // check runs all checks and user-defined validators on the builder.
 func (ac *APICreate) check() error {
 	if _, ok := ac.mutation.CreatedAt(); !ok {
-		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "API.created_at"`)}
+		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "Api.created_at"`)}
 	}
 	if _, ok := ac.mutation.UpdatedAt(); !ok {
-		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "API.updated_at"`)}
+		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "Api.updated_at"`)}
 	}
 	if _, ok := ac.mutation.Path(); !ok {
-		return &ValidationError{Name: "path", err: errors.New(`ent: missing required field "API.path"`)}
+		return &ValidationError{Name: "path", err: errors.New(`ent: missing required field "Api.path"`)}
 	}
 	if _, ok := ac.mutation.Description(); !ok {
-		return &ValidationError{Name: "description", err: errors.New(`ent: missing required field "API.description"`)}
+		return &ValidationError{Name: "description", err: errors.New(`ent: missing required field "Api.description"`)}
 	}
 	if _, ok := ac.mutation.APIGroup(); !ok {
-		return &ValidationError{Name: "api_group", err: errors.New(`ent: missing required field "API.api_group"`)}
+		return &ValidationError{Name: "api_group", err: errors.New(`ent: missing required field "Api.api_group"`)}
 	}
 	if _, ok := ac.mutation.ServiceName(); !ok {
-		return &ValidationError{Name: "service_name", err: errors.New(`ent: missing required field "API.service_name"`)}
+		return &ValidationError{Name: "service_name", err: errors.New(`ent: missing required field "Api.service_name"`)}
 	}
 	if _, ok := ac.mutation.Method(); !ok {
-		return &ValidationError{Name: "method", err: errors.New(`ent: missing required field "API.method"`)}
+		return &ValidationError{Name: "method", err: errors.New(`ent: missing required field "Api.method"`)}
 	}
 	if _, ok := ac.mutation.IsRequired(); !ok {
-		return &ValidationError{Name: "is_required", err: errors.New(`ent: missing required field "API.is_required"`)}
+		return &ValidationError{Name: "is_required", err: errors.New(`ent: missing required field "Api.is_required"`)}
 	}
 	return nil
 }
 
-func (ac *APICreate) sqlSave(ctx context.Context) (*API, error) {
+func (ac *APICreate) sqlSave(ctx context.Context) (*Api, error) {
 	if err := ac.check(); err != nil {
 		return nil, err
 	}
@@ -220,9 +220,9 @@ func (ac *APICreate) sqlSave(ctx context.Context) (*API, error) {
 	return _node, nil
 }
 
-func (ac *APICreate) createSpec() (*API, *sqlgraph.CreateSpec) {
+func (ac *APICreate) createSpec() (*Api, *sqlgraph.CreateSpec) {
 	var (
-		_node = &API{config: ac.config}
+		_node = &Api{config: ac.config}
 		_spec = sqlgraph.NewCreateSpec(api.Table, sqlgraph.NewFieldSpec(api.FieldID, field.TypeUint64))
 	)
 	if id, ok := ac.mutation.ID(); ok {
@@ -264,20 +264,20 @@ func (ac *APICreate) createSpec() (*API, *sqlgraph.CreateSpec) {
 	return _node, _spec
 }
 
-// APICreateBulk is the builder for creating many API entities in bulk.
+// APICreateBulk is the builder for creating many Api entities in bulk.
 type APICreateBulk struct {
 	config
 	err      error
 	builders []*APICreate
 }
 
-// Save creates the API entities in the database.
-func (acb *APICreateBulk) Save(ctx context.Context) ([]*API, error) {
+// Save creates the Api entities in the database.
+func (acb *APICreateBulk) Save(ctx context.Context) ([]*Api, error) {
 	if acb.err != nil {
 		return nil, acb.err
 	}
 	specs := make([]*sqlgraph.CreateSpec, len(acb.builders))
-	nodes := make([]*API, len(acb.builders))
+	nodes := make([]*Api, len(acb.builders))
 	mutators := make([]Mutator, len(acb.builders))
 	for i := range acb.builders {
 		func(i int, root context.Context) {
@@ -331,7 +331,7 @@ func (acb *APICreateBulk) Save(ctx context.Context) ([]*API, error) {
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (acb *APICreateBulk) SaveX(ctx context.Context) []*API {
+func (acb *APICreateBulk) SaveX(ctx context.Context) []*Api {
 	v, err := acb.Save(ctx)
 	if err != nil {
 		panic(err)

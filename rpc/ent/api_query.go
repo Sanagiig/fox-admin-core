@@ -15,13 +15,13 @@ import (
 	"github.com/Sanagiig/fox-admin-core/rpc/ent/predicate"
 )
 
-// APIQuery is the builder for querying API entities.
+// APIQuery is the builder for querying Api entities.
 type APIQuery struct {
 	config
 	ctx        *QueryContext
 	order      []api.OrderOption
 	inters     []Interceptor
-	predicates []predicate.API
+	predicates []predicate.Api
 	modifiers  []func(*sql.Selector)
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
@@ -29,7 +29,7 @@ type APIQuery struct {
 }
 
 // Where adds a new predicate for the APIQuery builder.
-func (aq *APIQuery) Where(ps ...predicate.API) *APIQuery {
+func (aq *APIQuery) Where(ps ...predicate.Api) *APIQuery {
 	aq.predicates = append(aq.predicates, ps...)
 	return aq
 }
@@ -59,9 +59,9 @@ func (aq *APIQuery) Order(o ...api.OrderOption) *APIQuery {
 	return aq
 }
 
-// First returns the first API entity from the query.
-// Returns a *NotFoundError when no API was found.
-func (aq *APIQuery) First(ctx context.Context) (*API, error) {
+// First returns the first Api entity from the query.
+// Returns a *NotFoundError when no Api was found.
+func (aq *APIQuery) First(ctx context.Context) (*Api, error) {
 	nodes, err := aq.Limit(1).All(setContextOp(ctx, aq.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
@@ -73,7 +73,7 @@ func (aq *APIQuery) First(ctx context.Context) (*API, error) {
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (aq *APIQuery) FirstX(ctx context.Context) *API {
+func (aq *APIQuery) FirstX(ctx context.Context) *Api {
 	node, err := aq.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
@@ -81,8 +81,8 @@ func (aq *APIQuery) FirstX(ctx context.Context) *API {
 	return node
 }
 
-// FirstID returns the first API ID from the query.
-// Returns a *NotFoundError when no API ID was found.
+// FirstID returns the first Api ID from the query.
+// Returns a *NotFoundError when no Api ID was found.
 func (aq *APIQuery) FirstID(ctx context.Context) (id uint64, err error) {
 	var ids []uint64
 	if ids, err = aq.Limit(1).IDs(setContextOp(ctx, aq.ctx, ent.OpQueryFirstID)); err != nil {
@@ -104,10 +104,10 @@ func (aq *APIQuery) FirstIDX(ctx context.Context) uint64 {
 	return id
 }
 
-// Only returns a single API entity found by the query, ensuring it only returns one.
-// Returns a *NotSingularError when more than one API entity is found.
-// Returns a *NotFoundError when no API entities are found.
-func (aq *APIQuery) Only(ctx context.Context) (*API, error) {
+// Only returns a single Api entity found by the query, ensuring it only returns one.
+// Returns a *NotSingularError when more than one Api entity is found.
+// Returns a *NotFoundError when no Api entities are found.
+func (aq *APIQuery) Only(ctx context.Context) (*Api, error) {
 	nodes, err := aq.Limit(2).All(setContextOp(ctx, aq.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
@@ -123,7 +123,7 @@ func (aq *APIQuery) Only(ctx context.Context) (*API, error) {
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (aq *APIQuery) OnlyX(ctx context.Context) *API {
+func (aq *APIQuery) OnlyX(ctx context.Context) *Api {
 	node, err := aq.Only(ctx)
 	if err != nil {
 		panic(err)
@@ -131,8 +131,8 @@ func (aq *APIQuery) OnlyX(ctx context.Context) *API {
 	return node
 }
 
-// OnlyID is like Only, but returns the only API ID in the query.
-// Returns a *NotSingularError when more than one API ID is found.
+// OnlyID is like Only, but returns the only Api ID in the query.
+// Returns a *NotSingularError when more than one Api ID is found.
 // Returns a *NotFoundError when no entities are found.
 func (aq *APIQuery) OnlyID(ctx context.Context) (id uint64, err error) {
 	var ids []uint64
@@ -159,18 +159,18 @@ func (aq *APIQuery) OnlyIDX(ctx context.Context) uint64 {
 	return id
 }
 
-// All executes the query and returns a list of APIs.
-func (aq *APIQuery) All(ctx context.Context) ([]*API, error) {
+// All executes the query and returns a list of Apis.
+func (aq *APIQuery) All(ctx context.Context) ([]*Api, error) {
 	ctx = setContextOp(ctx, aq.ctx, ent.OpQueryAll)
 	if err := aq.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
-	qr := querierAll[[]*API, *APIQuery]()
-	return withInterceptors[[]*API](ctx, aq, qr, aq.inters)
+	qr := querierAll[[]*Api, *APIQuery]()
+	return withInterceptors[[]*Api](ctx, aq, qr, aq.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (aq *APIQuery) AllX(ctx context.Context) []*API {
+func (aq *APIQuery) AllX(ctx context.Context) []*Api {
 	nodes, err := aq.All(ctx)
 	if err != nil {
 		panic(err)
@@ -178,7 +178,7 @@ func (aq *APIQuery) AllX(ctx context.Context) []*API {
 	return nodes
 }
 
-// IDs executes the query and returns a list of API IDs.
+// IDs executes the query and returns a list of Api IDs.
 func (aq *APIQuery) IDs(ctx context.Context) (ids []uint64, err error) {
 	if aq.ctx.Unique == nil && aq.path != nil {
 		aq.Unique(true)
@@ -250,7 +250,7 @@ func (aq *APIQuery) Clone() *APIQuery {
 		ctx:        aq.ctx.Clone(),
 		order:      append([]api.OrderOption{}, aq.order...),
 		inters:     append([]Interceptor{}, aq.inters...),
-		predicates: append([]predicate.API{}, aq.predicates...),
+		predicates: append([]predicate.Api{}, aq.predicates...),
 		// clone intermediate query.
 		sql:       aq.sql.Clone(),
 		path:      aq.path,
@@ -332,16 +332,16 @@ func (aq *APIQuery) prepareQuery(ctx context.Context) error {
 	return nil
 }
 
-func (aq *APIQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*API, error) {
+func (aq *APIQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Api, error) {
 	var (
-		nodes = []*API{}
+		nodes = []*Api{}
 		_spec = aq.querySpec()
 	)
 	_spec.ScanValues = func(columns []string) ([]any, error) {
-		return (*API).scanValues(nil, columns)
+		return (*Api).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &API{config: aq.config}
+		node := &Api{config: aq.config}
 		nodes = append(nodes, node)
 		return node.assignValues(columns, values)
 	}
@@ -453,7 +453,7 @@ func (aq *APIQuery) Modify(modifiers ...func(s *sql.Selector)) *APISelect {
 	return aq.Select()
 }
 
-// APIGroupBy is the group-by builder for API entities.
+// APIGroupBy is the group-by builder for Api entities.
 type APIGroupBy struct {
 	selector
 	build *APIQuery

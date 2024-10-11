@@ -12,8 +12,8 @@ import (
 	"github.com/Sanagiig/fox-admin-core/rpc/ent/api"
 )
 
-// API is the model entity for the API schema.
-type API struct {
+// Api is the model entity for the Api schema.
+type Api struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID uint64 `json:"id,omitempty"`
@@ -37,7 +37,7 @@ type API struct {
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
-func (*API) scanValues(columns []string) ([]any, error) {
+func (*Api) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
@@ -57,8 +57,8 @@ func (*API) scanValues(columns []string) ([]any, error) {
 }
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
-// to the API fields.
-func (a *API) assignValues(columns []string, values []any) error {
+// to the Api fields.
+func (a *Api) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -125,34 +125,34 @@ func (a *API) assignValues(columns []string, values []any) error {
 	return nil
 }
 
-// Value returns the ent.Value that was dynamically selected and assigned to the API.
+// Value returns the ent.Value that was dynamically selected and assigned to the Api.
 // This includes values selected through modifiers, order, etc.
-func (a *API) Value(name string) (ent.Value, error) {
+func (a *Api) Value(name string) (ent.Value, error) {
 	return a.selectValues.Get(name)
 }
 
-// Update returns a builder for updating this API.
-// Note that you need to call API.Unwrap() before calling this method if this API
+// Update returns a builder for updating this Api.
+// Note that you need to call Api.Unwrap() before calling this method if this Api
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (a *API) Update() *APIUpdateOne {
+func (a *Api) Update() *APIUpdateOne {
 	return NewAPIClient(a.config).UpdateOne(a)
 }
 
-// Unwrap unwraps the API entity that was returned from a transaction after it was closed,
+// Unwrap unwraps the Api entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (a *API) Unwrap() *API {
+func (a *Api) Unwrap() *Api {
 	_tx, ok := a.config.driver.(*txDriver)
 	if !ok {
-		panic("ent: API is not a transactional entity")
+		panic("ent: Api is not a transactional entity")
 	}
 	a.config.driver = _tx.drv
 	return a
 }
 
 // String implements the fmt.Stringer.
-func (a *API) String() string {
+func (a *Api) String() string {
 	var builder strings.Builder
-	builder.WriteString("API(")
+	builder.WriteString("Api(")
 	builder.WriteString(fmt.Sprintf("id=%v, ", a.ID))
 	builder.WriteString("created_at=")
 	builder.WriteString(a.CreatedAt.Format(time.ANSIC))
@@ -181,5 +181,5 @@ func (a *API) String() string {
 	return builder.String()
 }
 
-// APIs is a parsable slice of API.
-type APIs []*API
+// Apis is a parsable slice of Api.
+type Apis []*Api

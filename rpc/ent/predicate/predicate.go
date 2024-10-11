@@ -6,8 +6,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 )
 
-// API is the predicate function for api builders.
-type API func(*sql.Selector)
+// Api is the predicate function for api builders.
+type Api func(*sql.Selector)
 
 // Configuration is the predicate function for configuration builders.
 type Configuration func(*sql.Selector)

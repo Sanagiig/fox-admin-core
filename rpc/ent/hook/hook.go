@@ -9,12 +9,12 @@ import (
 	"github.com/Sanagiig/fox-admin-core/rpc/ent"
 )
 
-// The APIFunc type is an adapter to allow the use of ordinary
-// function as API mutator.
-type APIFunc func(context.Context, *ent.APIMutation) (ent.Value, error)
+// The ApiFunc type is an adapter to allow the use of ordinary
+// function as Api mutator.
+type ApiFunc func(context.Context, *ent.APIMutation) (ent.Value, error)
 
 // Mutate calls f(ctx, m).
-func (f APIFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+func (f ApiFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
 	if mv, ok := m.(*ent.APIMutation); ok {
 		return f(ctx, mv)
 	}

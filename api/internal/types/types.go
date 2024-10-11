@@ -67,118 +67,13 @@ type IDPathReq struct {
 	Id uint64 `path:"id"`
 }
 
-// Basic ID request (int32) | 基础ID参数请求 (int32)
-// swagger:model IDInt32Req
-type IDInt32Req struct {
-	// ID
-	// Required: true
-	Id int32 `json:"id" validate:"number"`
-}
-
-// Basic IDs request (int32) | 基础ID数组参数请求 (int32)
-// swagger:model IDsInt32Req
-type IDsInt32Req struct {
-	// IDs
-	// Required: true
-	Ids []int32 `json:"ids"`
-}
-
-// Basic ID request (int32) | 基础ID地址参数请求 (int32)
-// swagger:model IDInt32PathReq
-type IDInt32PathReq struct {
-	// ID
-	// Required: true
-	Id int32 `path:"id"`
-}
-
-// Basic ID request (uint32) | 基础ID参数请求 (uint32)
-// swagger:model IDUint32Req
-type IDUint32Req struct {
-	// ID
-	// Required: true
-	Id uint32 `json:"id" validate:"number"`
-}
-
-// Basic IDs request (uint32) | 基础ID数组参数请求 (uint32)
-// swagger:model IDsUint32Req
-type IDsUint32Req struct {
-	// IDs
-	// Required: true
-	Ids []uint32 `json:"ids"`
-}
-
-// Basic ID request (uint32) | 基础ID地址参数请求 (uint32)
-// swagger:model IDUint32PathReq
-type IDUint32PathReq struct {
-	// ID
-	// Required: true
-	Id uint32 `path:"id"`
-}
-
-// Basic ID request (int64) | 基础ID参数请求 (int64)
-// swagger:model IDInt64Req
-type IDInt64Req struct {
-	// ID
-	// Required: true
-	Id int64 `json:"id" validate:"number"`
-}
-
-// Basic IDs request (int64) | 基础ID数组参数请求 (int64)
-// swagger:model IDsInt64Req
-type IDsInt64Req struct {
-	// IDs
-	// Required: true
-	Ids []int64 `json:"ids"`
-}
-
-// Basic ID request (int64) | 基础ID地址参数请求 (int64)
-// swagger:model IDInt64PathReq
-type IDInt64PathReq struct {
-	// ID
-	// Required: true
-	Id int64 `path:"id"`
-}
-
-// Basic ID request (string) | 基础ID参数请求 (string)
-// swagger:model IDStringReq
-type IDStringReq struct {
-	// ID
-	// Required: true
-	Id string `json:"id"`
-}
-
-// Basic IDs request (string) | 基础ID数组参数请求 (string)
-// swagger:model IDsStringReq
-type IDsStringReq struct {
-	// IDs
-	// Required: true
-	Ids []string `json:"ids"`
-}
-
-// Basic ID request (string) | 基础ID地址参数请求 (string)
-// swagger:model IDStringPathReq
-type IDStringPathReq struct {
-	// ID
-	// Required: true
-	Id string `path:"id"`
-}
-
-// Basic UUID request in path | 基础UUID地址参数请求
-// swagger:model UUIDPathReq
-type UUIDPathReq struct {
-	// ID
-	// Required: true
-	Id string `path:"id"`
-}
-
 // Basic UUID request | 基础UUID参数请求
 // swagger:model UUIDReq
 type UUIDReq struct {
 	// ID
-	// required : true
-	// max length : 36
-	// min length : 36
-	Id string `json:"id" validate:"required,len=36"`
+	// Required: true
+	// Max length: 36
+	Id string `json:"id" validate:"len=36"`
 }
 
 // Basic UUID array request | 基础UUID数组参数请求
@@ -200,39 +95,6 @@ type BaseIDInfo struct {
 	UpdatedAt *int64 `json:"updatedAt,optional"`
 }
 
-// The base ID response data (int64) | 基础ID信息 (int64)
-// swagger:model BaseIDInt64Info
-type BaseIDInt64Info struct {
-	// ID
-	Id *int64 `json:"id,optional"`
-	// Create date | 创建日期
-	CreatedAt *int64 `json:"createdAt,optional"`
-	// Update date | 更新日期
-	UpdatedAt *int64 `json:"updatedAt,optional"`
-}
-
-// The base ID response data (int32) | 基础ID信息 (int32)
-// swagger:model BaseIDInt32Info
-type BaseIDInt32Info struct {
-	// ID
-	Id *int32 `json:"id,optional"`
-	// Create date | 创建日期
-	CreatedAt *int64 `json:"createdAt,optional"`
-	// Update date | 更新日期
-	UpdatedAt *int64 `json:"updatedAt,optional"`
-}
-
-// The base ID response data (uint32) | 基础ID信息 (uint32)
-// swagger:model BaseIDUint32Info
-type BaseIDUint32Info struct {
-	// ID
-	Id *uint32 `json:"id,optional"`
-	// Create date | 创建日期
-	CreatedAt *int64 `json:"createdAt,optional"`
-	// Update date | 更新日期
-	UpdatedAt *int64 `json:"updatedAt,optional"`
-}
-
 // The base UUID response data | 基础UUID信息
 // swagger:model BaseUUIDInfo
 type BaseUUIDInfo struct {
@@ -244,13 +106,420 @@ type BaseUUIDInfo struct {
 	UpdatedAt *int64 `json:"updatedAt,optional"`
 }
 
-// The base ID response data (string) | 基础ID信息 (string)
-// swagger:model BaseIDStringInfo
-type BaseIDStringInfo struct {
-	// ID
-	Id *string `json:"id,optional"`
-	// Create date | 创建日期
-	CreatedAt *int64 `json:"createdAt,optional"`
-	// Update date | 更新日期
-	UpdatedAt *int64 `json:"updatedAt,optional"`
+// swagger:model UserInfo
+type UserInfo struct {
+	BaseUUIDInfo
+	// Status | 状态
+	// max : 20
+	Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
+	// Username | 用户名
+	// max length : 50
+	Username *string `json:"username,optional" validate:"omitempty,max=50"`
+	// Nickname | 昵称
+	// max length : 40
+	Nickname *string `json:"nickname,optional" validate:"omitempty,max=40"`
+	// Password | 密码
+	// min length : 6
+	Password *string `json:"password,optional" validate:"omitempty,min=6"`
+	// Description | 描述
+	// max length : 100
+	Description *string `json:"description,optional" validate:"omitempty,max=100"`
+	// HomePath | 首页
+	// max length : 70
+	HomePath *string `json:"homePath,optional" validate:"omitempty,max=70"`
+	// RoleId | 角色ID
+	RoleIds []uint64 `json:"roleIds,optional"`
+	// Mobile | 手机号
+	// max length : 18
+	Mobile *string `json:"mobile,optional" validate:"omitempty,max=18"`
+	// Email | 邮箱
+	// max length : 80
+	Email *string `json:"email,optional" validate:"omitempty,max=80"`
+	// Avatar | 头像地址
+	// max length : 300
+	Avatar *string `json:"avatar,optional" validate:"omitempty,max=300"`
+	// Department ID | 部门ID
+	DepartmentId *uint64 `json:"departmentId,optional,omitempty"`
+	// Position ID | 职位ID
+	PositionIds []uint64 `json:"positionId,optional,omitempty"`
+}
+
+// User list data | 用户列表数据
+// swagger:model UserListInfo
+type UserListInfo struct {
+	BaseListInfo
+	// The API list data | User列表数据
+	Data []UserInfo `json:"data"`
+}
+
+// The log in information | 登陆返回的数据信息
+// swagger:model LoginInfo
+type LoginInfo struct {
+	// User's UUID | 用户的UUID
+	UserId string `json:"userId"`
+	// Token for authorization | 验证身份的token
+	Token string `json:"token"`
+	// Expire timestamp | 过期时间戳
+	Expire uint64 `json:"expire"`
+}
+
+// The simple role data | 简单的角色数据
+// swagger:model RoleInfoSimple
+type RoleInfoSimple struct {
+	// Role name | 角色名
+	RoleName string `json:"roleName"`
+	// Role value | 角色值
+	Value string `json:"value"`
+}
+
+// The  data of user's basic information | 用户基本信息
+// swagger:model UserBaseIDInfo
+type UserBaseIDInfo struct {
+	// User's UUID | 用户的UUID
+	UUID *string `json:"userId"`
+	// User's name | 用户名
+	Username *string `json:"username"`
+	// User's nickname | 用户的昵称
+	Nickname *string `json:"nickname"`
+	// The user's avatar path | 用户的头像路径
+	Avatar *string `json:"avatar"`
+	// The home page that the user enters after logging in | 用户登陆后进入的首页
+	HomePath *string `json:"homePath"`
+	// The description of user | 用户的描述信息
+	Description *string `json:"desc"`
+	// User's Role Name | 用户的角色名称
+	RoleName []string `json:"roleName"`
+	// Department Name | 部门名称
+	DepartmentName string `json:"departmentName,optional"`
+}
+
+// The profile information | 个人信息
+// swagger:model ProfileInfo
+type ProfileInfo struct {
+	// user's nickname | 用户的昵称
+	// max length : 10
+	Nickname *string `json:"nickname" validate:"omitempty,alphanumunicode,max=10"`
+	// The user's avatar path | 用户的头像路径
+	// max length : 300
+	Avatar *string `json:"avatar" validate:"omitempty,max=300"`
+	// User's mobile phone number | 用户的手机号码
+	// max length : 18
+	Mobile *string `json:"mobile" validate:"omitempty,numeric,max=18"`
+	// The user's email address | 用户的邮箱
+	// max length : 100
+	Email *string `json:"email" validate:"omitempty,email,max=100"`
+}
+
+// Refresh token information | 刷新令牌信息
+// swagger:model RefreshTokenInfo
+type RefreshTokenInfo struct {
+	Token     string `json:"token"`
+	ExpiredAt int64  `json:"expiredAt"`
+}
+
+// register request | 注册参数
+// swagger:model RegisterReq
+type RegisterReq struct {
+	// User Name | 用户名
+	// required : true
+	// max length : 20
+	Username string `json:"username" validate:"required,alphanum,max=20"`
+	// Password | 密码
+	// required : true
+	// max length : 30
+	// min length : 6
+	Password string `json:"password" validate:"required,max=30,min=6"`
+	// Captcha ID which store in redis | 验证码编号, 存在redis中
+	// required : true
+	// max length : 20
+	// min length : 20
+	CaptchaId string `json:"captchaId" validate:"required,len=20"`
+	// The Captcha which users input | 用户输入的验证码
+	// required : true
+	// max length : 5
+	// min length : 5
+	Captcha string `json:"captcha" validate:"required,len=5"`
+	// The user's email address | 用户的邮箱
+	// required : true
+	// max length : 100
+	Email string `json:"email" validate:"required,email,max=100"`
+}
+
+// Register by email request | 邮箱注册参数
+// swagger:model RegisterByEmailReq
+type RegisterByEmailReq struct {
+	// User Name | 用户名
+	// required : true
+	// max length : 20
+	Username string `json:"username" validate:"required,alphanum,max=20"`
+	// Password | 密码
+	// required : true
+	// max length : 30
+	// min length : 6
+	Password string `json:"password" validate:"required,max=30,min=6"`
+	// The Captcha which users input | 用户输入的验证码
+	// required : true
+	// max length : 5
+	// min length : 5
+	Captcha string `json:"captcha" validate:"required,len=5"`
+	// The user's email address | 用户的邮箱
+	// required : true
+	// max length : 100
+	Email string `json:"email" validate:"required,email,max=100"`
+}
+
+// Register by SMS request | 短信注册参数
+// swagger:model RegisterBySmsReq
+type RegisterBySmsReq struct {
+	// User Name | 用户名
+	// required : true
+	// max length : 20
+	Username string `json:"username" validate:"required,alphanum,max=20"`
+	// Password | 密码
+	// required : true
+	// max length : 30
+	// min length : 6
+	Password string `json:"password" validate:"required,max=30,min=6"`
+	// The Captcha which users input | 用户输入的验证码
+	// required : true
+	// max length : 5
+	// min length : 5
+	Captcha string `json:"captcha" validate:"required,len=5"`
+	// The user's mobile phone number | 用户的手机号码
+	// required : true
+	// max length : 20
+	PhoneNumber string `json:"phoneNumber"  validate:"required,numeric,max=20"`
+}
+
+// change user's password request | 修改密码请求参数
+// swagger:model ChangePasswordReq
+type ChangePasswordReq struct {
+	// User's old password | 用户旧密码
+	// required : true
+	// max length : 30
+	OldPassword string `json:"oldPassword" validate:"required,max=30"`
+	// User's new password | 用户新密码
+	// required : true
+	// max length : 30
+	NewPassword string `json:"newPassword" validate:"required,max=30"`
+}
+
+// Get user list request params | 用户列表请求参数
+// swagger:model UserListReq
+type UserListReq struct {
+	PageInfo
+	// User Name | 用户名
+	// max length : 20
+	Username *string `json:"username,optional" validate:"omitempty,alphanum,max=20"`
+	// User's nickname | 用户的昵称
+	// max length : 10
+	Nickname *string `json:"nickname,optional" validate:"omitempty,alphanumunicode,max=10"`
+	// User's mobile phone number | 用户的手机号码
+	// max length : 18
+	Mobile *string `json:"mobile,optional" validate:"omitempty,numeric,max=18"`
+	// The user's email address | 用户的邮箱
+	// max length : 100
+	Email *string `json:"email,optional" validate:"omitempty,email,max=100"`
+	// User's role ID | 用户的角色ID
+	RoleIds []uint64 `json:"roleIds,optional"`
+	// The user's department ID | 用户所属部门ID
+	DepartmentId *uint64 `json:"departmentId,optional"`
+	// User's position id | 用户的职位ID
+	PositionId *uint64 `json:"positionId,optional"`
+}
+
+// Login request | 登录参数
+// swagger:model LoginReq
+type LoginReq struct {
+	// User Name | 用户名
+	// required : true
+	// max length : 20
+	Username string `json:"username" validate:"required,alphanum,max=20"`
+	// Password | 密码
+	// required : true
+	// max length : 30
+	// min length : 6
+	Password string `json:"password" validate:"required,max=30,min=6"`
+	// Captcha ID which store in redis | 验证码编号, 存在redis中
+	// required : true
+	// max length : 20
+	// min length : 20
+	CaptchaId string `json:"captchaId"  validate:"required,len=20"`
+	// The Captcha which users input | 用户输入的验证码
+	// required : true
+	// max length : 5
+	// min length : 5
+	Captcha string `json:"captcha" validate:"required,len=5"`
+}
+
+// Log in by email request | 邮箱登录参数
+// swagger:model LoginByEmailReq
+type LoginByEmailReq struct {
+	// The user's email address | 用户的邮箱
+	// required : true
+	// max length : 100
+	Email string `json:"email" validate:"required,email,max=100"`
+	// The Captcha which users input | 用户输入的验证码
+	// max length : 5
+	// min length : 5
+	Captcha string `json:"captcha,optional" validate:"omitempty,len=5"`
+}
+
+// Log in by SMS request | 短信登录参数
+// swagger:model LoginBySmsReq
+type LoginBySmsReq struct {
+	// The user's mobile phone number | 用户的手机号码
+	// required : true
+	// max length : 20
+	PhoneNumber string `json:"phoneNumber"  validate:"required,numeric,max=20"`
+	// The Captcha which users input | 用户输入的验证码
+	// max length : 5
+	// min length : 5
+	Captcha string `json:"captcha,optional" validate:"omitempty,len=5"`
+}
+
+// Reset password by email request | 通过邮箱重置密码请求
+// swagger:model ResetPasswordByEmailReq
+type ResetPasswordByEmailReq struct {
+	Email    string `json:"email" validate:"email"`
+	Captcha  string `json:"captcha"`
+	Password string `json:"password"`
+}
+
+// Reset password by SMS request | 通过短信重置密码请求
+// swagger:model ResetPasswordBySmsReq
+type ResetPasswordBySmsReq struct {
+	PhoneNumber string `json:"phoneNumber"`
+	Captcha     string `json:"captcha"`
+	Password    string `json:"password"`
+}
+
+// The log in response data | 登录返回数据
+// swagger:model LoginResp
+type LoginResp struct {
+	BaseDataInfo
+	// The log in information | 登陆返回的数据信息
+	Data LoginInfo `json:"data"`
+}
+
+// User information response | 用户信息返回体
+// swagger:model UserInfoResp
+type UserInfoResp struct {
+	BaseDataInfo
+	// User information | User数据
+	Data UserInfo `json:"data"`
+}
+
+// The response data of user list | 用户列表数据
+// swagger:model UserListResp
+type UserListResp struct {
+	BaseDataInfo
+	// User list data | User列表数据
+	Data UserListInfo `json:"data"`
+}
+
+// The response data of user's basic information | 用户基本信息返回数据
+// swagger:model UserBaseIDInfoResp
+type UserBaseIDInfoResp struct {
+	BaseDataInfo
+	// The  data of user's basic information | 用户基本信息
+	Data UserBaseIDInfo `json:"data"`
+}
+
+// The permission code for front end permission control | 权限码： 用于前端权限控制
+// swagger:model PermCodeResp
+type PermCodeResp struct {
+	BaseDataInfo
+	// Permission code data | 权限码数据
+	Data []string `json:"data"`
+}
+
+// The profile response data | 个人信息返回数据
+// swagger:model ProfileResp
+type ProfileResp struct {
+	BaseDataInfo
+	// The profile information | 个人信息
+	Data ProfileInfo `json:"data"`
+}
+
+// Refresh token response data | 刷新令牌响应数据
+// swagger:model RefreshTokenResp
+type RefreshTokenResp struct {
+	BaseDataInfo
+	// The token information | 令牌信息
+	Data RefreshTokenInfo `json:"data"`
+}
+
+// The API information | API信息
+// swagger:model ApiInfo
+type ApiInfo struct {
+	BaseIDInfo
+	// Translated Name | 多语言名称
+	Trans string `json:"trans,optional"`
+	// API path | API路径
+	// min length : 1
+	// max length : 80
+	Path *string `json:"path,optional" validate:"omitempty,min=1,max=80"`
+	// API Description | API 描述
+	// max length : 100
+	Description *string `json:"description,optional" validate:"omitempty,max=100"`
+	// API group | API分组
+	// min length : 1
+	// max length : 80
+	Group *string `json:"group,optional" validate:"omitempty,min=1,max=80"`
+	// API request method e.g. POST | API请求类型 如POST
+	// min length : 3
+	// max length : 7
+	Method *string `json:"method,optional" validate:"omitempty,uppercase,min=3,max=7"`
+	// Whether is required | 是否是必须的 api
+	IsRequired *bool `json:"isRequired,optional"`
+	// Service name | 服务名称
+	ServiceName *string `json:"serviceName,optional"`
+}
+
+// The response data of API list | API列表数据
+// swagger:model ApiListResp
+type ApiListResp struct {
+	BaseDataInfo
+	// API list data | API 列表数据
+	Data ApiListInfo `json:"data"`
+}
+
+// API list data | API 列表数据
+// swagger:model ApiListInfo
+type ApiListInfo struct {
+	BaseListInfo
+	// The API list data | API列表数据
+	Data []ApiInfo `json:"data"`
+}
+
+// Get API list request params | API列表请求参数
+// swagger:model ApiListReq
+type ApiListReq struct {
+	PageInfo
+	// API path | API路径
+	// max length : 200
+	Path *string `json:"path,optional" validate:"omitempty,max=200"`
+	// API Description | API 描述
+	// max length : 100
+	Description *string `json:"description,optional" validate:"omitempty,max=100"`
+	// API group | API分组
+	// max length : 80
+	Group *string `json:"group,optional" validate:"omitempty,max=80"`
+	// API request method e.g. POST | API请求类型 如POST
+	// min length : 3
+	// max length : 7
+	Method *string `json:"method,optional" validate:"omitempty,uppercase,min=3,max=7"`
+	// Whether is required | 是否是必须的 api
+	IsRequired *bool `json:"isRequired,optional"`
+	// Service name | 服务名称
+	ServiceName *string `json:"serviceName,optional"`
+}
+
+// API information response | API信息返回体
+// swagger:model ApiInfoResp
+type ApiInfoResp struct {
+	BaseDataInfo
+	// API information | API数据
+	Data ApiInfo `json:"data"`
 }

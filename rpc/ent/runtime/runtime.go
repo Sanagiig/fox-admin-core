@@ -24,10 +24,10 @@ import (
 // (default values, validators, hooks and policies) and stitches it
 // to their package variables.
 func init() {
-	apiMixin := schema.API{}.Mixin()
+	apiMixin := schema.Api{}.Mixin()
 	apiMixinFields0 := apiMixin[0].Fields()
 	_ = apiMixinFields0
-	apiFields := schema.API{}.Fields()
+	apiFields := schema.Api{}.Fields()
 	_ = apiFields
 	// apiDescCreatedAt is the schema descriptor for created_at field.
 	apiDescCreatedAt := apiMixinFields0[1].Descriptor()
