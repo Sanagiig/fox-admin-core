@@ -5,6 +5,8 @@ import (
 
 	"github.com/Sanagiig/fox-admin-core/api/internal/svc"
 	"github.com/Sanagiig/fox-admin-core/api/internal/types"
+	"github.com/Sanagiig/fox-admin-core/rpc/types/core"
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -23,7 +25,16 @@ func NewUpdateUserProfileLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *UpdateUserProfileLogic) UpdateUserProfile(req *types.ProfileInfo) (resp *types.BaseMsgResp, err error) {
-	// todo: add your logic here and delete this line
+	result, err := l.svcCtx.CoreRpc.UpdateUser(l.ctx, &core.UserInfo{
+		Id:       pointy.GetPointer(l.ctx.Value("userId").(string)),
+		Nickname: req.Nickname,
+		Email:    req.Email,
+		Mobile:   req.Mobile,
+		Avatar:   req.Avatar,
+	})
+	if err != nil {
+		return nil, err
+	}
 
-	return
+	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, result.Msg)}, nil
 }

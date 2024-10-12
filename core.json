@@ -158,6 +158,80 @@
         }
       }
     },
+    "/captcha": {
+      "get": {
+        "description": "Get captcha | 获取验证码",
+        "tags": [
+          "captcha"
+        ],
+        "summary": "Get captcha | 获取验证码",
+        "operationId": "GetCaptcha",
+        "responses": {
+          "200": {
+            "description": "CaptchaResp",
+            "schema": {
+              "$ref": "#/definitions/CaptchaResp"
+            }
+          }
+        }
+      }
+    },
+    "/captcha/email": {
+      "post": {
+        "description": "Get Email Captcha | 获取邮箱验证码",
+        "tags": [
+          "captcha"
+        ],
+        "summary": "Get Email Captcha | 获取邮箱验证码",
+        "operationId": "GetEmailCaptcha",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/EmailCaptchaReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/captcha/sms": {
+      "post": {
+        "description": "Get SMS Captcha | 获取短信验证码",
+        "tags": [
+          "captcha"
+        ],
+        "summary": "Get SMS Captcha | 获取短信验证码",
+        "operationId": "GetSmsCaptcha",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/SmsCaptchaReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
     "/core/init/database": {
       "get": {
         "description": "Initialize database | 初始化数据库",
@@ -202,6 +276,266 @@
         ],
         "summary": "Initialize Message Center database | 初始化消息中心数据库",
         "operationId": "InitMcmsDatabase",
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/menu/create": {
+      "post": {
+        "description": "Create menu information | 创建菜单",
+        "tags": [
+          "menu"
+        ],
+        "summary": "Create menu information | 创建菜单",
+        "operationId": "CreateMenu",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/MenuPlainInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/menu/delete": {
+      "post": {
+        "description": "Delete menu information | 删除菜单信息",
+        "tags": [
+          "menu"
+        ],
+        "summary": "Delete menu information | 删除菜单信息",
+        "operationId": "DeleteMenu",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/menu/list": {
+      "get": {
+        "description": "Get menu list | 获取菜单列表",
+        "tags": [
+          "menu"
+        ],
+        "summary": "Get menu list | 获取菜单列表",
+        "operationId": "GetMenuList",
+        "responses": {
+          "200": {
+            "description": "MenuPlainInfoListResp",
+            "schema": {
+              "$ref": "#/definitions/MenuPlainInfoListResp"
+            }
+          }
+        }
+      }
+    },
+    "/menu/role/list": {
+      "get": {
+        "description": "Get menu list by role | 获取菜单列表",
+        "tags": [
+          "menu"
+        ],
+        "summary": "Get menu list by role | 获取菜单列表",
+        "operationId": "GetMenuListByRole",
+        "responses": {
+          "200": {
+            "description": "MenuListResp",
+            "schema": {
+              "$ref": "#/definitions/MenuListResp"
+            }
+          }
+        }
+      }
+    },
+    "/menu/update": {
+      "post": {
+        "description": "Update menu information | 更新菜单",
+        "tags": [
+          "menu"
+        ],
+        "summary": "Update menu information | 更新菜单",
+        "operationId": "UpdateMenu",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/MenuPlainInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/role": {
+      "post": {
+        "description": "Get Role by ID | 通过ID获取角色",
+        "tags": [
+          "role"
+        ],
+        "summary": "Get Role by ID | 通过ID获取角色",
+        "operationId": "GetRoleById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "RoleInfoResp",
+            "schema": {
+              "$ref": "#/definitions/RoleInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/role/create": {
+      "post": {
+        "description": "Create role information | 创建角色",
+        "tags": [
+          "role"
+        ],
+        "summary": "Create role information | 创建角色",
+        "operationId": "CreateRole",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/RoleInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/role/delete": {
+      "post": {
+        "description": "Delete role information | 删除角色信息",
+        "tags": [
+          "role"
+        ],
+        "summary": "Delete role information | 删除角色信息",
+        "operationId": "DeleteRole",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/role/list": {
+      "post": {
+        "description": "Get role list | 获取角色列表",
+        "tags": [
+          "role"
+        ],
+        "summary": "Get role list | 获取角色列表",
+        "operationId": "GetRoleList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/RoleListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "RoleListResp",
+            "schema": {
+              "$ref": "#/definitions/RoleListResp"
+            }
+          }
+        }
+      }
+    },
+    "/role/update": {
+      "post": {
+        "description": "Update role information | 更新角色",
+        "tags": [
+          "role"
+        ],
+        "summary": "Update role information | 更新角色",
+        "operationId": "UpdateRole",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/RoleInfo"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "BaseMsgResp",
@@ -1044,6 +1378,45 @@
       },
       "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
     },
+    "CaptchaInfo": {
+      "description": "The information of captcha | 验证码数据",
+      "type": "object",
+      "properties": {
+        "captchaId": {
+          "type": "string",
+          "x-go-name": "CaptchaId"
+        },
+        "imgPath": {
+          "type": "string",
+          "x-go-name": "ImgPath"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "CaptchaResp": {
+      "description": "The response data of captcha | 验证码返回数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/CaptchaInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
     "ChangePasswordReq": {
       "description": "change user's password request | 修改密码请求参数",
       "type": "object",
@@ -1063,6 +1436,18 @@
           "type": "string",
           "maxLength": 30,
           "x-go-name": "OldPassword"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "EmailCaptchaReq": {
+      "description": "The email captcha request | 邮箱验证码请求参数",
+      "type": "object",
+      "properties": {
+        "email": {
+          "description": "The email address | 邮箱地址",
+          "type": "string",
+          "x-go-name": "Email"
         }
       },
       "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
@@ -1246,6 +1631,441 @@
           "description": "Message | 提示信息",
           "type": "string",
           "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "MenuInfo": {
+      "description": "The response data of menu information | 菜单信息",
+      "type": "object",
+      "properties": {
+        "component": {
+          "description": "Component | 组件地址",
+          "type": "string",
+          "x-go-name": "Component"
+        },
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "disabled": {
+          "description": "Disabled | 是否启用",
+          "type": "boolean",
+          "x-go-name": "Disabled"
+        },
+        "id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        },
+        "level": {
+          "description": "Level | 菜单层级",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "Level"
+        },
+        "menuType": {
+          "description": "MenuType | 菜单类型",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "MenuType"
+        },
+        "meta": {
+          "$ref": "#/definitions/Meta"
+        },
+        "name": {
+          "description": "Menu name | 菜单名称",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "parentId": {
+          "description": "ParentId | 父级菜单ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "ParentId"
+        },
+        "path": {
+          "description": "Path | 菜单访问路径",
+          "type": "string",
+          "x-go-name": "Path"
+        },
+        "permission": {
+          "description": "Permission symbol | 权限标识",
+          "type": "string",
+          "x-go-name": "Permission"
+        },
+        "redirect": {
+          "description": "Redirect | 跳转地址",
+          "type": "string",
+          "x-go-name": "Redirect"
+        },
+        "serviceName": {
+          "description": "Service Name | 服务名称",
+          "type": "string",
+          "x-go-name": "ServiceName"
+        },
+        "sort": {
+          "description": "Sort | 排序",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "Sort"
+        },
+        "trans": {
+          "description": "Translated Name | 国际化展示名称",
+          "type": "string",
+          "x-go-name": "Trans"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "MenuInfoResp": {
+      "description": "Menu information response | 菜单信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/MenuInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "MenuListInfo": {
+      "description": "Menu list data | Menu列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The menu list data | 菜单列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MenuInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "MenuListResp": {
+      "description": "The response data of menu list | 菜单列表返回数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/MenuListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "MenuPlainInfo": {
+      "description": "Menu information plain | 菜单信息无嵌套",
+      "type": "object",
+      "properties": {
+        "affix": {
+          "description": "Affix tab | 是否固定标签",
+          "type": "boolean",
+          "x-go-name": "Affix"
+        },
+        "carryParam": {
+          "description": "The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true",
+          "type": "boolean",
+          "x-go-name": "CarryParam"
+        },
+        "component": {
+          "description": "Component | 组件地址",
+          "type": "string",
+          "maxLength": 80,
+          "x-go-name": "Component"
+        },
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "disabled": {
+          "description": "Disabled | 是否启用",
+          "type": "boolean",
+          "x-go-name": "Disabled"
+        },
+        "dynamicLevel": {
+          "description": "The maximum number of pages the router can open | 动态路由可打开Tab页数",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "DynamicLevel"
+        },
+        "frameSrc": {
+          "description": "Iframe path | 内嵌iframe的地址",
+          "type": "string",
+          "maxLength": 300,
+          "x-go-name": "FrameSrc"
+        },
+        "hideBreadcrumb": {
+          "description": "If hide the breadcrumb | 隐藏面包屑",
+          "type": "boolean",
+          "x-go-name": "HideBreadcrumb"
+        },
+        "hideChildrenInMenu": {
+          "description": "Hide children menu or not | 隐藏所有子菜单",
+          "type": "boolean",
+          "x-go-name": "HideChildrenInMenu"
+        },
+        "hideMenu": {
+          "description": "Hide menu | 隐藏菜单",
+          "type": "boolean",
+          "x-go-name": "HideMenu"
+        },
+        "hideTab": {
+          "description": "Hide the tab header | 当前路由不在标签页显示",
+          "type": "boolean",
+          "x-go-name": "HideTab"
+        },
+        "icon": {
+          "description": "Menu Icon | 菜单图标",
+          "type": "string",
+          "maxLength": 50,
+          "x-go-name": "Icon"
+        },
+        "id": {
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        },
+        "ignoreKeepAlive": {
+          "description": "Do not keep alive the tab | 不缓存Tab",
+          "type": "boolean",
+          "x-go-name": "IgnoreKeepAlive"
+        },
+        "level": {
+          "description": "Level | 菜单层级",
+          "type": "integer",
+          "format": "uint32",
+          "maximum": 20,
+          "x-go-name": "Level"
+        },
+        "menuType": {
+          "description": "MenuType | 菜单类型",
+          "type": "integer",
+          "format": "uint32",
+          "maximum": 10,
+          "x-go-name": "MenuType"
+        },
+        "name": {
+          "description": "Menu name | 菜单名称",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Name"
+        },
+        "parentId": {
+          "description": "ParentId | 父级菜单ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "ParentId"
+        },
+        "path": {
+          "description": "Path | 菜单访问路径",
+          "type": "string",
+          "maxLength": 200,
+          "x-go-name": "Path"
+        },
+        "permission": {
+          "description": "Permission symbol | 权限标识",
+          "type": "string",
+          "x-go-name": "Permission"
+        },
+        "realPath": {
+          "description": "The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分",
+          "type": "string",
+          "x-go-name": "RealPath"
+        },
+        "redirect": {
+          "description": "Redirect | 跳转地址",
+          "type": "string",
+          "maxLength": 300,
+          "x-go-name": "Redirect"
+        },
+        "serviceName": {
+          "description": "Service Name | 服务名称",
+          "type": "string",
+          "x-go-name": "ServiceName"
+        },
+        "sort": {
+          "description": "Sort | 排序",
+          "type": "integer",
+          "format": "uint32",
+          "maximum": 10000,
+          "x-go-name": "Sort"
+        },
+        "title": {
+          "description": "Menu title show in page | 菜单显示名",
+          "type": "string",
+          "maxLength": 50,
+          "x-go-name": "Title"
+        },
+        "trans": {
+          "description": "Translated Name | 国际化展示名称",
+          "type": "string",
+          "x-go-name": "Trans"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "MenuPlainInfoList": {
+      "description": "Menu list data | 菜单列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The menu list data | 菜单列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MenuPlainInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "MenuPlainInfoListResp": {
+      "description": "Menu list data response | 菜单列表数据返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/MenuPlainInfoList"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "Meta": {
+      "description": "The meta data of menu | 菜单的meta数据",
+      "type": "object",
+      "properties": {
+        "affix": {
+          "description": "Affix tab | 是否固定标签",
+          "type": "boolean",
+          "x-go-name": "Affix"
+        },
+        "carryParam": {
+          "description": "The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true",
+          "type": "boolean",
+          "x-go-name": "CarryParam"
+        },
+        "dynamicLevel": {
+          "description": "The maximum number of pages the router can open | 动态路由可打开Tab页数",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "DynamicLevel"
+        },
+        "frameSrc": {
+          "description": "Iframe path | 内嵌iframe的地址",
+          "type": "string",
+          "x-go-name": "FrameSrc"
+        },
+        "hideBreadcrumb": {
+          "description": "If hide the breadcrumb | 隐藏面包屑",
+          "type": "boolean",
+          "x-go-name": "HideBreadcrumb"
+        },
+        "hideChildrenInMenu": {
+          "description": "Hide children menu or not | 隐藏所有子菜单",
+          "type": "boolean",
+          "x-go-name": "HideChildrenInMenu"
+        },
+        "hideMenu": {
+          "description": "Hide menu | 隐藏菜单",
+          "type": "boolean",
+          "x-go-name": "HideMenu"
+        },
+        "hideTab": {
+          "description": "Hide the tab header | 当前路由不在标签页显示",
+          "type": "boolean",
+          "x-go-name": "HideTab"
+        },
+        "icon": {
+          "description": "Menu Icon | 菜单图标",
+          "type": "string",
+          "maxLength": 50,
+          "x-go-name": "Icon"
+        },
+        "ignoreKeepAlive": {
+          "description": "Do not keep alive the tab | 不缓存Tab",
+          "type": "boolean",
+          "x-go-name": "IgnoreKeepAlive"
+        },
+        "realPath": {
+          "description": "The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分",
+          "type": "string",
+          "x-go-name": "RealPath"
+        },
+        "title": {
+          "description": "Menu title show in page | 菜单显示名",
+          "type": "string",
+          "maxLength": 50,
+          "x-go-name": "Title"
         }
       },
       "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
@@ -1559,6 +2379,98 @@
       },
       "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
     },
+    "RoleInfo": {
+      "description": "The response data of role information | 角色信息",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Role code | 角色码",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "Code"
+        },
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "defaultRouter": {
+          "description": "DefaultRouter | 默认首页",
+          "type": "string",
+          "maxLength": 80,
+          "x-go-name": "DefaultRouter"
+        },
+        "id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        },
+        "name": {
+          "description": "Name | 角色名称",
+          "type": "string",
+          "maxLength": 30,
+          "x-go-name": "Name"
+        },
+        "remark": {
+          "description": "Remark | 备注",
+          "type": "string",
+          "maxLength": 200,
+          "x-go-name": "Remark"
+        },
+        "sort": {
+          "description": "Sort | 排序",
+          "type": "integer",
+          "format": "uint32",
+          "maximum": 10000,
+          "x-go-name": "Sort"
+        },
+        "status": {
+          "description": "Status | 状态",
+          "type": "integer",
+          "format": "uint32",
+          "maximum": 20,
+          "x-go-name": "Status"
+        },
+        "trans": {
+          "description": "Translated Name | 展示名称",
+          "type": "string",
+          "x-go-name": "Trans"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "RoleInfoResp": {
+      "description": "Role information response | 角色信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/RoleInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
     "RoleInfoSimple": {
       "description": "The simple role data | 简单的角色数据",
       "type": "object",
@@ -1572,6 +2484,93 @@
           "description": "Role value | 角色值",
           "type": "string",
           "x-go-name": "Value"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "RoleListInfo": {
+      "description": "Role list data | 角色列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The API list data | 角色列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RoleInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "RoleListReq": {
+      "description": "Get role list request params | 角色列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "name": {
+          "description": "Name | 角色名称",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "RoleListResp": {
+      "description": "The response data of role list | 角色列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/RoleListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "SmsCaptchaReq": {
+      "description": "The sms captcha request | 短信验证码请求参数",
+      "type": "object",
+      "properties": {
+        "phoneNumber": {
+          "description": "The phone number | 电话号码",
+          "type": "string",
+          "x-go-name": "PhoneNumber"
         }
       },
       "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"

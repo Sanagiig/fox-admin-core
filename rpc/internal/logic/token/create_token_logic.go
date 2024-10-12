@@ -7,8 +7,8 @@ import (
 	"github.com/Sanagiig/fox-admin-core/rpc/internal/utils/dberrorhandler"
 	"github.com/Sanagiig/fox-admin-core/rpc/types/core"
 
-    "github.com/suyuan32/simple-admin-common/i18n"
-    "github.com/suyuan32/simple-admin-common/utils/uuidx"
+	"github.com/suyuan32/simple-admin-common/i18n"
+	"github.com/suyuan32/simple-admin-common/utils/uuidx"
 
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -29,12 +29,12 @@ func NewCreateTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Creat
 }
 
 func (l *CreateTokenLogic) CreateToken(in *core.TokenInfo) (*core.BaseUUIDResp, error) {
-    query := l.svcCtx.DB.Token.Create().
-			SetNotNilUUID(uuidx.ParseUUIDStringToPointer(in.Uuid)).
-			SetNotNilUsername(in.Username).
-			SetNotNilToken(in.Token).
-			SetNotNilSource(in.Source).
-			SetNotNilExpiredAt(pointy.GetTimeMilliPointer(in.ExpiredAt))
+	query := l.svcCtx.DB.Token.Create().
+		SetNotNilUUID(uuidx.ParseUUIDStringToPointer(in.Uuid)).
+		SetNotNilUsername(in.Username).
+		SetNotNilToken(in.Token).
+		SetNotNilSource(in.Source).
+		SetNotNilExpiredAt(pointy.GetTimeMilliPointer(in.ExpiredAt))
 
 	if in.Status != nil {
 		query.SetNotNilStatus(pointy.GetPointer(uint8(*in.Status)))
@@ -42,9 +42,9 @@ func (l *CreateTokenLogic) CreateToken(in *core.TokenInfo) (*core.BaseUUIDResp, 
 
 	result, err := query.Save(l.ctx)
 
-    if err != nil {
+	if err != nil {
 		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
-    return &core.BaseUUIDResp{Id: result.ID.String(), Msg: i18n.CreateSuccess }, nil
+	return &core.BaseUUIDResp{Id: result.ID.String(), Msg: i18n.CreateSuccess}, nil
 }

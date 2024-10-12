@@ -5,6 +5,7 @@ import (
 
 	"github.com/Sanagiig/fox-admin-core/api/internal/svc"
 	"github.com/Sanagiig/fox-admin-core/api/internal/types"
+	"github.com/Sanagiig/fox-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -23,7 +24,12 @@ func NewDeleteUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Delete
 }
 
 func (l *DeleteUserLogic) DeleteUser(req *types.UUIDsReq) (resp *types.BaseMsgResp, err error) {
-	// todo: add your logic here and delete this line
+	result, err := l.svcCtx.CoreRpc.DeleteUser(l.ctx, &core.UUIDsReq{
+		Ids: req.Ids,
+	})
+	if err != nil {
+		return nil, err
+	}
 
-	return
+	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, result.Msg)}, nil
 }

@@ -68,14 +68,16 @@ const (
 	Core_GetRoleById_FullMethodName                 = "/core.Core/getRoleById"
 	Core_DeleteRole_FullMethodName                  = "/core.Core/deleteRole"
 	Core_CreateToken_FullMethodName                 = "/core.Core/createToken"
-	Core_UpdateToken_FullMethodName                 = "/core.Core/updateToken"
+	Core_DeleteToken_FullMethodName                 = "/core.Core/deleteToken"
 	Core_GetTokenList_FullMethodName                = "/core.Core/getTokenList"
 	Core_GetTokenById_FullMethodName                = "/core.Core/getTokenById"
-	Core_DeleteToken_FullMethodName                 = "/core.Core/deleteToken"
+	Core_BlockUserAllToken_FullMethodName           = "/core.Core/blockUserAllToken"
+	Core_UpdateToken_FullMethodName                 = "/core.Core/updateToken"
 	Core_CreateUser_FullMethodName                  = "/core.Core/createUser"
 	Core_UpdateUser_FullMethodName                  = "/core.Core/updateUser"
 	Core_GetUserList_FullMethodName                 = "/core.Core/getUserList"
 	Core_GetUserById_FullMethodName                 = "/core.Core/getUserById"
+	Core_GetUserByUsername_FullMethodName           = "/core.Core/getUserByUsername"
 	Core_DeleteUser_FullMethodName                  = "/core.Core/deleteUser"
 )
 
@@ -192,13 +194,15 @@ type CoreClient interface {
 	// group: token
 	CreateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
 	// group: token
-	UpdateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	DeleteToken(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: token
 	GetTokenList(ctx context.Context, in *TokenListReq, opts ...grpc.CallOption) (*TokenListResp, error)
 	// group: token
 	GetTokenById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*TokenInfo, error)
 	// group: token
-	DeleteToken(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+	BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: token
+	UpdateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseResp, error)
 	// User management
 	// group: user
 	CreateUser(ctx context.Context, in *UserInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
@@ -208,6 +212,8 @@ type CoreClient interface {
 	GetUserList(ctx context.Context, in *UserListReq, opts ...grpc.CallOption) (*UserListResp, error)
 	// group: user
 	GetUserById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*UserInfo, error)
+	// group: user
+	GetUserByUsername(ctx context.Context, in *UsernameReq, opts ...grpc.CallOption) (*UserInfo, error)
 	// group: user
 	DeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 }
@@ -661,9 +667,9 @@ func (c *coreClient) CreateToken(ctx context.Context, in *TokenInfo, opts ...grp
 	return out, nil
 }
 
-func (c *coreClient) UpdateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+func (c *coreClient) DeleteToken(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, Core_UpdateToken_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Core_DeleteToken_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -688,9 +694,18 @@ func (c *coreClient) GetTokenById(ctx context.Context, in *UUIDReq, opts ...grpc
 	return out, nil
 }
 
-func (c *coreClient) DeleteToken(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (c *coreClient) BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, Core_DeleteToken_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Core_BlockUserAllToken_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) UpdateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_UpdateToken_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -727,6 +742,15 @@ func (c *coreClient) GetUserList(ctx context.Context, in *UserListReq, opts ...g
 func (c *coreClient) GetUserById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*UserInfo, error) {
 	out := new(UserInfo)
 	err := c.cc.Invoke(ctx, Core_GetUserById_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetUserByUsername(ctx context.Context, in *UsernameReq, opts ...grpc.CallOption) (*UserInfo, error) {
+	out := new(UserInfo)
+	err := c.cc.Invoke(ctx, Core_GetUserByUsername_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -855,13 +879,15 @@ type CoreServer interface {
 	// group: token
 	CreateToken(context.Context, *TokenInfo) (*BaseUUIDResp, error)
 	// group: token
-	UpdateToken(context.Context, *TokenInfo) (*BaseResp, error)
+	DeleteToken(context.Context, *UUIDsReq) (*BaseResp, error)
 	// group: token
 	GetTokenList(context.Context, *TokenListReq) (*TokenListResp, error)
 	// group: token
 	GetTokenById(context.Context, *UUIDReq) (*TokenInfo, error)
 	// group: token
-	DeleteToken(context.Context, *UUIDsReq) (*BaseResp, error)
+	BlockUserAllToken(context.Context, *UUIDReq) (*BaseResp, error)
+	// group: token
+	UpdateToken(context.Context, *TokenInfo) (*BaseResp, error)
 	// User management
 	// group: user
 	CreateUser(context.Context, *UserInfo) (*BaseUUIDResp, error)
@@ -871,6 +897,8 @@ type CoreServer interface {
 	GetUserList(context.Context, *UserListReq) (*UserListResp, error)
 	// group: user
 	GetUserById(context.Context, *UUIDReq) (*UserInfo, error)
+	// group: user
+	GetUserByUsername(context.Context, *UsernameReq) (*UserInfo, error)
 	// group: user
 	DeleteUser(context.Context, *UUIDsReq) (*BaseResp, error)
 	mustEmbedUnimplementedCoreServer()
@@ -1027,8 +1055,8 @@ func (UnimplementedCoreServer) DeleteRole(context.Context, *IDsReq) (*BaseResp, 
 func (UnimplementedCoreServer) CreateToken(context.Context, *TokenInfo) (*BaseUUIDResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateToken not implemented")
 }
-func (UnimplementedCoreServer) UpdateToken(context.Context, *TokenInfo) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateToken not implemented")
+func (UnimplementedCoreServer) DeleteToken(context.Context, *UUIDsReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteToken not implemented")
 }
 func (UnimplementedCoreServer) GetTokenList(context.Context, *TokenListReq) (*TokenListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTokenList not implemented")
@@ -1036,8 +1064,11 @@ func (UnimplementedCoreServer) GetTokenList(context.Context, *TokenListReq) (*To
 func (UnimplementedCoreServer) GetTokenById(context.Context, *UUIDReq) (*TokenInfo, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTokenById not implemented")
 }
-func (UnimplementedCoreServer) DeleteToken(context.Context, *UUIDsReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteToken not implemented")
+func (UnimplementedCoreServer) BlockUserAllToken(context.Context, *UUIDReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BlockUserAllToken not implemented")
+}
+func (UnimplementedCoreServer) UpdateToken(context.Context, *TokenInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateToken not implemented")
 }
 func (UnimplementedCoreServer) CreateUser(context.Context, *UserInfo) (*BaseUUIDResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
@@ -1050,6 +1081,9 @@ func (UnimplementedCoreServer) GetUserList(context.Context, *UserListReq) (*User
 }
 func (UnimplementedCoreServer) GetUserById(context.Context, *UUIDReq) (*UserInfo, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserById not implemented")
+}
+func (UnimplementedCoreServer) GetUserByUsername(context.Context, *UsernameReq) (*UserInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserByUsername not implemented")
 }
 func (UnimplementedCoreServer) DeleteUser(context.Context, *UUIDsReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
@@ -1949,20 +1983,20 @@ func _Core_CreateToken_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Core_UpdateToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(TokenInfo)
+func _Core_DeleteToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UUIDsReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CoreServer).UpdateToken(ctx, in)
+		return srv.(CoreServer).DeleteToken(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Core_UpdateToken_FullMethodName,
+		FullMethod: Core_DeleteToken_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).UpdateToken(ctx, req.(*TokenInfo))
+		return srv.(CoreServer).DeleteToken(ctx, req.(*UUIDsReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2003,20 +2037,38 @@ func _Core_GetTokenById_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Core_DeleteToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UUIDsReq)
+func _Core_BlockUserAllToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UUIDReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CoreServer).DeleteToken(ctx, in)
+		return srv.(CoreServer).BlockUserAllToken(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Core_DeleteToken_FullMethodName,
+		FullMethod: Core_BlockUserAllToken_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).DeleteToken(ctx, req.(*UUIDsReq))
+		return srv.(CoreServer).BlockUserAllToken(ctx, req.(*UUIDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_UpdateToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TokenInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).UpdateToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_UpdateToken_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).UpdateToken(ctx, req.(*TokenInfo))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2089,6 +2141,24 @@ func _Core_GetUserById_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).GetUserById(ctx, req.(*UUIDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetUserByUsername_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UsernameReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetUserByUsername(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetUserByUsername_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetUserByUsername(ctx, req.(*UsernameReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2315,8 +2385,8 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Core_CreateToken_Handler,
 		},
 		{
-			MethodName: "updateToken",
-			Handler:    _Core_UpdateToken_Handler,
+			MethodName: "deleteToken",
+			Handler:    _Core_DeleteToken_Handler,
 		},
 		{
 			MethodName: "getTokenList",
@@ -2327,8 +2397,12 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Core_GetTokenById_Handler,
 		},
 		{
-			MethodName: "deleteToken",
-			Handler:    _Core_DeleteToken_Handler,
+			MethodName: "blockUserAllToken",
+			Handler:    _Core_BlockUserAllToken_Handler,
+		},
+		{
+			MethodName: "updateToken",
+			Handler:    _Core_UpdateToken_Handler,
 		},
 		{
 			MethodName: "createUser",
@@ -2345,6 +2419,10 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "getUserById",
 			Handler:    _Core_GetUserById_Handler,
+		},
+		{
+			MethodName: "getUserByUsername",
+			Handler:    _Core_GetUserByUsername_Handler,
 		},
 		{
 			MethodName: "deleteUser",

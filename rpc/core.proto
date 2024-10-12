@@ -371,28 +371,23 @@ message RoleMenuAuthorityResp {
 
 message TokenInfo {
   optional string id = 1;
-  optional int64 createdAt = 2;
-  optional int64 updatedAt = 3;
-  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
   optional uint32 status = 4;
-  //   User's UUID | 用户的UUID
   optional string uuid = 5;
-  //  Username | 用户名
-  optional string username = 6;
-  //  Token string | Token 字符串
-  optional string token = 7;
-  //  Log in source such as GitHub | Token 来源 （本地为core, 第三方如github等）
-  optional string source = 8;
-  //   Expire time | 过期时间
-  optional int64 expiredAt = 9;
+  optional string token = 6;
+  optional string source = 7;
+  optional int64 expired_at = 8;
+  optional string username = 9;
 }
 
 message TokenListReq {
   uint64 page = 1;
-  uint64 pageSize = 2;
+  uint64 page_size = 2;
   optional string username = 3;
-  optional string token = 4;
-  optional string source = 5;
+  optional string nickname = 4;
+  optional string email = 5;
+  optional string uuid = 6;
 }
 
 message TokenListResp {
@@ -433,13 +428,21 @@ message UserListReq {
   uint64 page = 1;
   uint64 pageSize = 2;
   optional string username = 3;
-  optional string password = 4;
-  optional string nickname = 5;
+  optional string nickname = 4;
+  optional string email = 5;
+  optional string mobile = 6;
+  repeated uint64 roleIds = 7;
+  optional uint64 departmentId = 8;
+  repeated uint64 positionIds = 9;
 }
 
 message UserListResp {
   uint64 total = 1;
   repeated UserInfo data = 2;
+}
+
+message UsernameReq {
+  string username = 1;
 }
 
 service Core {
@@ -552,13 +555,15 @@ service Core {
   //  group: token
   rpc createToken(TokenInfo) returns (BaseUUIDResp);
   //  group: token
-  rpc updateToken(TokenInfo) returns (BaseResp);
+  rpc deleteToken(UUIDsReq) returns (BaseResp);
   //  group: token
   rpc getTokenList(TokenListReq) returns (TokenListResp);
   //  group: token
   rpc getTokenById(UUIDReq) returns (TokenInfo);
   //  group: token
-  rpc deleteToken(UUIDsReq) returns (BaseResp);
+  rpc blockUserAllToken(UUIDReq) returns (BaseResp);
+  //  group: token
+  rpc updateToken(TokenInfo) returns (BaseResp);
   //  User management
   //  group: user
   rpc createUser(UserInfo) returns (BaseUUIDResp);
@@ -568,6 +573,8 @@ service Core {
   rpc getUserList(UserListReq) returns (UserListResp);
   //  group: user
   rpc getUserById(UUIDReq) returns (UserInfo);
+  //  group: user
+  rpc getUserByUsername(UsernameReq) returns (UserInfo);
   //  group: user
   rpc deleteUser(UUIDsReq) returns (BaseResp);
 }

@@ -4,11 +4,10 @@ import (
 	"context"
 	"fmt"
 
-    "github.com/zeromicro/go-zero/core/logx"
+	"github.com/zeromicro/go-zero/core/logx"
 
 	"github.com/Sanagiig/fox-admin-core/rpc/ent"
 )
-
 
 // WithTx uses transaction in ent.
 func WithTx(ctx context.Context, client *ent.Client, fn func(tx *ent.Tx) error) error {

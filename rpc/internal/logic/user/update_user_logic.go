@@ -7,9 +7,9 @@ import (
 	"github.com/Sanagiig/fox-admin-core/rpc/internal/utils/dberrorhandler"
 	"github.com/Sanagiig/fox-admin-core/rpc/types/core"
 
-    "github.com/suyuan32/simple-admin-common/i18n"
-	"github.com/suyuan32/simple-admin-common/utils/uuidx"
+	"github.com/suyuan32/simple-admin-common/i18n"
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
+	"github.com/suyuan32/simple-admin-common/utils/uuidx"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -28,26 +28,26 @@ func NewUpdateUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Update
 }
 
 func (l *UpdateUserLogic) UpdateUser(in *core.UserInfo) (*core.BaseResp, error) {
-	query:= l.svcCtx.DB.User.UpdateOneID(uuidx.ParseUUIDString(*in.Id)).
-			SetNotNilUsername(in.Username).
-			SetNotNilPassword(in.Password).
-			SetNotNilNickname(in.Nickname).
-			SetNotNilDescription(in.Description).
-			SetNotNilHomePath(in.HomePath).
-			SetNotNilMobile(in.Mobile).
-			SetNotNilEmail(in.Email).
-			SetNotNilAvatar(in.Avatar).
-			SetNotNilDepartmentID(in.DepartmentId)
+	query := l.svcCtx.DB.User.UpdateOneID(uuidx.ParseUUIDString(*in.Id)).
+		SetNotNilUsername(in.Username).
+		SetNotNilPassword(in.Password).
+		SetNotNilNickname(in.Nickname).
+		SetNotNilDescription(in.Description).
+		SetNotNilHomePath(in.HomePath).
+		SetNotNilMobile(in.Mobile).
+		SetNotNilEmail(in.Email).
+		SetNotNilAvatar(in.Avatar).
+		SetNotNilDepartmentID(in.DepartmentId)
 
 	if in.Status != nil {
 		query.SetNotNilStatus(pointy.GetPointer(uint8(*in.Status)))
 	}
 
-	 err := query.Exec(l.ctx)
+	err := query.Exec(l.ctx)
 
-    if err != nil {
+	if err != nil {
 		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
-    return &core.BaseResp{Msg: i18n.UpdateSuccess }, nil
+	return &core.BaseResp{Msg: i18n.UpdateSuccess}, nil
 }

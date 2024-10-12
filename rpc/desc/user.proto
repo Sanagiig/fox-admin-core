@@ -32,13 +32,20 @@ message UserListReq {
   uint64 page = 1;
   uint64 pageSize = 2;
   optional string username = 3;
-  optional string password = 4;
-  optional string nickname = 5;
+  optional string nickname = 4;
+  optional string email = 5;
+  optional string mobile = 6;
+  repeated uint64 roleIds = 7;
+  optional uint64 departmentId = 8;
+  repeated uint64 positionIds = 9;
 }
 
 
-service Core {
+message UsernameReq {
+  string username = 1;
+}
 
+service Core {
   // User management
   // group: user
   rpc createUser (UserInfo) returns (BaseUUIDResp);
@@ -49,7 +56,7 @@ service Core {
   // group: user
   rpc getUserById (UUIDReq) returns (UserInfo);
   // group: user
+  rpc getUserByUsername (UsernameReq) returns (UserInfo);
+  // group: user
   rpc deleteUser (UUIDsReq) returns (BaseResp);
-
-
 }

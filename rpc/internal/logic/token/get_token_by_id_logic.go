@@ -7,8 +7,8 @@ import (
 	"github.com/Sanagiig/fox-admin-core/rpc/internal/utils/dberrorhandler"
 	"github.com/Sanagiig/fox-admin-core/rpc/types/core"
 
-    "github.com/suyuan32/simple-admin-common/utils/uuidx"
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
+	"github.com/suyuan32/simple-admin-common/utils/uuidx"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -33,15 +33,14 @@ func (l *GetTokenByIdLogic) GetTokenById(in *core.UUIDReq) (*core.TokenInfo, err
 	}
 
 	return &core.TokenInfo{
-		Id:          pointy.GetPointer(result.ID.String()),
-		CreatedAt:    pointy.GetPointer(result.CreatedAt.UnixMilli()),
-		UpdatedAt:    pointy.GetPointer(result.UpdatedAt.UnixMilli()),
-		Status:	pointy.GetPointer(uint32(result.Status)),
-		Uuid:	pointy.GetPointer(result.UUID.String()),
-		Username:	&result.Username,
-		Token:	&result.Token,
-		Source:	&result.Source,
-		ExpiredAt:	pointy.GetPointer(result.ExpiredAt.UnixMilli()),
+		Id:        pointy.GetPointer(result.ID.String()),
+		CreatedAt: pointy.GetPointer(result.CreatedAt.UnixMilli()),
+		UpdatedAt: pointy.GetPointer(result.UpdatedAt.UnixMilli()),
+		Status:    pointy.GetPointer(uint32(result.Status)),
+		Uuid:      pointy.GetPointer(result.UUID.String()),
+		Username:  &result.Username,
+		Token:     &result.Token,
+		Source:    &result.Source,
+		ExpiredAt: pointy.GetPointer(result.ExpiredAt.UnixMilli()),
 	}, nil
 }
-

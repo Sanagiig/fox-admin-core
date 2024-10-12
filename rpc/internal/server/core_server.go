@@ -289,9 +289,9 @@ func (s *CoreServer) CreateToken(ctx context.Context, in *core.TokenInfo) (*core
 	return l.CreateToken(in)
 }
 
-func (s *CoreServer) UpdateToken(ctx context.Context, in *core.TokenInfo) (*core.BaseResp, error) {
-	l := token.NewUpdateTokenLogic(ctx, s.svcCtx)
-	return l.UpdateToken(in)
+func (s *CoreServer) DeleteToken(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
+	l := token.NewDeleteTokenLogic(ctx, s.svcCtx)
+	return l.DeleteToken(in)
 }
 
 func (s *CoreServer) GetTokenList(ctx context.Context, in *core.TokenListReq) (*core.TokenListResp, error) {
@@ -304,9 +304,14 @@ func (s *CoreServer) GetTokenById(ctx context.Context, in *core.UUIDReq) (*core.
 	return l.GetTokenById(in)
 }
 
-func (s *CoreServer) DeleteToken(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
-	l := token.NewDeleteTokenLogic(ctx, s.svcCtx)
-	return l.DeleteToken(in)
+func (s *CoreServer) BlockUserAllToken(ctx context.Context, in *core.UUIDReq) (*core.BaseResp, error) {
+	l := token.NewBlockUserAllTokenLogic(ctx, s.svcCtx)
+	return l.BlockUserAllToken(in)
+}
+
+func (s *CoreServer) UpdateToken(ctx context.Context, in *core.TokenInfo) (*core.BaseResp, error) {
+	l := token.NewUpdateTokenLogic(ctx, s.svcCtx)
+	return l.UpdateToken(in)
 }
 
 // User management
@@ -328,6 +333,11 @@ func (s *CoreServer) GetUserList(ctx context.Context, in *core.UserListReq) (*co
 func (s *CoreServer) GetUserById(ctx context.Context, in *core.UUIDReq) (*core.UserInfo, error) {
 	l := user.NewGetUserByIdLogic(ctx, s.svcCtx)
 	return l.GetUserById(in)
+}
+
+func (s *CoreServer) GetUserByUsername(ctx context.Context, in *core.UsernameReq) (*core.UserInfo, error) {
+	l := user.NewGetUserByUsernameLogic(ctx, s.svcCtx)
+	return l.GetUserByUsername(in)
 }
 
 func (s *CoreServer) DeleteUser(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {

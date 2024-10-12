@@ -450,6 +450,234 @@ type RefreshTokenResp struct {
 	Data RefreshTokenInfo `json:"data"`
 }
 
+// The response data of role information | 角色信息
+// swagger:model RoleInfo
+type RoleInfo struct {
+	BaseIDInfo
+	// Translated Name | 展示名称
+	Trans string `json:"trans,optional"`
+	// Status | 状态
+	// max : 20
+	Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
+	// Name | 角色名称
+	// max length : 30
+	Name *string `json:"name,optional" validate:"omitempty,max=30"`
+	// Role code | 角色码
+	// max length : 20
+	Code *string `json:"code,optional" validate:"omitempty,max=20"`
+	// DefaultRouter | 默认首页
+	// max length : 80
+	DefaultRouter *string `json:"defaultRouter,optional" validate:"omitempty,max=80"`
+	// Remark | 备注
+	// max length : 200
+	Remark *string `json:"remark,optional" validate:"omitempty,max=200"`
+	// Sort | 排序
+	// max : 10000
+	Sort *uint32 `json:"sort,optional" validate:"omitempty,lt=10000"`
+}
+
+// The response data of role list | 角色列表数据
+// swagger:model RoleListResp
+type RoleListResp struct {
+	BaseDataInfo
+	// Role list data | 角色列表数据
+	Data RoleListInfo `json:"data"`
+}
+
+// Role list data | 角色列表数据
+// swagger:model RoleListInfo
+type RoleListInfo struct {
+	BaseListInfo
+	// The API list data | 角色列表数据
+	Data []RoleInfo `json:"data"`
+}
+
+// Get role list request params | 角色列表请求参数
+// swagger:model RoleListReq
+type RoleListReq struct {
+	PageInfo
+	// Name | 角色名称
+	Name *string `json:"name,optional"`
+}
+
+// Role information response | 角色信息返回体
+// swagger:model RoleInfoResp
+type RoleInfoResp struct {
+	BaseDataInfo
+	// Role information | 角色数据
+	Data RoleInfo `json:"data"`
+}
+
+// The response data of menu information | 菜单信息
+// swagger:model MenuInfo
+type MenuInfo struct {
+	BaseIDInfo
+	// Translated Name | 国际化展示名称
+	Trans string `json:"trans,optional"`
+	// Level | 菜单层级
+	Level *uint32 `json:"level,optional"`
+	// ParentId | 父级菜单ID
+	ParentId *uint64 `json:"parentId,optional"`
+	// Path | 菜单访问路径
+	Path *string `json:"path,optional"`
+	// Menu name | 菜单名称
+	Name *string `json:"name,optional"`
+	// Redirect | 跳转地址
+	Redirect *string `json:"redirect,optional"`
+	// Component | 组件地址
+	Component *string `json:"component,optional"`
+	// Sort | 排序
+	Sort *uint32 `json:"sort,optional"`
+	// Disabled | 是否启用
+	Disabled *bool `json:"disabled,optional"`
+	// Meta | 菜单meta数据
+	Meta Meta `json:"meta"`
+	// MenuType | 菜单类型
+	MenuType *uint32 `json:"menuType,optional"`
+	// Service Name | 服务名称
+	ServiceName *string `json:"serviceName,optional"`
+	// Permission symbol | 权限标识
+	Permission *string `json:"permission,optional"`
+}
+
+// The meta data of menu | 菜单的meta数据
+// swagger:model Meta
+type Meta struct {
+	// Menu title show in page | 菜单显示名
+	// Max length: 50
+	Title *string `json:"title" validate:"max=50"`
+	// Menu Icon | 菜单图标
+	// Max length: 50
+	Icon *string `json:"icon" validate:"max=50"`
+	// Hide menu | 隐藏菜单
+	HideMenu *bool `json:"hideMenu" validate:"omitempty,boolean"`
+	// If hide the breadcrumb | 隐藏面包屑
+	HideBreadcrumb *bool `json:"hideBreadcrumb,optional" validate:"omitempty,boolean"`
+	// Do not keep alive the tab | 不缓存Tab
+	IgnoreKeepAlive *bool `json:"ignoreKeepAlive,optional" validate:"omitempty,boolean"`
+	// Hide the tab header | 当前路由不在标签页显示
+	HideTab *bool `json:"hideTab,optional" validate:"omitempty,boolean"`
+	// Iframe path | 内嵌iframe的地址
+	FrameSrc *string `json:"frameSrc,optional"`
+	// The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true
+	CarryParam *bool `json:"carryParam,optional" validate:"omitempty,boolean"`
+	// Hide children menu or not | 隐藏所有子菜单
+	HideChildrenInMenu *bool `json:"hideChildrenInMenu,optional" validate:"omitempty,boolean"`
+	// Affix tab | 是否固定标签
+	Affix *bool `json:"affix,optional" validate:"omitempty,boolean"`
+	// The maximum number of pages the router can open | 动态路由可打开Tab页数
+	DynamicLevel *uint32 `json:"dynamicLevel" validate:"number,lt=30"`
+	// The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分
+	RealPath *string `json:"realPath,optional"`
+}
+
+// The response data of menu list | 菜单列表返回数据
+// swagger:model MenuListResp
+type MenuListResp struct {
+	BaseDataInfo
+	// Menu list data | Menu列表数据
+	Data MenuListInfo `json:"data"`
+}
+
+// Menu list data | Menu列表数据
+// swagger:model MenuListInfo
+type MenuListInfo struct {
+	BaseListInfo
+	// The menu list data | 菜单列表数据
+	Data []MenuInfo `json:"data"`
+}
+
+// Menu information response | 菜单信息返回体
+// swagger:model MenuInfoResp
+type MenuInfoResp struct {
+	BaseDataInfo
+	// Menu information | Menu数据
+	Data MenuInfo `json:"data"`
+}
+
+// Menu information plain | 菜单信息无嵌套
+// swagger:model MenuPlainInfo
+type MenuPlainInfo struct {
+	Id *uint64 `json:"id"`
+	// Create date | 创建日期
+	CreatedAt *int64 `json:"createdAt,optional"`
+	// Update date | 更新日期
+	UpdatedAt *int64 `json:"updatedAt,optional"`
+	// Translated Name | 国际化展示名称
+	Trans *string `json:"trans,optional"`
+	// Level | 菜单层级
+	// max : 20
+	Level *uint32 `json:"level,optional" validate:"omitempty,lt=20"`
+	// ParentId | 父级菜单ID
+	ParentId *uint64 `json:"parentId,optional"`
+	// Path | 菜单访问路径
+	// max length : 200
+	Path *string `json:"path,optional" validate:"omitempty,max=200"`
+	// Menu name | 菜单名称
+	// max length : 100
+	Name *string `json:"name,optional" validate:"omitempty,max=100"`
+	// Redirect | 跳转地址
+	// max length : 300
+	Redirect *string `json:"redirect,optional" validate:"omitempty,max=300"`
+	// Component | 组件地址
+	// max length : 80
+	Component *string `json:"component,optional" validate:"omitempty,max=80"`
+	// Sort | 排序
+	// max : 10000
+	Sort *uint32 `json:"sort,optional" validate:"omitempty,lt=10000"`
+	// Disabled | 是否启用
+	Disabled *bool `json:"disabled,optional"`
+	// MenuType | 菜单类型
+	// max : 10
+	MenuType *uint32 `json:"menuType,optional" validate:"omitempty,lt=10"`
+	// Service Name | 服务名称
+	ServiceName *string `json:"serviceName,optional"`
+	// Permission symbol | 权限标识
+	Permission *string `json:"permission,optional"`
+	// Menu title show in page | 菜单显示名
+	// max length : 50
+	Title *string `json:"title" validate:"omitempty,max=50"`
+	// Menu Icon | 菜单图标
+	// max length : 50
+	Icon *string `json:"icon" validate:"omitempty,max=50"`
+	// Hide menu | 隐藏菜单
+	HideMenu *bool `json:"hideMenu" validate:"omitempty,boolean"`
+	// If hide the breadcrumb | 隐藏面包屑
+	HideBreadcrumb *bool `json:"hideBreadcrumb,optional" validate:"omitempty,boolean"`
+	// Do not keep alive the tab | 不缓存Tab
+	IgnoreKeepAlive *bool `json:"ignoreKeepAlive,optional" validate:"omitempty,boolean"`
+	// Hide the tab header | 当前路由不在标签页显示
+	HideTab *bool `json:"hideTab,optional" validate:"omitempty,boolean"`
+	// Iframe path | 内嵌iframe的地址
+	// max length : 300
+	FrameSrc *string `json:"frameSrc,optional" validate:"omitempty,max=300"`
+	// The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true
+	CarryParam *bool `json:"carryParam,optional" validate:"omitempty,boolean"`
+	// Hide children menu or not | 隐藏所有子菜单
+	HideChildrenInMenu *bool `json:"hideChildrenInMenu,optional" validate:"omitempty,boolean"`
+	// Affix tab | 是否固定标签
+	Affix *bool `json:"affix,optional" validate:"omitempty,boolean"`
+	// The maximum number of pages the router can open | 动态路由可打开Tab页数
+	DynamicLevel *uint32 `json:"dynamicLevel,optional" validate:"omitempty,number,lt=30"`
+	// The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分
+	RealPath *string `json:"realPath,optional"`
+}
+
+// Menu list data | 菜单列表数据
+type MenuPlainInfoList struct {
+	BaseListInfo
+	// The menu list data | 菜单列表数据
+	Data []MenuPlainInfo `json:"data"`
+}
+
+// Menu list data response | 菜单列表数据返回体
+// swagger:model MenuPlainInfoListResp
+type MenuPlainInfoListResp struct {
+	BaseDataInfo
+	// Menu list data | Menu列表数据
+	Data MenuPlainInfoList `json:"data"`
+}
+
 // The API information | API信息
 // swagger:model ApiInfo
 type ApiInfo struct {
@@ -522,4 +750,33 @@ type ApiInfoResp struct {
 	BaseDataInfo
 	// API information | API数据
 	Data ApiInfo `json:"data"`
+}
+
+// The information of captcha | 验证码数据
+// swagger:model CaptchaInfo
+type CaptchaInfo struct {
+	CaptchaId string `json:"captchaId"`
+	ImgPath   string `json:"imgPath"`
+}
+
+// The response data of captcha | 验证码返回数据
+// swagger:model CaptchaResp
+type CaptchaResp struct {
+	BaseDataInfo
+	// The menu authorization data | 菜单授权信息数据
+	Data CaptchaInfo `json:"data"`
+}
+
+// The email captcha request | 邮箱验证码请求参数
+// swagger:model EmailCaptchaReq
+type EmailCaptchaReq struct {
+	// The email address | 邮箱地址
+	Email string `json:"email"`
+}
+
+// The sms captcha request | 短信验证码请求参数
+// swagger:model SmsCaptchaReq
+type SmsCaptchaReq struct {
+	// The phone number | 电话号码
+	PhoneNumber string `json:"phoneNumber"`
 }

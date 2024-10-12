@@ -6,7 +6,10 @@ import (
 
 	api "github.com/Sanagiig/fox-admin-core/api/internal/handler/api"
 	base "github.com/Sanagiig/fox-admin-core/api/internal/handler/base"
+	captcha "github.com/Sanagiig/fox-admin-core/api/internal/handler/captcha"
+	menu "github.com/Sanagiig/fox-admin-core/api/internal/handler/menu"
 	public_user "github.com/Sanagiig/fox-admin-core/api/internal/handler/public_user"
+	role "github.com/Sanagiig/fox-admin-core/api/internal/handler/role"
 	user "github.com/Sanagiig/fox-admin-core/api/internal/handler/user"
 	"github.com/Sanagiig/fox-admin-core/api/internal/svc"
 
@@ -159,6 +162,74 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			[]rest.Route{
 				{
 					Method:  http.MethodPost,
+					Path:    "/role/create",
+					Handler: role.CreateRoleHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/role/update",
+					Handler: role.UpdateRoleHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/role/delete",
+					Handler: role.DeleteRoleHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/role/list",
+					Handler: role.GetRoleListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/role",
+					Handler: role.GetRoleByIdHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/menu/create",
+					Handler: menu.CreateMenuHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/menu/update",
+					Handler: menu.UpdateMenuHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/menu/delete",
+					Handler: menu.DeleteMenuHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/menu/list",
+					Handler: menu.GetMenuListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/menu/role/list",
+					Handler: menu.GetMenuListByRoleHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
 					Path:    "/api/create",
 					Handler: api.CreateApiHandler(serverCtx),
 				},
@@ -185,5 +256,30 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/captcha",
+				Handler: captcha.GetCaptchaHandler(serverCtx),
+			},
+		},
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/captcha/email",
+				Handler: captcha.GetEmailCaptchaHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/captcha/sms",
+				Handler: captcha.GetSmsCaptchaHandler(serverCtx),
+			},
+		},
 	)
 }

@@ -2,12 +2,15 @@ package role
 
 import (
 	"context"
+	"fmt"
 
+	"github.com/Sanagiig/fox-admin-core/rpc/ent"
 	"github.com/Sanagiig/fox-admin-core/rpc/internal/svc"
 	"github.com/Sanagiig/fox-admin-core/rpc/internal/utils/dberrorhandler"
+	"github.com/Sanagiig/fox-admin-core/rpc/internal/utils/entx"
 	"github.com/Sanagiig/fox-admin-core/rpc/types/core"
 
-    "github.com/suyuan32/simple-admin-common/i18n"
+	"github.com/suyuan32/simple-admin-common/i18n"
 
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -28,22 +31,36 @@ func NewUpdateRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Update
 }
 
 func (l *UpdateRoleLogic) UpdateRole(in *core.RoleInfo) (*core.BaseResp, error) {
-	query:= l.svcCtx.DB.Role.UpdateOneID(*in.Id).
+	err := entx.WithTx(l.ctx, l.svcCtx.DB, func(tx *ent.Tx) error {
+		origin, err := tx.Role.Get(l.ctx, *in.Id)
+		if err != nil {
+			return err
+		}
+
+		err = tx.Role.UpdateOneID(*in.Id).
+			SetNotNilStatus(pointy.GetStatusPointer(in.Status)).
 			SetNotNilName(in.Name).
 			SetNotNilCode(in.Code).
 			SetNotNilDefaultRouter(in.DefaultRouter).
 			SetNotNilRemark(in.Remark).
-			SetNotNilSort(in.Sort)
+			SetNotNilSort(in.Sort).
+			Exec(l.ctx)
+		if err != nil {
+			return err
+		}
 
-	if in.Status != nil {
-		query.SetNotNilStatus(pointy.GetPointer(uint8(*in.Status)))
-	}
+		if in.Code != nil && origin.Code != *in.Code {
+			_, err = tx.QueryContext(l.ctx, fmt.Sprintf("update casbin_rules set v0='%s' WHERE v0='%s'", *in.Code, origin.Code))
+			if err != nil {
+				return err
+			}
+		}
 
-	 err := query.Exec(l.ctx)
+		return nil
+	})
 
-    if err != nil {
+	if err != nil {
 		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
 	}
-
-    return &core.BaseResp{Msg: i18n.UpdateSuccess }, nil
+	return &core.BaseResp{Msg: i18n.UpdateSuccess}, nil
 }
