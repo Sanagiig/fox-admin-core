@@ -2,6 +2,8 @@ package menu
 
 import (
 	"context"
+	"github.com/Sanagiig/fox-admin-core/rpc/types/core"
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
 
 	"github.com/Sanagiig/fox-admin-core/api/internal/svc"
 	"github.com/Sanagiig/fox-admin-core/api/internal/types"
@@ -23,7 +25,40 @@ func NewCreateMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Create
 }
 
 func (l *CreateMenuLogic) CreateMenu(req *types.MenuPlainInfo) (resp *types.BaseMsgResp, err error) {
-	// todo: add your logic here and delete this line
+	if *req.MenuType == 0 {
+		req.Component = pointy.GetPointer("LAYOUT")
+		req.Redirect = pointy.GetPointer("")
+		req.FrameSrc = pointy.GetPointer("")
+	}
 
-	return
+	result, err := l.svcCtx.CoreRpc.CreateMenu(l.ctx, &core.MenuInfo{
+		MenuType:    req.MenuType,
+		ParentId:    req.ParentId,
+		Path:        req.Path,
+		Name:        req.Name,
+		Redirect:    req.Redirect,
+		Component:   req.Component,
+		Sort:        req.Sort,
+		Disabled:    req.Disabled,
+		ServiceName: req.ServiceName,
+		Permission:  req.Permission,
+		Meta: &core.Meta{
+			Title:              req.Title,
+			Icon:               req.Icon,
+			HideMenu:           req.HideMenu,
+			HideBreadcrumb:     req.HideBreadcrumb,
+			IgnoreKeepAlive:    req.IgnoreKeepAlive,
+			HideTab:            req.HideTab,
+			FrameSrc:           req.FrameSrc,
+			CarryParam:         req.CarryParam,
+			HideChildrenInMenu: req.HideChildrenInMenu,
+			Affix:              req.Affix,
+			DynamicLevel:       req.DynamicLevel,
+			RealPath:           req.RealPath,
+		},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, result.Msg)}, nil
 }

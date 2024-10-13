@@ -49,9 +49,9 @@ const (
 	Core_DeleteDictionaryDetail_FullMethodName      = "/core.Core/deleteDictionaryDetail"
 	Core_CreateMenu_FullMethodName                  = "/core.Core/createMenu"
 	Core_UpdateMenu_FullMethodName                  = "/core.Core/updateMenu"
-	Core_GetMenuList_FullMethodName                 = "/core.Core/getMenuList"
-	Core_GetMenuById_FullMethodName                 = "/core.Core/getMenuById"
 	Core_DeleteMenu_FullMethodName                  = "/core.Core/deleteMenu"
+	Core_GetMenuListByRole_FullMethodName           = "/core.Core/getMenuListByRole"
+	Core_GetMenuList_FullMethodName                 = "/core.Core/getMenuList"
 	Core_CreateOauthProvider_FullMethodName         = "/core.Core/createOauthProvider"
 	Core_UpdateOauthProvider_FullMethodName         = "/core.Core/updateOauthProvider"
 	Core_GetOauthProviderList_FullMethodName        = "/core.Core/getOauthProviderList"
@@ -146,17 +146,16 @@ type CoreClient interface {
 	GetDictionaryDetailById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*DictionaryDetailInfo, error)
 	// group: dictionary_detail
 	DeleteDictionaryDetail(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// Menu management
 	// group: menu
 	CreateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
 	// group: menu
 	UpdateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: menu
-	GetMenuList(ctx context.Context, in *MenuListReq, opts ...grpc.CallOption) (*MenuListResp, error)
+	DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: menu
-	GetMenuById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuInfo, error)
+	GetMenuListByRole(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*MenuInfoList, error)
 	// group: menu
-	DeleteMenu(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+	GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error)
 	// OauthProvider management
 	// group: oauth_provider
 	CreateOauthProvider(ctx context.Context, in *OauthProviderInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
@@ -496,27 +495,27 @@ func (c *coreClient) UpdateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.
 	return out, nil
 }
 
-func (c *coreClient) GetMenuList(ctx context.Context, in *MenuListReq, opts ...grpc.CallOption) (*MenuListResp, error) {
-	out := new(MenuListResp)
-	err := c.cc.Invoke(ctx, Core_GetMenuList_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) GetMenuById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuInfo, error) {
-	out := new(MenuInfo)
-	err := c.cc.Invoke(ctx, Core_GetMenuById_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) DeleteMenu(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (c *coreClient) DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, Core_DeleteMenu_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetMenuListByRole(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*MenuInfoList, error) {
+	out := new(MenuInfoList)
+	err := c.cc.Invoke(ctx, Core_GetMenuListByRole_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error) {
+	out := new(MenuInfoList)
+	err := c.cc.Invoke(ctx, Core_GetMenuList_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -831,17 +830,16 @@ type CoreServer interface {
 	GetDictionaryDetailById(context.Context, *IDReq) (*DictionaryDetailInfo, error)
 	// group: dictionary_detail
 	DeleteDictionaryDetail(context.Context, *IDsReq) (*BaseResp, error)
-	// Menu management
 	// group: menu
 	CreateMenu(context.Context, *MenuInfo) (*BaseIDResp, error)
 	// group: menu
 	UpdateMenu(context.Context, *MenuInfo) (*BaseResp, error)
 	// group: menu
-	GetMenuList(context.Context, *MenuListReq) (*MenuListResp, error)
+	DeleteMenu(context.Context, *IDReq) (*BaseResp, error)
 	// group: menu
-	GetMenuById(context.Context, *IDReq) (*MenuInfo, error)
+	GetMenuListByRole(context.Context, *BaseMsg) (*MenuInfoList, error)
 	// group: menu
-	DeleteMenu(context.Context, *IDsReq) (*BaseResp, error)
+	GetMenuList(context.Context, *PageInfoReq) (*MenuInfoList, error)
 	// OauthProvider management
 	// group: oauth_provider
 	CreateOauthProvider(context.Context, *OauthProviderInfo) (*BaseIDResp, error)
@@ -998,14 +996,14 @@ func (UnimplementedCoreServer) CreateMenu(context.Context, *MenuInfo) (*BaseIDRe
 func (UnimplementedCoreServer) UpdateMenu(context.Context, *MenuInfo) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateMenu not implemented")
 }
-func (UnimplementedCoreServer) GetMenuList(context.Context, *MenuListReq) (*MenuListResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetMenuList not implemented")
-}
-func (UnimplementedCoreServer) GetMenuById(context.Context, *IDReq) (*MenuInfo, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetMenuById not implemented")
-}
-func (UnimplementedCoreServer) DeleteMenu(context.Context, *IDsReq) (*BaseResp, error) {
+func (UnimplementedCoreServer) DeleteMenu(context.Context, *IDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteMenu not implemented")
+}
+func (UnimplementedCoreServer) GetMenuListByRole(context.Context, *BaseMsg) (*MenuInfoList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMenuListByRole not implemented")
+}
+func (UnimplementedCoreServer) GetMenuList(context.Context, *PageInfoReq) (*MenuInfoList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMenuList not implemented")
 }
 func (UnimplementedCoreServer) CreateOauthProvider(context.Context, *OauthProviderInfo) (*BaseIDResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOauthProvider not implemented")
@@ -1641,44 +1639,8 @@ func _Core_UpdateMenu_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Core_GetMenuList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MenuListReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).GetMenuList(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Core_GetMenuList_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).GetMenuList(ctx, req.(*MenuListReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_GetMenuById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IDReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).GetMenuById(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Core_GetMenuById_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).GetMenuById(ctx, req.(*IDReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _Core_DeleteMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IDsReq)
+	in := new(IDReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -1690,7 +1652,43 @@ func _Core_DeleteMenu_Handler(srv interface{}, ctx context.Context, dec func(int
 		FullMethod: Core_DeleteMenu_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).DeleteMenu(ctx, req.(*IDsReq))
+		return srv.(CoreServer).DeleteMenu(ctx, req.(*IDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetMenuListByRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BaseMsg)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetMenuListByRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetMenuListByRole_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetMenuListByRole(ctx, req.(*BaseMsg))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetMenuList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PageInfoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetMenuList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetMenuList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetMenuList(ctx, req.(*PageInfoReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2309,16 +2307,16 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Core_UpdateMenu_Handler,
 		},
 		{
-			MethodName: "getMenuList",
-			Handler:    _Core_GetMenuList_Handler,
-		},
-		{
-			MethodName: "getMenuById",
-			Handler:    _Core_GetMenuById_Handler,
-		},
-		{
 			MethodName: "deleteMenu",
 			Handler:    _Core_DeleteMenu_Handler,
+		},
+		{
+			MethodName: "getMenuListByRole",
+			Handler:    _Core_GetMenuListByRole_Handler,
+		},
+		{
+			MethodName: "getMenuList",
+			Handler:    _Core_GetMenuList_Handler,
 		},
 		{
 			MethodName: "createOauthProvider",

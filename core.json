@@ -286,6 +286,146 @@
         }
       }
     },
+    "/department": {
+      "post": {
+        "description": "Get Department by ID | 通过ID获取部门",
+        "tags": [
+          "department"
+        ],
+        "summary": "Get Department by ID | 通过ID获取部门",
+        "operationId": "GetDepartmentById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "DepartmentInfoResp",
+            "schema": {
+              "$ref": "#/definitions/DepartmentInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/department/create": {
+      "post": {
+        "description": "Create department information | 创建部门",
+        "tags": [
+          "department"
+        ],
+        "summary": "Create department information | 创建部门",
+        "operationId": "CreateDepartment",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/DepartmentInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/department/delete": {
+      "post": {
+        "description": "Delete department information | 删除部门信息",
+        "tags": [
+          "department"
+        ],
+        "summary": "Delete department information | 删除部门信息",
+        "operationId": "DeleteDepartment",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/department/list": {
+      "post": {
+        "description": "Get department list | 获取部门列表",
+        "tags": [
+          "department"
+        ],
+        "summary": "Get department list | 获取部门列表",
+        "operationId": "GetDepartmentList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/DepartmentListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "DepartmentListResp",
+            "schema": {
+              "$ref": "#/definitions/DepartmentListResp"
+            }
+          }
+        }
+      }
+    },
+    "/department/update": {
+      "post": {
+        "description": "Update department information | 更新部门",
+        "tags": [
+          "department"
+        ],
+        "summary": "Update department information | 更新部门",
+        "operationId": "UpdateDepartment",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/DepartmentInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
     "/menu/create": {
       "post": {
         "description": "Create menu information | 创建菜单",
@@ -1436,6 +1576,200 @@
           "type": "string",
           "maxLength": 30,
           "x-go-name": "OldPassword"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "DepartmentInfo": {
+      "description": "The response data of department information | 部门信息",
+      "type": "object",
+      "properties": {
+        "ancestors": {
+          "description": "Ancestors | 父级部门列表",
+          "type": "string",
+          "maxLength": 200,
+          "x-go-name": "Ancestors"
+        },
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "email": {
+          "description": "Email | 邮箱",
+          "type": "string",
+          "maxLength": 70,
+          "minLength": 5,
+          "x-go-name": "Email"
+        },
+        "id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        },
+        "leader": {
+          "description": "Leader | 部门负责人",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "Leader"
+        },
+        "name": {
+          "description": "Name | 部门名称",
+          "type": "string",
+          "maxLength": 50,
+          "minLength": 1,
+          "x-go-name": "Name"
+        },
+        "parentId": {
+          "description": "ParentId | 父级 ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "ParentId"
+        },
+        "phone": {
+          "description": "Phone | 电话号码",
+          "type": "string",
+          "maxLength": 18,
+          "x-go-name": "Phone"
+        },
+        "remark": {
+          "description": "Remark | 备注",
+          "type": "string",
+          "maxLength": 200,
+          "x-go-name": "Remark"
+        },
+        "sort": {
+          "description": "Sort | 排序",
+          "type": "integer",
+          "format": "uint32",
+          "maximum": 10000,
+          "x-go-name": "Sort"
+        },
+        "status": {
+          "description": "Status | 状态",
+          "type": "integer",
+          "format": "uint32",
+          "maximum": 20,
+          "x-go-name": "Status"
+        },
+        "trans": {
+          "description": "Translated Name | 展示名称",
+          "type": "string",
+          "x-go-name": "Trans"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "DepartmentInfoResp": {
+      "description": "Department information response | 部门信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/DepartmentInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "DepartmentListInfo": {
+      "description": "Department list data | 部门列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The API list data | 部门列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DepartmentInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "DepartmentListReq": {
+      "description": "Get department list request params | 部门列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "leader": {
+          "description": "Leader | 部门负责人",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "Leader"
+        },
+        "name": {
+          "description": "Name | 部门名称",
+          "type": "string",
+          "maxLength": 50,
+          "x-go-name": "Name"
+        },
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        }
+      },
+      "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"
+    },
+    "DepartmentListResp": {
+      "description": "The response data of department list | 部门列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/DepartmentListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
         }
       },
       "x-go-package": "github.com/Sanagiig/fox-admin-core/api/internal/types"

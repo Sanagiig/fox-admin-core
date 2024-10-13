@@ -179,7 +179,6 @@ func (s *CoreServer) DeleteDictionaryDetail(ctx context.Context, in *core.IDsReq
 	return l.DeleteDictionaryDetail(in)
 }
 
-// Menu management
 func (s *CoreServer) CreateMenu(ctx context.Context, in *core.MenuInfo) (*core.BaseIDResp, error) {
 	l := menu.NewCreateMenuLogic(ctx, s.svcCtx)
 	return l.CreateMenu(in)
@@ -190,19 +189,19 @@ func (s *CoreServer) UpdateMenu(ctx context.Context, in *core.MenuInfo) (*core.B
 	return l.UpdateMenu(in)
 }
 
-func (s *CoreServer) GetMenuList(ctx context.Context, in *core.MenuListReq) (*core.MenuListResp, error) {
-	l := menu.NewGetMenuListLogic(ctx, s.svcCtx)
-	return l.GetMenuList(in)
-}
-
-func (s *CoreServer) GetMenuById(ctx context.Context, in *core.IDReq) (*core.MenuInfo, error) {
-	l := menu.NewGetMenuByIdLogic(ctx, s.svcCtx)
-	return l.GetMenuById(in)
-}
-
-func (s *CoreServer) DeleteMenu(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
+func (s *CoreServer) DeleteMenu(ctx context.Context, in *core.IDReq) (*core.BaseResp, error) {
 	l := menu.NewDeleteMenuLogic(ctx, s.svcCtx)
 	return l.DeleteMenu(in)
+}
+
+func (s *CoreServer) GetMenuListByRole(ctx context.Context, in *core.BaseMsg) (*core.MenuInfoList, error) {
+	l := menu.NewGetMenuListByRoleLogic(ctx, s.svcCtx)
+	return l.GetMenuListByRole(in)
+}
+
+func (s *CoreServer) GetMenuList(ctx context.Context, in *core.PageInfoReq) (*core.MenuInfoList, error) {
+	l := menu.NewGetMenuListLogic(ctx, s.svcCtx)
+	return l.GetMenuList(in)
 }
 
 // OauthProvider management

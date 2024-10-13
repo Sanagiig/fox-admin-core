@@ -7,6 +7,7 @@ import (
 	api "github.com/Sanagiig/fox-admin-core/api/internal/handler/api"
 	base "github.com/Sanagiig/fox-admin-core/api/internal/handler/base"
 	captcha "github.com/Sanagiig/fox-admin-core/api/internal/handler/captcha"
+	department "github.com/Sanagiig/fox-admin-core/api/internal/handler/department"
 	menu "github.com/Sanagiig/fox-admin-core/api/internal/handler/menu"
 	public_user "github.com/Sanagiig/fox-admin-core/api/internal/handler/public_user"
 	role "github.com/Sanagiig/fox-admin-core/api/internal/handler/role"
@@ -184,6 +185,40 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Method:  http.MethodPost,
 					Path:    "/role",
 					Handler: role.GetRoleByIdHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/department/create",
+					Handler: department.CreateDepartmentHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/department/update",
+					Handler: department.UpdateDepartmentHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/department/delete",
+					Handler: department.DeleteDepartmentHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/department/list",
+					Handler: department.GetDepartmentListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/department",
+					Handler: department.GetDepartmentByIdHandler(serverCtx),
 				},
 			}...,
 		),

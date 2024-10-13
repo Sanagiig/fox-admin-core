@@ -508,6 +508,78 @@ type RoleInfoResp struct {
 	Data RoleInfo `json:"data"`
 }
 
+// The response data of department information | 部门信息
+// swagger:model DepartmentInfo
+type DepartmentInfo struct {
+	BaseIDInfo
+	// Translated Name | 展示名称
+	Trans string `json:"trans,optional"`
+	// Status | 状态
+	// max : 20
+	Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
+	// Sort | 排序
+	// max : 10000
+	Sort *uint32 `json:"sort,optional" validate:"omitempty,lt=10000"`
+	// Name | 部门名称
+	// min length : 1
+	// max length : 50
+	Name *string `json:"name,optional" validate:"omitempty,min=1,max=50"`
+	// Ancestors | 父级部门列表
+	// max length : 200
+	Ancestors *string `json:"ancestors,optional" validate:"omitempty,max=200"`
+	// Leader | 部门负责人
+	// max length : 20
+	Leader *string `json:"leader,optional" validate:"omitempty,max=20"`
+	// Phone | 电话号码
+	// max length : 18
+	Phone *string `json:"phone,optional" validate:"omitempty,max=18"`
+	// Email | 邮箱
+	// min length : 5
+	// max length : 70
+	Email *string `json:"email,optional" validate:"omitempty,min=5,max=70"`
+	// Remark | 备注
+	// max length : 200
+	Remark *string `json:"remark,optional" validate:"omitempty,max=200"`
+	// ParentId | 父级 ID
+	ParentId *uint64 `json:"parentId,optional"`
+}
+
+// The response data of department list | 部门列表数据
+// swagger:model DepartmentListResp
+type DepartmentListResp struct {
+	BaseDataInfo
+	// Department list data | 部门列表数据
+	Data DepartmentListInfo `json:"data"`
+}
+
+// Department list data | 部门列表数据
+// swagger:model DepartmentListInfo
+type DepartmentListInfo struct {
+	BaseListInfo
+	// The API list data | 部门列表数据
+	Data []DepartmentInfo `json:"data"`
+}
+
+// Get department list request params | 部门列表请求参数
+// swagger:model DepartmentListReq
+type DepartmentListReq struct {
+	PageInfo
+	// Name | 部门名称
+	// max length : 50
+	Name *string `json:"name,optional" validate:"omitempty,max=50"`
+	// Leader | 部门负责人
+	// max length : 20
+	Leader *string `json:"leader,optional" validate:"omitempty,max=20"`
+}
+
+// Department information response | 部门信息返回体
+// swagger:model DepartmentInfoResp
+type DepartmentInfoResp struct {
+	BaseDataInfo
+	// Department information | 部门数据
+	Data DepartmentInfo `json:"data"`
+}
+
 // The response data of menu information | 菜单信息
 // swagger:model MenuInfo
 type MenuInfo struct {

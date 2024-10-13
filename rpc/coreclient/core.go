@@ -36,8 +36,10 @@ type (
 	IDReq                    = core.IDReq
 	IDsReq                   = core.IDsReq
 	MenuInfo                 = core.MenuInfo
-	MenuListReq              = core.MenuListReq
-	MenuListResp             = core.MenuListResp
+	MenuInfoList             = core.MenuInfoList
+	MenuRoleInfo             = core.MenuRoleInfo
+	MenuRoleListResp         = core.MenuRoleListResp
+	Meta                     = core.Meta
 	OauthProviderInfo        = core.OauthProviderInfo
 	OauthProviderListReq     = core.OauthProviderListReq
 	OauthProviderListResp    = core.OauthProviderListResp
@@ -94,12 +96,11 @@ type (
 		GetDictionaryDetailList(ctx context.Context, in *DictionaryDetailListReq, opts ...grpc.CallOption) (*DictionaryDetailListResp, error)
 		GetDictionaryDetailById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*DictionaryDetailInfo, error)
 		DeleteDictionaryDetail(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
-		// Menu management
 		CreateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
 		UpdateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseResp, error)
-		GetMenuList(ctx context.Context, in *MenuListReq, opts ...grpc.CallOption) (*MenuListResp, error)
-		GetMenuById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuInfo, error)
-		DeleteMenu(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+		DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+		GetMenuListByRole(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*MenuInfoList, error)
+		GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error)
 		// OauthProvider management
 		CreateOauthProvider(ctx context.Context, in *OauthProviderInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
 		UpdateOauthProvider(ctx context.Context, in *OauthProviderInfo, opts ...grpc.CallOption) (*BaseResp, error)
@@ -290,7 +291,6 @@ func (m *defaultCore) DeleteDictionaryDetail(ctx context.Context, in *IDsReq, op
 	return client.DeleteDictionaryDetail(ctx, in, opts...)
 }
 
-// Menu management
 func (m *defaultCore) CreateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.CreateMenu(ctx, in, opts...)
@@ -301,19 +301,19 @@ func (m *defaultCore) UpdateMenu(ctx context.Context, in *MenuInfo, opts ...grpc
 	return client.UpdateMenu(ctx, in, opts...)
 }
 
-func (m *defaultCore) GetMenuList(ctx context.Context, in *MenuListReq, opts ...grpc.CallOption) (*MenuListResp, error) {
-	client := core.NewCoreClient(m.cli.Conn())
-	return client.GetMenuList(ctx, in, opts...)
-}
-
-func (m *defaultCore) GetMenuById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuInfo, error) {
-	client := core.NewCoreClient(m.cli.Conn())
-	return client.GetMenuById(ctx, in, opts...)
-}
-
-func (m *defaultCore) DeleteMenu(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteMenu(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetMenuListByRole(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*MenuInfoList, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetMenuListByRole(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetMenuList(ctx, in, opts...)
 }
 
 // OauthProvider management
