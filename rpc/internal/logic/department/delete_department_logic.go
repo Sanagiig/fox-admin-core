@@ -2,14 +2,16 @@ package department
 
 import (
 	"context"
+	"github.com/Sanagiig/fox-admin-core/rpc/ent/user"
+	"github.com/zeromicro/go-zero/core/errorx"
 
-    "github.com/Sanagiig/fox-admin-core/rpc/ent/department"
-    "github.com/Sanagiig/fox-admin-core/rpc/internal/svc"
-    "github.com/Sanagiig/fox-admin-core/rpc/internal/utils/dberrorhandler"
-    "github.com/Sanagiig/fox-admin-core/rpc/types/core"
+	"github.com/Sanagiig/fox-admin-core/rpc/ent/department"
+	"github.com/Sanagiig/fox-admin-core/rpc/internal/svc"
+	"github.com/Sanagiig/fox-admin-core/rpc/internal/utils/dberrorhandler"
+	"github.com/Sanagiig/fox-admin-core/rpc/types/core"
 
-    "github.com/suyuan32/simple-admin-common/i18n"
-    "github.com/zeromicro/go-zero/core/logx"
+	"github.com/suyuan32/simple-admin-common/i18n"
+	"github.com/zeromicro/go-zero/core/logx"
 )
 
 type DeleteDepartmentLogic struct {
@@ -27,11 +29,23 @@ func NewDeleteDepartmentLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 }
 
 func (l *DeleteDepartmentLogic) DeleteDepartment(in *core.IDsReq) (*core.BaseResp, error) {
-	_, err := l.svcCtx.DB.Department.Delete().Where(department.IDIn(in.Ids...)).Exec(l.ctx)
+	exist, err := l.svcCtx.DB.Department.Query().Where(department.ParentIDIn(in.Ids...)).Exist(l.ctx)
+	if exist {
+		logx.Errorw("delete department failed, please check its children had been deleted",
+			logx.Field("departmentId", in.Ids))
+		return nil, errorx.NewInvalidArgumentError("department.deleteDepartmentChildrenFirst")
+	}
 
-    if err != nil {
+	checkUser, err := l.svcCtx.DB.User.Query().Where(user.DepartmentIDIn(in.Ids...)).Exist(l.ctx)
+	if checkUser {
+		logx.Errorw("delete department failed, there are users belongs to the department", logx.Field("departmentId", in.Ids))
+		return nil, errorx.NewInvalidArgumentError("department.deleteDepartmentUserFirst")
+	}
+
+	_, err = l.svcCtx.DB.Department.Delete().Where(department.IDIn(in.Ids...)).Exec(l.ctx)
+	if err != nil {
 		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
-    return &core.BaseResp{Msg: i18n.DeleteSuccess}, nil
+	return &core.BaseResp{Msg: i18n.DeleteSuccess}, nil
 }

@@ -12,9 +12,9 @@ import (
 	"github.com/Sanagiig/fox-admin-core/rpc/internal/logic/configuration"
 	"github.com/Sanagiig/fox-admin-core/rpc/internal/logic/department"
 	"github.com/Sanagiig/fox-admin-core/rpc/internal/logic/dictionary"
-	"github.com/Sanagiig/fox-admin-core/rpc/internal/logic/dictionary_detail"
+	"github.com/Sanagiig/fox-admin-core/rpc/internal/logic/dictionarydetail"
 	"github.com/Sanagiig/fox-admin-core/rpc/internal/logic/menu"
-	"github.com/Sanagiig/fox-admin-core/rpc/internal/logic/oauth_provider"
+	"github.com/Sanagiig/fox-admin-core/rpc/internal/logic/oauthprovider"
 	"github.com/Sanagiig/fox-admin-core/rpc/internal/logic/position"
 	"github.com/Sanagiig/fox-admin-core/rpc/internal/logic/role"
 	"github.com/Sanagiig/fox-admin-core/rpc/internal/logic/token"
@@ -155,28 +155,33 @@ func (s *CoreServer) DeleteDictionary(ctx context.Context, in *core.IDsReq) (*co
 
 // DictionaryDetail management
 func (s *CoreServer) CreateDictionaryDetail(ctx context.Context, in *core.DictionaryDetailInfo) (*core.BaseIDResp, error) {
-	l := dictionary_detail.NewCreateDictionaryDetailLogic(ctx, s.svcCtx)
+	l := dictionarydetail.NewCreateDictionaryDetailLogic(ctx, s.svcCtx)
 	return l.CreateDictionaryDetail(in)
 }
 
 func (s *CoreServer) UpdateDictionaryDetail(ctx context.Context, in *core.DictionaryDetailInfo) (*core.BaseResp, error) {
-	l := dictionary_detail.NewUpdateDictionaryDetailLogic(ctx, s.svcCtx)
+	l := dictionarydetail.NewUpdateDictionaryDetailLogic(ctx, s.svcCtx)
 	return l.UpdateDictionaryDetail(in)
 }
 
 func (s *CoreServer) GetDictionaryDetailList(ctx context.Context, in *core.DictionaryDetailListReq) (*core.DictionaryDetailListResp, error) {
-	l := dictionary_detail.NewGetDictionaryDetailListLogic(ctx, s.svcCtx)
+	l := dictionarydetail.NewGetDictionaryDetailListLogic(ctx, s.svcCtx)
 	return l.GetDictionaryDetailList(in)
 }
 
 func (s *CoreServer) GetDictionaryDetailById(ctx context.Context, in *core.IDReq) (*core.DictionaryDetailInfo, error) {
-	l := dictionary_detail.NewGetDictionaryDetailByIdLogic(ctx, s.svcCtx)
+	l := dictionarydetail.NewGetDictionaryDetailByIdLogic(ctx, s.svcCtx)
 	return l.GetDictionaryDetailById(in)
 }
 
 func (s *CoreServer) DeleteDictionaryDetail(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
-	l := dictionary_detail.NewDeleteDictionaryDetailLogic(ctx, s.svcCtx)
+	l := dictionarydetail.NewDeleteDictionaryDetailLogic(ctx, s.svcCtx)
 	return l.DeleteDictionaryDetail(in)
+}
+
+func (s *CoreServer) GetDictionaryDetailByDictionaryName(ctx context.Context, in *core.BaseMsg) (*core.DictionaryDetailListResp, error) {
+	l := dictionarydetail.NewGetDictionaryDetailByDictionaryNameLogic(ctx, s.svcCtx)
+	return l.GetDictionaryDetailByDictionaryName(in)
 }
 
 func (s *CoreServer) CreateMenu(ctx context.Context, in *core.MenuInfo) (*core.BaseIDResp, error) {
@@ -206,28 +211,38 @@ func (s *CoreServer) GetMenuList(ctx context.Context, in *core.PageInfoReq) (*co
 
 // OauthProvider management
 func (s *CoreServer) CreateOauthProvider(ctx context.Context, in *core.OauthProviderInfo) (*core.BaseIDResp, error) {
-	l := oauth_provider.NewCreateOauthProviderLogic(ctx, s.svcCtx)
+	l := oauthprovider.NewCreateOauthProviderLogic(ctx, s.svcCtx)
 	return l.CreateOauthProvider(in)
 }
 
 func (s *CoreServer) UpdateOauthProvider(ctx context.Context, in *core.OauthProviderInfo) (*core.BaseResp, error) {
-	l := oauth_provider.NewUpdateOauthProviderLogic(ctx, s.svcCtx)
+	l := oauthprovider.NewUpdateOauthProviderLogic(ctx, s.svcCtx)
 	return l.UpdateOauthProvider(in)
 }
 
 func (s *CoreServer) GetOauthProviderList(ctx context.Context, in *core.OauthProviderListReq) (*core.OauthProviderListResp, error) {
-	l := oauth_provider.NewGetOauthProviderListLogic(ctx, s.svcCtx)
+	l := oauthprovider.NewGetOauthProviderListLogic(ctx, s.svcCtx)
 	return l.GetOauthProviderList(in)
 }
 
 func (s *CoreServer) GetOauthProviderById(ctx context.Context, in *core.IDReq) (*core.OauthProviderInfo, error) {
-	l := oauth_provider.NewGetOauthProviderByIdLogic(ctx, s.svcCtx)
+	l := oauthprovider.NewGetOauthProviderByIdLogic(ctx, s.svcCtx)
 	return l.GetOauthProviderById(in)
 }
 
 func (s *CoreServer) DeleteOauthProvider(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
-	l := oauth_provider.NewDeleteOauthProviderLogic(ctx, s.svcCtx)
+	l := oauthprovider.NewDeleteOauthProviderLogic(ctx, s.svcCtx)
 	return l.DeleteOauthProvider(in)
+}
+
+func (s *CoreServer) OauthLogin(ctx context.Context, in *core.OauthLoginReq) (*core.OauthRedirectResp, error) {
+	l := oauthprovider.NewOauthLoginLogic(ctx, s.svcCtx)
+	return l.OauthLogin(in)
+}
+
+func (s *CoreServer) OauthCallback(ctx context.Context, in *core.CallbackReq) (*core.UserInfo, error) {
+	l := oauthprovider.NewOauthCallbackLogic(ctx, s.svcCtx)
+	return l.OauthCallback(in)
 }
 
 // Position management

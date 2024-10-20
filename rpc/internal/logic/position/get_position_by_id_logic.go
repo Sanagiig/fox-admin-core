@@ -32,14 +32,13 @@ func (l *GetPositionByIdLogic) GetPositionById(in *core.IDReq) (*core.PositionIn
 	}
 
 	return &core.PositionInfo{
-		Id:          &result.ID,
-		CreatedAt:    pointy.GetPointer(result.CreatedAt.UnixMilli()),
-		UpdatedAt:    pointy.GetPointer(result.UpdatedAt.UnixMilli()),
-		Status:	pointy.GetPointer(uint32(result.Status)),
-		Sort:	&result.Sort,
-		Name:	&result.Name,
-		Code:	&result.Code,
-		Remark:	&result.Remark,
+		Id:        &result.ID,
+		CreatedAt: pointy.GetPointer(result.CreatedAt.UnixMilli()),
+		UpdatedAt: pointy.GetPointer(result.UpdatedAt.UnixMilli()),
+		Status:    pointy.GetPointer(uint32(result.Status)),
+		Sort:      &result.Sort,
+		Name:      &result.Name,
+		Code:      &result.Code,
+		Remark:    &result.Remark,
 	}, nil
 }
-

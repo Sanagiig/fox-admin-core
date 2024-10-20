@@ -32,13 +32,12 @@ func (l *GetDictionaryByIdLogic) GetDictionaryById(in *core.IDReq) (*core.Dictio
 	}
 
 	return &core.DictionaryInfo{
-		Id:          &result.ID,
-		CreatedAt:    pointy.GetPointer(result.CreatedAt.UnixMilli()),
-		UpdatedAt:    pointy.GetPointer(result.UpdatedAt.UnixMilli()),
-		Status:	pointy.GetPointer(uint32(result.Status)),
-		Title:	&result.Title,
-		Name:	&result.Name,
-		Desc:	&result.Desc,
+		Id:        &result.ID,
+		CreatedAt: pointy.GetPointer(result.CreatedAt.UnixMilli()),
+		UpdatedAt: pointy.GetPointer(result.UpdatedAt.UnixMilli()),
+		Status:    pointy.GetPointer(uint32(result.Status)),
+		Title:     &result.Title,
+		Name:      &result.Name,
+		Desc:      &result.Desc,
 	}, nil
 }
-

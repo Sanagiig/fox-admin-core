@@ -41,6 +41,7 @@ func GetDepartmentAncestors(departmentID *uint64, db *ent.Client, logger logx.Lo
 			s.Prefix(with).Select(with.C(department.FieldID)).From(with)
 		}).
 		Select(department.FieldParentID).Strings(ctx)
+
 	if err != nil {
 		return nil, dberrorhandler.DefaultEntError(logger, err, fmt.Sprintf("failed to get the department ancestors of %d", departmentID))
 	}

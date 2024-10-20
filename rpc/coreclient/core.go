@@ -20,6 +20,7 @@ type (
 	BaseMsg                  = core.BaseMsg
 	BaseResp                 = core.BaseResp
 	BaseUUIDResp             = core.BaseUUIDResp
+	CallbackReq              = core.CallbackReq
 	ConfigurationInfo        = core.ConfigurationInfo
 	ConfigurationListReq     = core.ConfigurationListReq
 	ConfigurationListResp    = core.ConfigurationListResp
@@ -40,9 +41,11 @@ type (
 	MenuRoleInfo             = core.MenuRoleInfo
 	MenuRoleListResp         = core.MenuRoleListResp
 	Meta                     = core.Meta
+	OauthLoginReq            = core.OauthLoginReq
 	OauthProviderInfo        = core.OauthProviderInfo
 	OauthProviderListReq     = core.OauthProviderListReq
 	OauthProviderListResp    = core.OauthProviderListResp
+	OauthRedirectResp        = core.OauthRedirectResp
 	PageInfoReq              = core.PageInfoReq
 	PositionInfo             = core.PositionInfo
 	PositionListReq          = core.PositionListReq
@@ -96,6 +99,7 @@ type (
 		GetDictionaryDetailList(ctx context.Context, in *DictionaryDetailListReq, opts ...grpc.CallOption) (*DictionaryDetailListResp, error)
 		GetDictionaryDetailById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*DictionaryDetailInfo, error)
 		DeleteDictionaryDetail(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+		GetDictionaryDetailByDictionaryName(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*DictionaryDetailListResp, error)
 		CreateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
 		UpdateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
@@ -107,6 +111,8 @@ type (
 		GetOauthProviderList(ctx context.Context, in *OauthProviderListReq, opts ...grpc.CallOption) (*OauthProviderListResp, error)
 		GetOauthProviderById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*OauthProviderInfo, error)
 		DeleteOauthProvider(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+		OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...grpc.CallOption) (*OauthRedirectResp, error)
+		OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*UserInfo, error)
 		// Position management
 		CreatePosition(ctx context.Context, in *PositionInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
 		UpdatePosition(ctx context.Context, in *PositionInfo, opts ...grpc.CallOption) (*BaseResp, error)
@@ -291,6 +297,11 @@ func (m *defaultCore) DeleteDictionaryDetail(ctx context.Context, in *IDsReq, op
 	return client.DeleteDictionaryDetail(ctx, in, opts...)
 }
 
+func (m *defaultCore) GetDictionaryDetailByDictionaryName(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*DictionaryDetailListResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetDictionaryDetailByDictionaryName(ctx, in, opts...)
+}
+
 func (m *defaultCore) CreateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.CreateMenu(ctx, in, opts...)
@@ -340,6 +351,16 @@ func (m *defaultCore) GetOauthProviderById(ctx context.Context, in *IDReq, opts 
 func (m *defaultCore) DeleteOauthProvider(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteOauthProvider(ctx, in, opts...)
+}
+
+func (m *defaultCore) OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...grpc.CallOption) (*OauthRedirectResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.OauthLogin(ctx, in, opts...)
+}
+
+func (m *defaultCore) OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*UserInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.OauthCallback(ctx, in, opts...)
 }
 
 // Position management

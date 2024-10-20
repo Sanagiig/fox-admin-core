@@ -4,8 +4,8 @@ syntax = "proto3";
 
 message ConfigurationInfo {
   optional uint64 id = 1;
-  optional int64 createdAt = 2;
-  optional int64 updatedAt = 3;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
   // Sort Number | 排序编号
   optional uint32 sort = 4;
   // State true: normal false: ban | 状态 true 正常 false 禁用
@@ -29,10 +29,11 @@ message ConfigurationListResp {
 
 message ConfigurationListReq {
   uint64 page = 1;
-  uint64 pageSize = 2;
+  uint64 page_size = 2;
   optional string name = 3;
   optional string key = 4;
-  optional string value = 5;
+  optional string category = 5;
+  optional bool state = 6;
 }
 
 

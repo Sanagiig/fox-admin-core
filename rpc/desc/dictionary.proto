@@ -4,15 +4,11 @@ syntax = "proto3";
 
 message DictionaryInfo {
   optional uint64 id = 1;
-  optional int64 createdAt = 2;
-  optional int64 updatedAt = 3;
-  // Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
   optional uint32 status = 4;
-  // The title shown in the ui | 展示名称 （建议配合i18n）
   optional string title = 5;
-  // The name of dictionary for search | 字典搜索名称
   optional string name = 6;
-  // The description of dictionary | 字典的描述
   optional string desc = 7;
 }
 
@@ -23,10 +19,8 @@ message DictionaryListResp {
 
 message DictionaryListReq {
   uint64 page = 1;
-  uint64 pageSize = 2;
-  optional string title = 3;
-  optional string name = 4;
-  optional string desc = 5;
+  uint64 page_size = 2;
+  optional string name = 3;
 }
 
 

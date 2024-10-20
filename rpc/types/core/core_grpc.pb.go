@@ -19,66 +19,69 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Core_CreateApi_FullMethodName                   = "/core.Core/createApi"
-	Core_UpdateApi_FullMethodName                   = "/core.Core/updateApi"
-	Core_GetApiList_FullMethodName                  = "/core.Core/getApiList"
-	Core_GetApiById_FullMethodName                  = "/core.Core/getApiById"
-	Core_DeleteApi_FullMethodName                   = "/core.Core/deleteApi"
-	Core_GetMenuAuthority_FullMethodName            = "/core.Core/getMenuAuthority"
-	Core_CreateOrUpdateMenuAuthority_FullMethodName = "/core.Core/createOrUpdateMenuAuthority"
-	Core_InitDatabase_FullMethodName                = "/core.Core/initDatabase"
-	Core_CreateConfiguration_FullMethodName         = "/core.Core/createConfiguration"
-	Core_UpdateConfiguration_FullMethodName         = "/core.Core/updateConfiguration"
-	Core_GetConfigurationList_FullMethodName        = "/core.Core/getConfigurationList"
-	Core_GetConfigurationById_FullMethodName        = "/core.Core/getConfigurationById"
-	Core_DeleteConfiguration_FullMethodName         = "/core.Core/deleteConfiguration"
-	Core_CreateDepartment_FullMethodName            = "/core.Core/createDepartment"
-	Core_UpdateDepartment_FullMethodName            = "/core.Core/updateDepartment"
-	Core_GetDepartmentList_FullMethodName           = "/core.Core/getDepartmentList"
-	Core_GetDepartmentById_FullMethodName           = "/core.Core/getDepartmentById"
-	Core_DeleteDepartment_FullMethodName            = "/core.Core/deleteDepartment"
-	Core_CreateDictionary_FullMethodName            = "/core.Core/createDictionary"
-	Core_UpdateDictionary_FullMethodName            = "/core.Core/updateDictionary"
-	Core_GetDictionaryList_FullMethodName           = "/core.Core/getDictionaryList"
-	Core_GetDictionaryById_FullMethodName           = "/core.Core/getDictionaryById"
-	Core_DeleteDictionary_FullMethodName            = "/core.Core/deleteDictionary"
-	Core_CreateDictionaryDetail_FullMethodName      = "/core.Core/createDictionaryDetail"
-	Core_UpdateDictionaryDetail_FullMethodName      = "/core.Core/updateDictionaryDetail"
-	Core_GetDictionaryDetailList_FullMethodName     = "/core.Core/getDictionaryDetailList"
-	Core_GetDictionaryDetailById_FullMethodName     = "/core.Core/getDictionaryDetailById"
-	Core_DeleteDictionaryDetail_FullMethodName      = "/core.Core/deleteDictionaryDetail"
-	Core_CreateMenu_FullMethodName                  = "/core.Core/createMenu"
-	Core_UpdateMenu_FullMethodName                  = "/core.Core/updateMenu"
-	Core_DeleteMenu_FullMethodName                  = "/core.Core/deleteMenu"
-	Core_GetMenuListByRole_FullMethodName           = "/core.Core/getMenuListByRole"
-	Core_GetMenuList_FullMethodName                 = "/core.Core/getMenuList"
-	Core_CreateOauthProvider_FullMethodName         = "/core.Core/createOauthProvider"
-	Core_UpdateOauthProvider_FullMethodName         = "/core.Core/updateOauthProvider"
-	Core_GetOauthProviderList_FullMethodName        = "/core.Core/getOauthProviderList"
-	Core_GetOauthProviderById_FullMethodName        = "/core.Core/getOauthProviderById"
-	Core_DeleteOauthProvider_FullMethodName         = "/core.Core/deleteOauthProvider"
-	Core_CreatePosition_FullMethodName              = "/core.Core/createPosition"
-	Core_UpdatePosition_FullMethodName              = "/core.Core/updatePosition"
-	Core_GetPositionList_FullMethodName             = "/core.Core/getPositionList"
-	Core_GetPositionById_FullMethodName             = "/core.Core/getPositionById"
-	Core_DeletePosition_FullMethodName              = "/core.Core/deletePosition"
-	Core_CreateRole_FullMethodName                  = "/core.Core/createRole"
-	Core_UpdateRole_FullMethodName                  = "/core.Core/updateRole"
-	Core_GetRoleList_FullMethodName                 = "/core.Core/getRoleList"
-	Core_GetRoleById_FullMethodName                 = "/core.Core/getRoleById"
-	Core_DeleteRole_FullMethodName                  = "/core.Core/deleteRole"
-	Core_CreateToken_FullMethodName                 = "/core.Core/createToken"
-	Core_DeleteToken_FullMethodName                 = "/core.Core/deleteToken"
-	Core_GetTokenList_FullMethodName                = "/core.Core/getTokenList"
-	Core_GetTokenById_FullMethodName                = "/core.Core/getTokenById"
-	Core_BlockUserAllToken_FullMethodName           = "/core.Core/blockUserAllToken"
-	Core_UpdateToken_FullMethodName                 = "/core.Core/updateToken"
-	Core_CreateUser_FullMethodName                  = "/core.Core/createUser"
-	Core_UpdateUser_FullMethodName                  = "/core.Core/updateUser"
-	Core_GetUserList_FullMethodName                 = "/core.Core/getUserList"
-	Core_GetUserById_FullMethodName                 = "/core.Core/getUserById"
-	Core_GetUserByUsername_FullMethodName           = "/core.Core/getUserByUsername"
-	Core_DeleteUser_FullMethodName                  = "/core.Core/deleteUser"
+	Core_CreateApi_FullMethodName                           = "/core.Core/createApi"
+	Core_UpdateApi_FullMethodName                           = "/core.Core/updateApi"
+	Core_GetApiList_FullMethodName                          = "/core.Core/getApiList"
+	Core_GetApiById_FullMethodName                          = "/core.Core/getApiById"
+	Core_DeleteApi_FullMethodName                           = "/core.Core/deleteApi"
+	Core_GetMenuAuthority_FullMethodName                    = "/core.Core/getMenuAuthority"
+	Core_CreateOrUpdateMenuAuthority_FullMethodName         = "/core.Core/createOrUpdateMenuAuthority"
+	Core_InitDatabase_FullMethodName                        = "/core.Core/initDatabase"
+	Core_CreateConfiguration_FullMethodName                 = "/core.Core/createConfiguration"
+	Core_UpdateConfiguration_FullMethodName                 = "/core.Core/updateConfiguration"
+	Core_GetConfigurationList_FullMethodName                = "/core.Core/getConfigurationList"
+	Core_GetConfigurationById_FullMethodName                = "/core.Core/getConfigurationById"
+	Core_DeleteConfiguration_FullMethodName                 = "/core.Core/deleteConfiguration"
+	Core_CreateDepartment_FullMethodName                    = "/core.Core/createDepartment"
+	Core_UpdateDepartment_FullMethodName                    = "/core.Core/updateDepartment"
+	Core_GetDepartmentList_FullMethodName                   = "/core.Core/getDepartmentList"
+	Core_GetDepartmentById_FullMethodName                   = "/core.Core/getDepartmentById"
+	Core_DeleteDepartment_FullMethodName                    = "/core.Core/deleteDepartment"
+	Core_CreateDictionary_FullMethodName                    = "/core.Core/createDictionary"
+	Core_UpdateDictionary_FullMethodName                    = "/core.Core/updateDictionary"
+	Core_GetDictionaryList_FullMethodName                   = "/core.Core/getDictionaryList"
+	Core_GetDictionaryById_FullMethodName                   = "/core.Core/getDictionaryById"
+	Core_DeleteDictionary_FullMethodName                    = "/core.Core/deleteDictionary"
+	Core_CreateDictionaryDetail_FullMethodName              = "/core.Core/createDictionaryDetail"
+	Core_UpdateDictionaryDetail_FullMethodName              = "/core.Core/updateDictionaryDetail"
+	Core_GetDictionaryDetailList_FullMethodName             = "/core.Core/getDictionaryDetailList"
+	Core_GetDictionaryDetailById_FullMethodName             = "/core.Core/getDictionaryDetailById"
+	Core_DeleteDictionaryDetail_FullMethodName              = "/core.Core/deleteDictionaryDetail"
+	Core_GetDictionaryDetailByDictionaryName_FullMethodName = "/core.Core/getDictionaryDetailByDictionaryName"
+	Core_CreateMenu_FullMethodName                          = "/core.Core/createMenu"
+	Core_UpdateMenu_FullMethodName                          = "/core.Core/updateMenu"
+	Core_DeleteMenu_FullMethodName                          = "/core.Core/deleteMenu"
+	Core_GetMenuListByRole_FullMethodName                   = "/core.Core/getMenuListByRole"
+	Core_GetMenuList_FullMethodName                         = "/core.Core/getMenuList"
+	Core_CreateOauthProvider_FullMethodName                 = "/core.Core/createOauthProvider"
+	Core_UpdateOauthProvider_FullMethodName                 = "/core.Core/updateOauthProvider"
+	Core_GetOauthProviderList_FullMethodName                = "/core.Core/getOauthProviderList"
+	Core_GetOauthProviderById_FullMethodName                = "/core.Core/getOauthProviderById"
+	Core_DeleteOauthProvider_FullMethodName                 = "/core.Core/deleteOauthProvider"
+	Core_OauthLogin_FullMethodName                          = "/core.Core/oauthLogin"
+	Core_OauthCallback_FullMethodName                       = "/core.Core/oauthCallback"
+	Core_CreatePosition_FullMethodName                      = "/core.Core/createPosition"
+	Core_UpdatePosition_FullMethodName                      = "/core.Core/updatePosition"
+	Core_GetPositionList_FullMethodName                     = "/core.Core/getPositionList"
+	Core_GetPositionById_FullMethodName                     = "/core.Core/getPositionById"
+	Core_DeletePosition_FullMethodName                      = "/core.Core/deletePosition"
+	Core_CreateRole_FullMethodName                          = "/core.Core/createRole"
+	Core_UpdateRole_FullMethodName                          = "/core.Core/updateRole"
+	Core_GetRoleList_FullMethodName                         = "/core.Core/getRoleList"
+	Core_GetRoleById_FullMethodName                         = "/core.Core/getRoleById"
+	Core_DeleteRole_FullMethodName                          = "/core.Core/deleteRole"
+	Core_CreateToken_FullMethodName                         = "/core.Core/createToken"
+	Core_DeleteToken_FullMethodName                         = "/core.Core/deleteToken"
+	Core_GetTokenList_FullMethodName                        = "/core.Core/getTokenList"
+	Core_GetTokenById_FullMethodName                        = "/core.Core/getTokenById"
+	Core_BlockUserAllToken_FullMethodName                   = "/core.Core/blockUserAllToken"
+	Core_UpdateToken_FullMethodName                         = "/core.Core/updateToken"
+	Core_CreateUser_FullMethodName                          = "/core.Core/createUser"
+	Core_UpdateUser_FullMethodName                          = "/core.Core/updateUser"
+	Core_GetUserList_FullMethodName                         = "/core.Core/getUserList"
+	Core_GetUserById_FullMethodName                         = "/core.Core/getUserById"
+	Core_GetUserByUsername_FullMethodName                   = "/core.Core/getUserByUsername"
+	Core_DeleteUser_FullMethodName                          = "/core.Core/deleteUser"
 )
 
 // CoreClient is the client API for Core service.
@@ -136,16 +139,18 @@ type CoreClient interface {
 	// group: dictionary
 	DeleteDictionary(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// DictionaryDetail management
-	// group: dictionary_detail
+	// group: dictionarydetail
 	CreateDictionaryDetail(ctx context.Context, in *DictionaryDetailInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
-	// group: dictionary_detail
+	// group: dictionarydetail
 	UpdateDictionaryDetail(ctx context.Context, in *DictionaryDetailInfo, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: dictionary_detail
+	// group: dictionarydetail
 	GetDictionaryDetailList(ctx context.Context, in *DictionaryDetailListReq, opts ...grpc.CallOption) (*DictionaryDetailListResp, error)
-	// group: dictionary_detail
+	// group: dictionarydetail
 	GetDictionaryDetailById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*DictionaryDetailInfo, error)
-	// group: dictionary_detail
+	// group: dictionarydetail
 	DeleteDictionaryDetail(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: dictionarydetail
+	GetDictionaryDetailByDictionaryName(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*DictionaryDetailListResp, error)
 	// group: menu
 	CreateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
 	// group: menu
@@ -157,16 +162,20 @@ type CoreClient interface {
 	// group: menu
 	GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error)
 	// OauthProvider management
-	// group: oauth_provider
+	// group: oauthprovider
 	CreateOauthProvider(ctx context.Context, in *OauthProviderInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
-	// group: oauth_provider
+	// group: oauthprovider
 	UpdateOauthProvider(ctx context.Context, in *OauthProviderInfo, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: oauth_provider
+	// group: oauthprovider
 	GetOauthProviderList(ctx context.Context, in *OauthProviderListReq, opts ...grpc.CallOption) (*OauthProviderListResp, error)
-	// group: oauth_provider
+	// group: oauthprovider
 	GetOauthProviderById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*OauthProviderInfo, error)
-	// group: oauth_provider
+	// group: oauthprovider
 	DeleteOauthProvider(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: oauthprovider
+	OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...grpc.CallOption) (*OauthRedirectResp, error)
+	// group: oauthprovider
+	OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*UserInfo, error)
 	// Position management
 	// group: position
 	CreatePosition(ctx context.Context, in *PositionInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
@@ -477,6 +486,15 @@ func (c *coreClient) DeleteDictionaryDetail(ctx context.Context, in *IDsReq, opt
 	return out, nil
 }
 
+func (c *coreClient) GetDictionaryDetailByDictionaryName(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*DictionaryDetailListResp, error) {
+	out := new(DictionaryDetailListResp)
+	err := c.cc.Invoke(ctx, Core_GetDictionaryDetailByDictionaryName_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *coreClient) CreateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {
 	out := new(BaseIDResp)
 	err := c.cc.Invoke(ctx, Core_CreateMenu_FullMethodName, in, out, opts...)
@@ -561,6 +579,24 @@ func (c *coreClient) GetOauthProviderById(ctx context.Context, in *IDReq, opts .
 func (c *coreClient) DeleteOauthProvider(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, Core_DeleteOauthProvider_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...grpc.CallOption) (*OauthRedirectResp, error) {
+	out := new(OauthRedirectResp)
+	err := c.cc.Invoke(ctx, Core_OauthLogin_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*UserInfo, error) {
+	out := new(UserInfo)
+	err := c.cc.Invoke(ctx, Core_OauthCallback_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -820,16 +856,18 @@ type CoreServer interface {
 	// group: dictionary
 	DeleteDictionary(context.Context, *IDsReq) (*BaseResp, error)
 	// DictionaryDetail management
-	// group: dictionary_detail
+	// group: dictionarydetail
 	CreateDictionaryDetail(context.Context, *DictionaryDetailInfo) (*BaseIDResp, error)
-	// group: dictionary_detail
+	// group: dictionarydetail
 	UpdateDictionaryDetail(context.Context, *DictionaryDetailInfo) (*BaseResp, error)
-	// group: dictionary_detail
+	// group: dictionarydetail
 	GetDictionaryDetailList(context.Context, *DictionaryDetailListReq) (*DictionaryDetailListResp, error)
-	// group: dictionary_detail
+	// group: dictionarydetail
 	GetDictionaryDetailById(context.Context, *IDReq) (*DictionaryDetailInfo, error)
-	// group: dictionary_detail
+	// group: dictionarydetail
 	DeleteDictionaryDetail(context.Context, *IDsReq) (*BaseResp, error)
+	// group: dictionarydetail
+	GetDictionaryDetailByDictionaryName(context.Context, *BaseMsg) (*DictionaryDetailListResp, error)
 	// group: menu
 	CreateMenu(context.Context, *MenuInfo) (*BaseIDResp, error)
 	// group: menu
@@ -841,16 +879,20 @@ type CoreServer interface {
 	// group: menu
 	GetMenuList(context.Context, *PageInfoReq) (*MenuInfoList, error)
 	// OauthProvider management
-	// group: oauth_provider
+	// group: oauthprovider
 	CreateOauthProvider(context.Context, *OauthProviderInfo) (*BaseIDResp, error)
-	// group: oauth_provider
+	// group: oauthprovider
 	UpdateOauthProvider(context.Context, *OauthProviderInfo) (*BaseResp, error)
-	// group: oauth_provider
+	// group: oauthprovider
 	GetOauthProviderList(context.Context, *OauthProviderListReq) (*OauthProviderListResp, error)
-	// group: oauth_provider
+	// group: oauthprovider
 	GetOauthProviderById(context.Context, *IDReq) (*OauthProviderInfo, error)
-	// group: oauth_provider
+	// group: oauthprovider
 	DeleteOauthProvider(context.Context, *IDsReq) (*BaseResp, error)
+	// group: oauthprovider
+	OauthLogin(context.Context, *OauthLoginReq) (*OauthRedirectResp, error)
+	// group: oauthprovider
+	OauthCallback(context.Context, *CallbackReq) (*UserInfo, error)
 	// Position management
 	// group: position
 	CreatePosition(context.Context, *PositionInfo) (*BaseIDResp, error)
@@ -990,6 +1032,9 @@ func (UnimplementedCoreServer) GetDictionaryDetailById(context.Context, *IDReq) 
 func (UnimplementedCoreServer) DeleteDictionaryDetail(context.Context, *IDsReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDictionaryDetail not implemented")
 }
+func (UnimplementedCoreServer) GetDictionaryDetailByDictionaryName(context.Context, *BaseMsg) (*DictionaryDetailListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDictionaryDetailByDictionaryName not implemented")
+}
 func (UnimplementedCoreServer) CreateMenu(context.Context, *MenuInfo) (*BaseIDResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateMenu not implemented")
 }
@@ -1019,6 +1064,12 @@ func (UnimplementedCoreServer) GetOauthProviderById(context.Context, *IDReq) (*O
 }
 func (UnimplementedCoreServer) DeleteOauthProvider(context.Context, *IDsReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteOauthProvider not implemented")
+}
+func (UnimplementedCoreServer) OauthLogin(context.Context, *OauthLoginReq) (*OauthRedirectResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method OauthLogin not implemented")
+}
+func (UnimplementedCoreServer) OauthCallback(context.Context, *CallbackReq) (*UserInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method OauthCallback not implemented")
 }
 func (UnimplementedCoreServer) CreatePosition(context.Context, *PositionInfo) (*BaseIDResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreatePosition not implemented")
@@ -1603,6 +1654,24 @@ func _Core_DeleteDictionaryDetail_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Core_GetDictionaryDetailByDictionaryName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BaseMsg)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetDictionaryDetailByDictionaryName(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetDictionaryDetailByDictionaryName_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetDictionaryDetailByDictionaryName(ctx, req.(*BaseMsg))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Core_CreateMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(MenuInfo)
 	if err := dec(in); err != nil {
@@ -1779,6 +1848,42 @@ func _Core_DeleteOauthProvider_Handler(srv interface{}, ctx context.Context, dec
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).DeleteOauthProvider(ctx, req.(*IDsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_OauthLogin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(OauthLoginReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).OauthLogin(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_OauthLogin_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).OauthLogin(ctx, req.(*OauthLoginReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_OauthCallback_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CallbackReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).OauthCallback(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_OauthCallback_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).OauthCallback(ctx, req.(*CallbackReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2299,6 +2404,10 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Core_DeleteDictionaryDetail_Handler,
 		},
 		{
+			MethodName: "getDictionaryDetailByDictionaryName",
+			Handler:    _Core_GetDictionaryDetailByDictionaryName_Handler,
+		},
+		{
 			MethodName: "createMenu",
 			Handler:    _Core_CreateMenu_Handler,
 		},
@@ -2337,6 +2446,14 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "deleteOauthProvider",
 			Handler:    _Core_DeleteOauthProvider_Handler,
+		},
+		{
+			MethodName: "oauthLogin",
+			Handler:    _Core_OauthLogin_Handler,
+		},
+		{
+			MethodName: "oauthCallback",
+			Handler:    _Core_OauthCallback_Handler,
 		},
 		{
 			MethodName: "createPosition",

@@ -10,7 +10,7 @@ import (
 	"github.com/Sanagiig/fox-admin-core/rpc/types/core"
 
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
-    "github.com/zeromicro/go-zero/core/logx"
+	"github.com/zeromicro/go-zero/core/logx"
 )
 
 type GetPositionListLogic struct {
@@ -39,7 +39,6 @@ func (l *GetPositionListLogic) GetPositionList(in *core.PositionListReq) (*core.
 		predicates = append(predicates, position.RemarkContains(*in.Remark))
 	}
 	result, err := l.svcCtx.DB.Position.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
-
 	if err != nil {
 		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
 	}
@@ -49,14 +48,14 @@ func (l *GetPositionListLogic) GetPositionList(in *core.PositionListReq) (*core.
 
 	for _, v := range result.List {
 		resp.Data = append(resp.Data, &core.PositionInfo{
-			Id:          &v.ID,
-			CreatedAt:   pointy.GetPointer(v.CreatedAt.UnixMilli()),
-			UpdatedAt:   pointy.GetPointer(v.UpdatedAt.UnixMilli()),
-			Status:	pointy.GetPointer(uint32(v.Status)),
-			Sort:	&v.Sort,
-			Name:	&v.Name,
-			Code:	&v.Code,
-			Remark:	&v.Remark,
+			Id:        &v.ID,
+			CreatedAt: pointy.GetPointer(v.CreatedAt.UnixMilli()),
+			UpdatedAt: pointy.GetPointer(v.UpdatedAt.UnixMilli()),
+			Status:    pointy.GetPointer(uint32(v.Status)),
+			Sort:      &v.Sort,
+			Name:      &v.Name,
+			Code:      &v.Code,
+			Remark:    &v.Remark,
 		})
 	}
 

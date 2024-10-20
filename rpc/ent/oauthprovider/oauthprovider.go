@@ -10,7 +10,7 @@ import (
 
 const (
 	// Label holds the string label denoting the oauthprovider type in the database.
-	Label = "oauth_provider"
+	Label = "oauthprovider"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.

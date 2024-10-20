@@ -2,6 +2,7 @@ package department
 
 import (
 	"context"
+	"github.com/Sanagiig/fox-admin-core/rpc/internal/utils/dbfunc"
 
 	"github.com/Sanagiig/fox-admin-core/rpc/internal/svc"
 	"github.com/Sanagiig/fox-admin-core/rpc/internal/utils/dberrorhandler"

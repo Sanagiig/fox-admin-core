@@ -580,6 +580,68 @@ type DepartmentInfoResp struct {
 	Data DepartmentInfo `json:"data"`
 }
 
+// The response data of api authorization | API授权数据
+// swagger:model ApiAuthorityInfo
+type ApiAuthorityInfo struct {
+	// API path | API 路径
+	// required : true
+	// max length : 80
+	Path string `json:"path" validate="required,max=80"`
+	// API method | API请求方法
+	// required : true
+	// min length : 3
+	// max length : 4
+	Method string `json:"method" validate="required,min=3,max=4"`
+}
+
+// Create or update api authorization information request | 创建或更新API授权信息
+// swagger:model CreateOrUpdateApiAuthorityReq
+type CreateOrUpdateApiAuthorityReq struct {
+	// Role ID | 角色ID
+	// required : true
+	// max : 1000
+	RoleId uint64 `json:"roleId" validate:"required,lt=1000"`
+	// API authorization list | API授权列表数据
+	// Required: true
+	Data []ApiAuthorityInfo `json:"data"`
+}
+
+// The response data of api authorization list | API授权列表返回数据
+// swagger:model ApiAuthorityListResp
+type ApiAuthorityListResp struct {
+	BaseDataInfo
+	// The api authorization list data | API授权列表数据
+	Data ApiAuthorityListInfo `json:"data"`
+}
+
+// The  data of api authorization list | API授权列表数据
+// swagger:model ApiAuthorityListInfo
+type ApiAuthorityListInfo struct {
+	BaseListInfo
+	// The api authorization list data | API授权列表数据
+	Data []ApiAuthorityInfo `json:"data"`
+}
+
+// Create or update menu authorization information request params | 创建或更新菜单授权信息参数
+// swagger:model MenuAuthorityInfoReq
+type MenuAuthorityInfoReq struct {
+	// role ID | 角色ID
+	// required : true
+	// max : 1000
+	RoleId uint64 `json:"roleId" validate:"required,lt=1000"`
+	// menu ID array | 菜单ID数组
+	// required : true
+	MenuIds []uint64 `json:"menuIds" validate:"required"`
+}
+
+// Menu authorization response data | 菜单授权信息数据
+// swagger:model MenuAuthorityInfoResp
+type MenuAuthorityInfoResp struct {
+	BaseDataInfo
+	// The menu authorization data | 菜单授权信息数据
+	Data MenuAuthorityInfoReq `json:"data"`
+}
+
 // The response data of menu information | 菜单信息
 // swagger:model MenuInfo
 type MenuInfo struct {
@@ -851,4 +913,407 @@ type EmailCaptchaReq struct {
 type SmsCaptchaReq struct {
 	// The phone number | 电话号码
 	PhoneNumber string `json:"phoneNumber"`
+}
+
+// The response data of configuration information | 参数配置信息
+// swagger:model ConfigurationInfo
+type ConfigurationInfo struct {
+	BaseIDInfo
+	// Sort Number | 排序编号
+	Sort *uint32 `json:"sort,optional"`
+	// State true: normal false: ban | 状态 true 正常 false 禁用
+	State *bool `json:"state,optional"`
+	// Configurarion name | 配置名称
+	Name *string `json:"name,optional"`
+	// Configuration key | 配置的键名
+	Key *string `json:"key,optional"`
+	// Configuraion value | 配置的值
+	Value *string `json:"value,optional"`
+	// Configuration category | 配置的分类
+	Category *string `json:"category,optional"`
+	// Remark | 备注
+	Remark *string `json:"remark,optional"`
+}
+
+// The response data of configuration list | 参数配置列表数据
+// swagger:model ConfigurationListResp
+type ConfigurationListResp struct {
+	BaseDataInfo
+	// Configuration list data | 参数配置列表数据
+	Data ConfigurationListInfo `json:"data"`
+}
+
+// Configuration list data | 参数配置列表数据
+// swagger:model ConfigurationListInfo
+type ConfigurationListInfo struct {
+	BaseListInfo
+	// The API list data | Configuration列表数据
+	Data []ConfigurationInfo `json:"data"`
+}
+
+// Get configuration list request params | 参数配置列表请求参数
+// swagger:model ConfigurationListReq
+type ConfigurationListReq struct {
+	PageInfo
+	// Name
+	Name *string `json:"name,optional"`
+	// Key
+	Key *string `json:"key,optional"`
+	// Category
+	Category *string `json:"category,optional"`
+}
+
+// Configuration information response | 参数配置信息返回体
+// swagger:model ConfigurationInfoResp
+type ConfigurationInfoResp struct {
+	BaseDataInfo
+	// Configuration information | 参数配置数据
+	Data ConfigurationInfo `json:"data"`
+}
+
+// The response data of dictionary information | 字典信息
+// swagger:model DictionaryInfo
+type DictionaryInfo struct {
+	BaseIDInfo
+	// Translated Name | 字典多语言名称
+	Trans string `json:"trans,optional"`
+	// Title | 字典多语言名称
+	// min length : 1
+	// max length : 50
+	Title *string `json:"title,optional" validate:"omitempty,min=1,max=50"`
+	// Name | 字典名称
+	// min length : 1
+	// max length : 50
+	Name *string `json:"name,optional" validate:"omitempty,min=1,max=50"`
+	// Status | 状态
+	// max : 20
+	Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
+	// Description of dictionary | 字典描述
+	// max length : 200
+	Desc *string `json:"desc,optional" validate:"omitempty,max=200"`
+}
+
+// The response data of dictionary list | 字典列表数据
+// swagger:model DictionaryListResp
+type DictionaryListResp struct {
+	BaseDataInfo
+	// Dictionary list data | 字典列表数据
+	Data DictionaryListInfo `json:"data"`
+}
+
+// Dictionary list data | 字典列表数据
+// swagger:model DictionaryListInfo
+type DictionaryListInfo struct {
+	BaseListInfo
+	// The API list data | 字典列表数据
+	Data []DictionaryInfo `json:"data"`
+}
+
+// Get dictionary list request params | 字典列表请求参数
+// swagger:model DictionaryListReq
+type DictionaryListReq struct {
+	PageInfo
+	// Name | 字典名称
+	// max length : 50
+	Name *string `json:"name,optional" validate:"omitempty,max=50"`
+}
+
+// Dictionary information response | 字典信息返回体
+// swagger:model DictionaryInfoResp
+type DictionaryInfoResp struct {
+	BaseDataInfo
+	// Dictionary information | 字典数据
+	Data DictionaryInfo `json:"data"`
+}
+
+// The response data of dictionary detail information | 字典键值信息
+// swagger:model DictionaryDetailInfo
+type DictionaryDetailInfo struct {
+	BaseIDInfo
+	// Status | 状态
+	// max : 20
+	Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
+	// Title | 显示名称
+	// max length : 50
+	Title *string `json:"title,optional" validate:"omitempty,max=50"`
+	// Key | 键
+	// max length : 80
+	Key *string `json:"key,optional" validate:"omitempty,max=80"`
+	// Value | 值
+	// max length : 100
+	Value *string `json:"value,optional" validate:"omitempty,max=100"`
+	// Dictionary ID | 所属字典ID
+	DictionaryId *uint64 `json:"dictionaryId,optional"`
+	// Sort | 排序
+	// max : 10000
+	Sort *uint32 `json:"sort,optional" validate:"omitempty,lt=10000"`
+}
+
+// The response data of dictionary detail list | 字典键值列表数据
+// swagger:model DictionaryDetailListResp
+type DictionaryDetailListResp struct {
+	BaseDataInfo
+	// DictionaryDetail list data | 字典键值列表数据
+	Data DictionaryDetailListInfo `json:"data"`
+}
+
+// DictionaryDetail list data | 字典键值列表数据
+// swagger:model DictionaryDetailListInfo
+type DictionaryDetailListInfo struct {
+	BaseListInfo
+	// The API list data | 字典键值列表数据
+	Data []DictionaryDetailInfo `json:"data"`
+}
+
+// Get dictionary detail list request params | 字典键值列表请求参数
+// swagger:model DictionaryDetailListReq
+type DictionaryDetailListReq struct {
+	PageInfo
+	// Key | 键
+	// max length : 80
+	Key *string `json:"key,optional" validate:"omitempty,max=80"`
+	// Dictionary ID | 所属字典ID
+	DictionaryId *uint64 `json:"dictionaryId,optional"`
+}
+
+// DictionaryDetail information response | 字典键值信息返回体
+// swagger:model DictionaryDetailInfoResp
+type DictionaryDetailInfoResp struct {
+	BaseDataInfo
+	// DictionaryDetail information | 字典键值数据
+	Data DictionaryDetailInfo `json:"data"`
+}
+
+// Dictionary name request | 字典名称请求
+// swagger:parameters GetDictionaryDetailByDictionaryName
+type DictionaryNameReq struct {
+	// in:path
+	Name *string `json:"name,optional" path:"name"`
+}
+
+// The response data of oauth provider information | 第三方信息
+// swagger:model OauthProviderInfo
+type OauthProviderInfo struct {
+	BaseIDInfo
+	// Provider name | 第三方提供商名称
+	// max length : 30
+	Name *string `json:"name,optional" validate:"omitempty,max=30"`
+	// ClientId | 客户端ID
+	// max length : 80
+	ClientId *string `json:"clientId,optional" validate:"omitempty,max=80"`
+	// ClientSecret | 客户端密钥
+	// max length : 100
+	ClientSecret *string `json:"clientSecret,optional" validate:"omitempty,max=100"`
+	// Redirect URL| 跳转地址
+	// max length : 300
+	RedirectUrl *string `json:"redirectUrl,optional" validate:"omitempty,max=300"`
+	// Scopes | 授权范围
+	// max length : 100
+	Scopes *string `json:"scopes,optional" validate:"omitempty,max=100"`
+	// Authority URL | 授权地址
+	// max length : 300
+	AuthUrl *string `json:"authUrl,optional" validate:"omitempty,max=300"`
+	// The URL to get token | 获取Token的地址
+	// max length : 300
+	TokenUrl *string `json:"tokenUrl,optional" validate:"omitempty,max=300"`
+	// The type of auth | 鉴权方式
+	// max : 20
+	AuthStyle *uint64 `json:"authStyle,optional" validate:"omitempty,lt=20"`
+	// The URL to get user information | 获取信息地址
+	// max length : 300
+	InfoUrl *string `json:"infoUrl,optional" validate:"omitempty,max=300"`
+}
+
+// The response data of oauth provider list | 第三方列表数据
+// swagger:model OauthProviderListResp
+type OauthProviderListResp struct {
+	BaseDataInfo
+	// OauthProvider list data | 第三方列表数据
+	Data OauthProviderListInfo `json:"data"`
+}
+
+// OauthProvider list data | 第三方列表数据
+// swagger:model OauthProviderListInfo
+type OauthProviderListInfo struct {
+	BaseListInfo
+	// The API list data | 第三方列表数据
+	Data []OauthProviderInfo `json:"data"`
+}
+
+// Get oauth provider list request params | 第三方列表请求参数
+// swagger:model OauthProviderListReq
+type OauthProviderListReq struct {
+	PageInfo
+	// Name | 第三方提供商名称
+	// max length : 30
+	Name *string `json:"name,optional" validate:"omitempty,max=30"`
+}
+
+// Oauth provider information response | 第三方信息返回体
+// swagger:model OauthProviderInfoResp
+type OauthProviderInfoResp struct {
+	BaseDataInfo
+	// OauthProvider information | 第三方数据
+	Data OauthProviderInfo `json:"data"`
+}
+
+// Oauth log in request | Oauth 登录请求
+// swagger:model OauthLoginReq
+type OauthLoginReq struct {
+	// State code to avoid hack | 状态码，请求前后相同避免安全问题
+	// required : true
+	// max length : 30
+	State string `json:"state" validate:"required,max=30"`
+	// Provider name | 提供商名字
+	// Example: google
+	// required : true
+	// max length : 40
+	Provider string `json:"provider" validate:"required,max=40"`
+}
+
+// Redirect response | 跳转网址返回信息
+// swagger:model RedirectResp
+type RedirectResp struct {
+	BaseDataInfo
+	// Redirect information | 跳转网址
+	Data RedirectInfo `json:"data"`
+}
+
+// Redirect information | 跳转网址
+// swagger:model RedirectInfo
+type RedirectInfo struct {
+	// Redirect URL | 跳转网址
+	URL string `json:"URL"`
+}
+
+// The oauth callback response data | Oauth回调数据
+// swagger:model CallbackResp
+type CallbackResp struct {
+	// User's UUID | 用户的UUID
+	UserId string `json:"userId"`
+	// User's role information| 用户的角色信息
+	// in: body
+	Role RoleInfoSimple `json:"role"`
+	// Token for authorization | 验证身份的token
+	Token string `json:"token"`
+	// Expire timestamp | 过期时间戳
+	Expire uint64 `json:"expire"`
+}
+
+// The response data of position information | 职位信息
+// swagger:model PositionInfo
+type PositionInfo struct {
+	BaseIDInfo
+	// Translated Name | 展示名称
+	Trans string `json:"trans,optional"`
+	// Status | 状态
+	// max : 20
+	Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
+	// Sort | 排序
+	// max : 10000
+	Sort *uint32 `json:"sort,optional" validate:"omitempty,lt=10000"`
+	// Name | 职位名称
+	// max length : 50
+	Name *string `json:"name,optional" validate:"omitempty,max=50"`
+	// Code | 职位代码
+	// max length : 20
+	Code *string `json:"code,optional" validate:"omitempty,max=20"`
+	// Remark | 备注
+	// max length : 200
+	Remark *string `json:"remark,optional" validate:"omitempty,max=200"`
+}
+
+// The response data of position list | 职位列表数据
+// swagger:model PositionListResp
+type PositionListResp struct {
+	BaseDataInfo
+	// Position list data | 职位列表数据
+	Data PositionListInfo `json:"data"`
+}
+
+// Position list data | 职位列表数据
+// swagger:model PositionListInfo
+type PositionListInfo struct {
+	BaseListInfo
+	// The API list data | 职位列表数据
+	Data []PositionInfo `json:"data"`
+}
+
+// Get position list request params | 职位列表请求参数
+// swagger:model PositionListReq
+type PositionListReq struct {
+	PageInfo
+	// Name | 职位名称
+	// max length : 50
+	Name *string `json:"name,optional" validate:"omitempty,max=50"`
+	// Code | 职位代码
+	// max length : 20
+	Code *string `json:"code,optional" validate:"omitempty,max=20"`
+	// Remark | 备注
+	// max length : 200
+	Remark *string `json:"remark,optional" validate:"omitempty,max=200"`
+}
+
+// Position information response | 职位信息返回体
+// swagger:model PositionInfoResp
+type PositionInfoResp struct {
+	BaseDataInfo
+	// Position information | 职位数据
+	Data PositionInfo `json:"data"`
+}
+
+// The response data of token information | 令牌信息
+// swagger:model TokenInfo
+type TokenInfo struct {
+	BaseUUIDInfo
+	// Status | 状态
+	Status *uint32 `json:"status,optional"`
+	// User's UUID | 用户的UUID
+	Uuid *string `json:"uuid,optional"`
+	// Token | 用户的Token
+	Token *string `json:"token,optional"`
+	// Source | Token 来源
+	Source *string `json:"source,optional"`
+	// Username | 用户名
+	Username *string `json:"username,optional"`
+	// ExpiredAt | 过期时间
+	ExpiredAt *int64 `json:"expiredAt,optional"`
+}
+
+// The response data of token list | 令牌列表数据
+// swagger:model TokenListResp
+type TokenListResp struct {
+	BaseDataInfo
+	// Token list data | 令牌列表数据
+	Data TokenListInfo `json:"data"`
+}
+
+// Token list data | Token列表数据
+// swagger:model TokenListInfo
+type TokenListInfo struct {
+	BaseListInfo
+	// The API list data | 令牌列表数据
+	Data []TokenInfo `json:"data"`
+}
+
+// Get token list request params | 令牌列表请求参数
+// swagger:model TokenListReq
+type TokenListReq struct {
+	PageInfo
+	// Username | 用户名
+	Username *string `json:"username,optional"`
+	// Nickname | 昵称
+	Nickname *string `json:"nickname,optional"`
+	// Email | 邮箱
+	Email *string `json:"email,optional"`
+	// UUID
+	Uuid *string `json:"uuid,optional"`
+}
+
+// Token information response | Token信息返回体
+// swagger:model TokenInfoResp
+type TokenInfoResp struct {
+	BaseDataInfo
+	// Token information | Token数据
+	Data TokenInfo `json:"data"`
 }

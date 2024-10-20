@@ -11,7 +11,7 @@ import (
 
 const (
 	// Label holds the string label denoting the dictionarydetail type in the database.
-	Label = "dictionary_detail"
+	Label = "dictionarydetail"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.

@@ -52,10 +52,15 @@ message BaseUUIDResp {
   string msg = 2;
 }
 
+message CallbackReq {
+  string state = 1;
+  string code = 2;
+}
+
 message ConfigurationInfo {
   optional uint64 id = 1;
-  optional int64 createdAt = 2;
-  optional int64 updatedAt = 3;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
   //  Sort Number | 排序编号
   optional uint32 sort = 4;
   //  State true: normal false: ban | 状态 true 正常 false 禁用
@@ -74,10 +79,11 @@ message ConfigurationInfo {
 
 message ConfigurationListReq {
   uint64 page = 1;
-  uint64 pageSize = 2;
+  uint64 page_size = 2;
   optional string name = 3;
   optional string key = 4;
-  optional string value = 5;
+  optional string category = 5;
+  optional bool state = 6;
 }
 
 message ConfigurationListResp {
@@ -124,28 +130,21 @@ message DepartmentListResp {
 
 message DictionaryDetailInfo {
   optional uint64 id = 1;
-  optional int64 createdAt = 2;
-  optional int64 updatedAt = 3;
-  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
   optional uint32 status = 4;
-  //  Sort Number | 排序编号
-  optional uint32 sort = 5;
-  //  The title shown in the ui | 展示名称 （建议配合i18n）
-  optional string title = 6;
-  //  key | 键
-  optional string key = 7;
-  //  value | 值
-  optional string value = 8;
-  //  Dictionary ID | 字典ID
-  optional uint64 dictionaryId = 9;
+  optional string title = 5;
+  optional string key = 6;
+  optional string value = 7;
+  optional uint64 dictionary_id = 8;
+  optional uint32 sort = 9;
 }
 
 message DictionaryDetailListReq {
   uint64 page = 1;
-  uint64 pageSize = 2;
-  optional string title = 3;
+  uint64 page_size = 2;
+  optional uint64 dictionary_id = 3;
   optional string key = 4;
-  optional string value = 5;
 }
 
 message DictionaryDetailListResp {
@@ -155,24 +154,18 @@ message DictionaryDetailListResp {
 
 message DictionaryInfo {
   optional uint64 id = 1;
-  optional int64 createdAt = 2;
-  optional int64 updatedAt = 3;
-  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
   optional uint32 status = 4;
-  //  The title shown in the ui | 展示名称 （建议配合i18n）
   optional string title = 5;
-  //  The name of dictionary for search | 字典搜索名称
   optional string name = 6;
-  //  The description of dictionary | 字典的描述
   optional string desc = 7;
 }
 
 message DictionaryListReq {
   uint64 page = 1;
-  uint64 pageSize = 2;
-  optional string title = 3;
-  optional string name = 4;
-  optional string desc = 5;
+  uint64 page_size = 2;
+  optional string name = 3;
 }
 
 message DictionaryListResp {
@@ -240,41 +233,39 @@ message Meta {
   optional string real_path = 12;
 }
 
+message OauthLoginReq {
+  string state = 1;
+  string provider = 2;
+}
+
 message OauthProviderInfo {
   optional uint64 id = 1;
-  optional int64 createdAt = 2;
-  optional int64 updatedAt = 3;
-  //  The provider's name | 提供商名称
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
   optional string name = 4;
-  //  The client id | 客户端 id
-  optional string clientId = 5;
-  //  The client secret | 客户端密钥
-  optional string clientSecret = 6;
-  //  The redirect url | 跳转地址
-  optional string redirectUrl = 7;
-  //  The scopes | 权限范围
+  optional string client_id = 5;
+  optional string client_secret = 6;
+  optional string redirect_url = 7;
   optional string scopes = 8;
-  //  The auth url of the provider | 认证地址
-  optional string authUrl = 9;
-  //  The token url of the provider | 获取 token地址
-  optional string tokenUrl = 10;
-  //  The auth style, 0: auto detect 1: third party log in 2: log in with username and password | 鉴权方式 0 自动 1 第三方登录 2 使用用户名密码
-  optional uint64 authStyle = 11;
-  //  The URL to request user information by token | 用户信息请求地址
-  optional string infoUrl = 12;
+  optional string auth_url = 9;
+  optional string token_url = 10;
+  optional uint64 auth_style = 11;
+  optional string info_url = 12;
 }
 
 message OauthProviderListReq {
   uint64 page = 1;
-  uint64 pageSize = 2;
+  uint64 page_size = 2;
   optional string name = 3;
-  optional string clientId = 4;
-  optional string clientSecret = 5;
 }
 
 message OauthProviderListResp {
   uint64 total = 1;
   repeated OauthProviderInfo data = 2;
+}
+
+message OauthRedirectResp {
+  string url = 1;
 }
 
 message PageInfoReq {
@@ -481,16 +472,18 @@ service Core {
   //  group: dictionary
   rpc deleteDictionary(IDsReq) returns (BaseResp);
   //  DictionaryDetail management
-  //  group: dictionary_detail
+  //  group: dictionarydetail
   rpc createDictionaryDetail(DictionaryDetailInfo) returns (BaseIDResp);
-  //  group: dictionary_detail
+  //  group: dictionarydetail
   rpc updateDictionaryDetail(DictionaryDetailInfo) returns (BaseResp);
-  //  group: dictionary_detail
+  //  group: dictionarydetail
   rpc getDictionaryDetailList(DictionaryDetailListReq) returns (DictionaryDetailListResp);
-  //  group: dictionary_detail
+  //  group: dictionarydetail
   rpc getDictionaryDetailById(IDReq) returns (DictionaryDetailInfo);
-  //  group: dictionary_detail
+  //  group: dictionarydetail
   rpc deleteDictionaryDetail(IDsReq) returns (BaseResp);
+  //  group: dictionarydetail
+  rpc getDictionaryDetailByDictionaryName(BaseMsg) returns (DictionaryDetailListResp);
   //  group: menu
   rpc createMenu(MenuInfo) returns (BaseIDResp);
   //  group: menu
@@ -502,16 +495,20 @@ service Core {
   //  group: menu
   rpc getMenuList(PageInfoReq) returns (MenuInfoList);
   //  OauthProvider management
-  //  group: oauth_provider
+  //  group: oauthprovider
   rpc createOauthProvider(OauthProviderInfo) returns (BaseIDResp);
-  //  group: oauth_provider
+  //  group: oauthprovider
   rpc updateOauthProvider(OauthProviderInfo) returns (BaseResp);
-  //  group: oauth_provider
+  //  group: oauthprovider
   rpc getOauthProviderList(OauthProviderListReq) returns (OauthProviderListResp);
-  //  group: oauth_provider
+  //  group: oauthprovider
   rpc getOauthProviderById(IDReq) returns (OauthProviderInfo);
-  //  group: oauth_provider
+  //  group: oauthprovider
   rpc deleteOauthProvider(IDsReq) returns (BaseResp);
+  //  group: oauthprovider
+  rpc oauthLogin(OauthLoginReq) returns (OauthRedirectResp);
+  //  group: oauthprovider
+  rpc oauthCallback(CallbackReq) returns (UserInfo);
   //  Position management
   //  group: position
   rpc createPosition(PositionInfo) returns (BaseIDResp);

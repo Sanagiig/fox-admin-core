@@ -10,7 +10,7 @@ import (
 	"github.com/Sanagiig/fox-admin-core/rpc/types/core"
 
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
-    "github.com/zeromicro/go-zero/core/logx"
+	"github.com/zeromicro/go-zero/core/logx"
 )
 
 type GetDepartmentListLogic struct {
@@ -32,14 +32,10 @@ func (l *GetDepartmentListLogic) GetDepartmentList(in *core.DepartmentListReq) (
 	if in.Name != nil {
 		predicates = append(predicates, department.NameContains(*in.Name))
 	}
-	if in.Ancestors != nil {
-		predicates = append(predicates, department.AncestorsContains(*in.Ancestors))
-	}
 	if in.Leader != nil {
 		predicates = append(predicates, department.LeaderContains(*in.Leader))
 	}
 	result, err := l.svcCtx.DB.Department.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
-
 	if err != nil {
 		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
 	}
@@ -49,18 +45,18 @@ func (l *GetDepartmentListLogic) GetDepartmentList(in *core.DepartmentListReq) (
 
 	for _, v := range result.List {
 		resp.Data = append(resp.Data, &core.DepartmentInfo{
-			Id:          &v.ID,
-			CreatedAt:   pointy.GetPointer(v.CreatedAt.UnixMilli()),
-			UpdatedAt:   pointy.GetPointer(v.UpdatedAt.UnixMilli()),
-			Status:	pointy.GetPointer(uint32(v.Status)),
-			Sort:	&v.Sort,
-			Name:	&v.Name,
-			Ancestors:	&v.Ancestors,
-			Leader:	&v.Leader,
-			Phone:	&v.Phone,
-			Email:	&v.Email,
-			Remark:	&v.Remark,
-			ParentId:	&v.ParentID,
+			Id:        &v.ID,
+			CreatedAt: pointy.GetPointer(v.CreatedAt.UnixMilli()),
+			UpdatedAt: pointy.GetPointer(v.UpdatedAt.UnixMilli()),
+			Status:    pointy.GetPointer(uint32(v.Status)),
+			Sort:      &v.Sort,
+			Name:      &v.Name,
+			Ancestors: &v.Ancestors,
+			Leader:    &v.Leader,
+			Phone:     &v.Phone,
+			Email:     &v.Email,
+			Remark:    &v.Remark,
+			ParentId:  &v.ParentID,
 		})
 	}
 

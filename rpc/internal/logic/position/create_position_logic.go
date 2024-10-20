@@ -7,7 +7,7 @@ import (
 	"github.com/Sanagiig/fox-admin-core/rpc/internal/utils/dberrorhandler"
 	"github.com/Sanagiig/fox-admin-core/rpc/types/core"
 
-    "github.com/suyuan32/simple-admin-common/i18n"
+	"github.com/suyuan32/simple-admin-common/i18n"
 
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -28,21 +28,16 @@ func NewCreatePositionLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Cr
 }
 
 func (l *CreatePositionLogic) CreatePosition(in *core.PositionInfo) (*core.BaseIDResp, error) {
-    query := l.svcCtx.DB.Position.Create().
-			SetNotNilSort(in.Sort).
-			SetNotNilName(in.Name).
-			SetNotNilCode(in.Code).
-			SetNotNilRemark(in.Remark)
-
-	if in.Status != nil {
-		query.SetNotNilStatus(pointy.GetPointer(uint8(*in.Status)))
-	}
-
-	result, err := query.Save(l.ctx)
-
-    if err != nil {
+	result, err := l.svcCtx.DB.Position.Create().
+		SetNotNilStatus(pointy.GetStatusPointer(in.Status)).
+		SetNotNilSort(in.Sort).
+		SetNotNilName(in.Name).
+		SetNotNilCode(in.Code).
+		SetNotNilRemark(in.Remark).
+		Save(l.ctx)
+	if err != nil {
 		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
-    return &core.BaseIDResp{Id: result.ID, Msg: i18n.CreateSuccess }, nil
+	return &core.BaseIDResp{Id: result.ID, Msg: i18n.CreateSuccess}, nil
 }

@@ -25,7 +25,6 @@ package main
 import (
 	"flag"
 	"fmt"
-
 	"github.com/Sanagiig/fox-admin-core/api/internal/config"
 	"github.com/Sanagiig/fox-admin-core/api/internal/handler"
 	"github.com/Sanagiig/fox-admin-core/api/internal/svc"
@@ -44,7 +43,6 @@ func main() {
 
 	server := rest.MustNewServer(c.RestConf, rest.WithCors(c.CROSConf.Address))
 	defer server.Stop()
-
 	ctx := svc.NewServiceContext(c)
 	handler.RegisterHandlers(server, ctx)
 

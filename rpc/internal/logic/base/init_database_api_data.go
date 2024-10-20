@@ -394,7 +394,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 
 	apis = append(apis, l.svcCtx.DB.Api.Create().
 		SetServiceName("Core").
-		SetPath("/dictionary_detail/delete").
+		SetPath("/dictionarydetail/delete").
 		SetDescription("apiDesc.deleteDictionaryDetail").
 		SetAPIGroup("dictionary").
 		SetMethod("POST"),
@@ -402,7 +402,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 
 	apis = append(apis, l.svcCtx.DB.Api.Create().
 		SetServiceName("Core").
-		SetPath("/dictionary_detail").
+		SetPath("/dictionarydetail").
 		SetDescription("apiDesc.getDictionaryDetailById").
 		SetAPIGroup("dictionary").
 		SetMethod("POST"),
@@ -410,7 +410,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 
 	apis = append(apis, l.svcCtx.DB.Api.Create().
 		SetServiceName("Core").
-		SetPath("/dictionary_detail/create").
+		SetPath("/dictionarydetail/create").
 		SetDescription("apiDesc.createDictionaryDetail").
 		SetAPIGroup("dictionary").
 		SetMethod("POST"),
@@ -418,7 +418,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 
 	apis = append(apis, l.svcCtx.DB.Api.Create().
 		SetServiceName("Core").
-		SetPath("/dictionary_detail/update").
+		SetPath("/dictionarydetail/update").
 		SetDescription("apiDesc.updateDictionaryDetail").
 		SetAPIGroup("dictionary").
 		SetMethod("POST"),
@@ -426,7 +426,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 
 	apis = append(apis, l.svcCtx.DB.Api.Create().
 		SetServiceName("Core").
-		SetPath("/dictionary_detail/list").
+		SetPath("/dictionarydetail/list").
 		SetDescription("apiDesc.getDictionaryListDetail").
 		SetAPIGroup("dictionary").
 		SetMethod("POST"),
@@ -452,7 +452,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 
 	apis = append(apis, l.svcCtx.DB.Api.Create().
 		SetServiceName("Core").
-		SetPath("/oauth_provider/create").
+		SetPath("/oauthprovider/create").
 		SetDescription("apiDesc.createProvider").
 		SetAPIGroup("oauth").
 		SetMethod("POST"),
@@ -460,7 +460,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 
 	apis = append(apis, l.svcCtx.DB.Api.Create().
 		SetServiceName("Core").
-		SetPath("/oauth_provider/update").
+		SetPath("/oauthprovider/update").
 		SetDescription("apiDesc.updateProvider").
 		SetAPIGroup("oauth").
 		SetMethod("POST"),
@@ -468,7 +468,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 
 	apis = append(apis, l.svcCtx.DB.Api.Create().
 		SetServiceName("Core").
-		SetPath("/oauth_provider/delete").
+		SetPath("/oauthprovider/delete").
 		SetDescription("apiDesc.deleteProvider").
 		SetAPIGroup("oauth").
 		SetMethod("POST"),
@@ -476,7 +476,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 
 	apis = append(apis, l.svcCtx.DB.Api.Create().
 		SetServiceName("Core").
-		SetPath("/oauth_provider/list").
+		SetPath("/oauthprovider/list").
 		SetDescription("apiDesc.getProviderList").
 		SetAPIGroup("oauth").
 		SetMethod("POST"),
@@ -493,7 +493,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 
 	apis = append(apis, l.svcCtx.DB.Api.Create().
 		SetServiceName("Core").
-		SetPath("/oauth_provider").
+		SetPath("/oauthprovider").
 		SetDescription("apiDesc.getProviderById").
 		SetAPIGroup("oauth").
 		SetMethod("POST"),
